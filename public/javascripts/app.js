@@ -2,16 +2,45 @@
 
 var payApp = angular.module('payRoll', []);
 
+
+// Change format
+payApp.filter('amountformat', function() {
+    return function(input){
+        return accounting.formatMoney(input, "", 2, " ", ",");
+    }
+});
+
+//change rate format
+payApp.filter('rateformat', function() {
+    return function(input){
+        return accounting.formatMoney(input, "", 3, " ", ",");
+    }
+});
+
+
+payApp.directive('currency', ['$filter', function ($filter) {
+    return {
+        require: 'ngModel',
+        link: function (elem, $scope, attrs, ngModel) {
+            ngModel.$formatters.push(function (val) {
+                return $filter('currency')(val , "")
+            });
+            ngModel.$parsers.push(function (val) {
+                return val.replace(/[\$,]/, '')
+            });
+        }
+    }
+}]);
+
+
 payApp.controller('mainCtrl', function($scope, $http, $window,$location) {
 
-
-
     $http.get('/zip_city.json')
-        .success(function(response){
-            //console.log("Res", response)
-           //  $scope.Zip_City_options = response;
+        .success(function(response) { 
+           //console.log("Res", response)
+           //$scope.Zip_City_options = response;
         })
-        .error(function(error){
+        .error(function(error) {
             console.log("Error", error)
         });
     
@@ -41,6 +70,13 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location) {
     $scope.$watch('category', resetRoundMode);
     $scope.$watch('disability_ins', resetRoundMode);
     $scope.$watch('oldage_ins', resetRoundMode);
+
+  //   $scope.$watch('base_sal', function(value){
+  //       //$scope.entity.date = $filter('date')(formattedDate, 'yyy/MM/dd');
+  //       var newVal = accounting.formatMoney(value, "", 2, "", ".");
+  //       console.log('Value is ',value, newVal);
+  //       //$scope.base_sal = newVal;
+  // });
 
     $scope.category = 'Mandataire social';
 
@@ -154,8 +190,35 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location) {
     $scope.re_Rate2_UI = parseFloat((0.036).toFixed(3));
     $scope.re_base_UI = 2.27;
 
+    //hide
+$scope.visible_Ins=1
+$scope.visible_PHI = 0;
+$scope.visible_GSC = 1;
+$scope.visible_CRTSD = 1;
+$scope.visible_MC = 1;
+$scope.visible_CI = 1;
+$scope.visible_PP = 0;
+$scope.visible_PE =0;
+$scope.visible_AREG = 0;
+$scope.visible_AEE = 1;
+$scope.visible_AV_P = 1;
+$scope.visible_AV_DP = 1;
+$scope.visible_ARRCO_T1 = 1;
+$scope.visible_ARRCO_T2 = 0;
+$scope.visible_ARRCO_TB = 1;
+$scope.visible_ARRCO_TC = 1;
+$scope.visible_CET = 1;
+$scope.visible_AGFF_T1 = 1;
+$scope.visible_AGFF_T2 = 1;
+$scope.visible_FAC = 1;
+$scope.visible_ASC = 1;
+$scope.visible_NHAF = 1
+$scope.visible_SP = 1
+$scope.visible_PT = 0;
+
 
     function resetRoundMode(newValue, oldValue) {
+
       if(newValue != oldValue) {
 
         var data = {
@@ -311,7 +374,7 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location) {
     }
 
     var paymentToken =  getParameterByName('token');
-    $scope.pdfButton = "Export to PDF";
+    $scope.pdfButton = "GENERER UN BULLETIN DE PAIE";
     if(paymentToken) 
         $scope.paymentStatus = 1;
     else
@@ -320,7 +383,7 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location) {
     $scope.payment = function() {
         if (!paymentToken) {
             $scope.disablePdf = true;
-            $scope.pdfButton = "Please Wait...";
+            $scope.pdfButton = "Se il vous plaît attendre...";
             $http.get('/payment')
                 .success(function(response) {
                     console.log('success ', response);

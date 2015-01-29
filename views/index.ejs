@@ -17,7 +17,10 @@
   <script src="javascripts/libs/jquery-1.9.1.min.js" type="text/javascript"></script>
   <script src="javascripts/libs/bootstrap.js" type="text/javascript"></script>
   <!-- pdf lib -->
+  <script src='javascripts/libs/pdfmake.js' type="text/javascript"></script>
+  <script src='javascripts/libs/vfs_fonts.js' type="text/javascript"></script>
   <script src="javascripts/libs/jspdf.min.js" type="text/javascript"></script>
+  <script src="javascripts/libs/accounting.js" type="text/javascript"></script>
   <!--<script src="../bower_components/angular-pdf/dist/angular-pdf.js"></script>-->
 </head>
 
@@ -25,7 +28,7 @@
 <!-- BEGIN BODY -->
 <body class="">
 <!-- BEGIN HEADER -->
-<header role="banner" id="top" class="navbar navbar-static-top bs-docs-nav navbar-fixed-top">
+<header role="banner" id="top" class="navbar navbar-static-top bs-docs-nav navbar-fixed-top" ng-controller="mainCtrl">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -38,13 +41,16 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
-		  <li class="active"><a href="javascript:void(0);">Home</a></li>
+      <li class="active">
+      <button class="btn btn-primary exported" ng-if="paymentStatus" ng-disabled="disablePdf" id="downloadPdf1"  ng-click="payment()" style="float:right">{{pdfButton}}</button>
+    <button class="btn btn-primary exported" ng-disabled="disablePdf" ng-if="!paymentStatus" ng-click="payment()" style="float:right">{{pdfButton}}</button></div>
+      <!-- <a href="javascript:void(0);">GENERER UN BULLETIN DE PAIE</a></li> -->
         </ul>
       </div><!--/.nav-collapse -->
   </div>
 </header>
 <!-- END HEADER -->
-<header role="banner" id="top" class="navbar navbar-static-top bs-docs-nav navbar-fixed-top">
+<header role="banner" id="top" class="navbar navbar-static-top bs-docs-nav navbar-fixed-top" ng-controller="mainCtrl">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -53,33 +59,40 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../">Logo </a>
+      <a class="navbar-brand" href="../"><img src="images/logo.png" /> </a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
-		  <li class="active"><a href="javascript:void(0);">Home</a></li>
+      <li class="active">
+      <button class="btn btn-primary exported" ng-if="paymentStatus" ng-disabled="disablePdf" id="downloadPdf"  ng-click="payment()" style="float:right">{{pdfButton}}</button>
+    <button class="btn btn-primary exported" ng-disabled="disablePdf" ng-if="!paymentStatus" ng-click="payment()" style="float:right">{{pdfButton}}</button></div>
+      <!-- <a href="javascript:void(0);">GENERER UN BULLETIN DE PAIE</a></li> -->
         </ul>
       </div><!--/.nav-collapse -->
   </div>
 </header>
 <!-- END HEADER -->
 
-  <div class="container content-calculator" id="payrollPDF" ng-controller="mainCtrl">
-	<div class="row ">
-        <div class="col-md-6 padding-none">
+  <div class="container content-calculator" id="payrollPDF" ng-controller="mainCtrl" >
+<div class="cal-main">
+  <div class="row ">
+        <div class="col-md-7 padding-max">
             <div class="list-group">
                <span class="list-group-item list-group-item-active">
                   <h4 class="list-group-item-heading">
-                     Société juridique
+                     FABRIKAM
                   </h4>
                </span>
                <span class="list-group-item">
                   <p class="list-group-item-text">
-                     CONTOSO
+                     Immeuble le Parisien
                   </p>
                </span>
                <span  class="list-group-item">
                   <p class="list-group-item-text">1 avenue des Champs Elysées</p>
+               </span>
+                <span  class="list-group-item">
+                  <p class="list-group-item-text">75007 Paris</p>
                </span>
                <span  class="list-group-item">
                   <p class="list-group-item-text">
@@ -90,30 +103,34 @@
                   </p>
                </span>
             </div>
-            <div class="bs-example hrzntl-algin">
-    <!--	<h2>Horizontal Definition Lists</h2>-->
+            <div class="bs-example hrzntl-algin algin-slct">
+    <!--  <h2>Horizontal Definition Lists</h2>-->
         <dl class="dl-horizontal">
-            <dt>No SIRET :</dt>
+            <dt>ETABLISSEMENT <em>: </em></dt>
             
-            <dd>XXXXXXXXX</dd>
+            <dd>ETABLISSEMENT PRINCIPAL</dd>
          </dl>   
          <dl class="dl-horizontal">
-            <dt>Code NAF :</dt>
-            <select ng-model="Code_NAF" class="form-control code-naf">
-              <option ng-repeat="val in Code_NAF_options">{{val}}</option>
-            </select>
+            <dt>N° DE SIREN <em>: </em></dt>
+            <dd>
+              <select ng-model="Code_NAF" class="form-control code-naf">
+                <option ng-repeat="val in Code_NAF_options">{{val}}</option>
+              </select>
+            </dd>
           </dl>
           <dl class="dl-horizontal">  
-            <dt>URSAFF :</dt>
+            <dt>N° URSAFF <em>: </em></dt>
             <dd>XXXXXXXXXXXXXXX</dd>
           </dl>  
-    </div>
-           
-            <div class="bs-example hrzntl-algin">
-                <!--	<h2>Horizontal Definition Lists</h2>-->
-                <dl class="dl-horizontal">
-                    <dt>Convention collective :</dt>
-                    
+            <dl class="dl-horizontal">
+            <dt>CODE NAF <em>: </em></dt>
+            <dd>
+              5829C EDITION DE LOGICIELS APPLICATIFS
+            </dd>
+          </dl>
+          <dl class="dl-horizontal">
+                    <dt>CONV. COLLECTIVE <em>: </em></dt>
+                    <dd>
                     <select ng-model="Convention_collective" class="form-control">
                       <option value="KALICONT000027040696" title="5 branches industries alimentaires diverses du 21 mars 2012 ">
     5 branches industries alimentaires diverses du 21 mars 2012 
@@ -1516,37 +1533,52 @@
     Établissements privés d'hospitalisation, de soins, de cure et de garde à but non lucratif du 31 o...
   </option>
                     </select>
-                 </dl>   
+                  </dd>
+                 </dl>  
+    </div>
+           
+            <div class="bs-example hrzntl-algin algin-slct">
+                <!--  <h2>Horizontal Definition Lists</h2>-->
+                 <dl class="dl-horizontal">
+                    <dt>Paiement le <em>: </em></dt>
+                    
+                    <dd>  31.01.2015</dd>
+                 </dl> 
             </div>
         </div>
-        <div class="col-md-6 form-heder padding-none">
+        <div class="col-md-5 form-heder padding-none">
             <h1>BULLETIN DE PAIE</h1> 
-            <div class="bs-example hrzntl-algin">
+            <div class="bs-example hrzntl-algin autoWdith">
             
-                <dl class="dl-horizontal">
+                <dl class="dl-horizontal ">
                     <dt>Mois/année de paie :</dt>
                     
-                    <dd> 	01/2015</dd>
+                    <dd>  01/2015</dd>
                  </dl>   
+                  
+            </div>  
+            <div class="bs-example hrzntl-algin autoWdith">
                  <dl class="dl-horizontal">
                     <dt>Période du :</dt>
-                    <dd> 	01.01.2015 au 30.01.2015</dd>
+                    <dd>  01.01.2015 au 30.01.2015</dd>
                   </dl>
                   <dl class="dl-horizontal">  
                     <dt>No Sécurité Sociale :</dt>
                     <dd>XXXXXXXXXXXXXXX</dd>
-                  </dl>  
-            </div>	
-        
+                  </dl>
+            </div>
            <div class="list-group list-group-grey">
                <span class="list-group-item">
                   <p class="list-group-item-text">
-                     CONTOSO
+                    M. John Doe <br />
+                    Batiment A <br />
+                    1 avenue du Louvre<br />
+                    75001 Paris
                   </p>
                </span>
-               <span  class="list-group-item">
+               <!-- <span  class="list-group-item">
                   <p class="list-group-item-text">1 avenue des Champs Elysées</p>
-               </span>
+               </span> -->
                <span  class="list-group-item">
                   <p class="list-group-item-text">
                     <!-- <select ng-model="Zip_City1">
@@ -1557,113 +1589,113 @@
             </div>
         </div>
     </div>
-   	<!-- top table -->
+    <!-- top table -->
     <div class="repeat-list-hldr row">
         <div class="repeat-list clearfix">
-            <div class="col-md-4">
+            <div class="col-md-4 emplytble">
                 <div class="row">
                     <div class="col-xs-5 voilet-grid">
-                        Emploi :
+                        Emploi  <em>:</em>
                     </div>
                     <div class="col-xs-7 grey-grid">
                        <span class="consolant"> Consultant</span>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 emplytble-lrg">
                 <div class="row">
                     <div class="col-xs-7 voilet-grid">
-                         Assurance santé :
+                         Assurance santé <em>:</em>
                     </div>
                     <div class="col-xs-5 grey-grid">
                        <!-- <input type="text" ng-model="health_ins" class="form-control"> -->
-                       <select class="form-control" ng-model="health_ins">
+                       <select class="form-control" ng-model="health_ins" id="health_ins">
                          <option ng-repeat="value in health_ins_options">{{value}}</option>
                        </select>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 emplytble">
                 <div class="row">
                     <div class="col-xs-7 voilet-grid">
-                        Sal. Tp plein :
+                        Sal. Tp plein <em>:</em>
                     </div>
                     <div class="col-xs-5 grey-grid">
-                           <input type="number" class="form-control" ng-model="base_sal">
+                           <input id="base_sal" type="text" currency class="form-control amount-base" ng-model="base_sal">
                     </div>
                 </div>
             </div>
             
         </div>
         <div class="repeat-list clearfix">
-            <div class="col-md-4">
+            <div class="col-md-4 emplytble">
                 <div class="row">
                     <div class="col-xs-5 voilet-grid">
-                        Catégorie :
+                        Catégorie <em>:</em>
                     </div>
                     <div class="col-xs-7 grey-grid">
                            <!-- <input type="text" ng-model="category" class="form-control"> -->
-                           <select class="form-control" ng-model="category">
+                           <select class="form-control" ng-model="category" id="category">
                              <option ng-repeat="value in category_options">{{value}}</option>
                            </select>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 emplytble-lrg">
                 <div class="row">
                     <div class="col-xs-7 voilet-grid">
-                       Assurance invalidité :
+                       Assurance invalidité <em>:</em>
                     </div>
                     <div class="col-xs-5 grey-grid">
                            <!-- <input type="text" ng-model="disability_ins" class="form-control"> -->
-                          <select class="form-control" ng-model="disability_ins">
+                          <select class="form-control" ng-model="disability_ins" id="disability_ins">
                              <option ng-repeat="value in disability_ins_options">{{value}}</option>
                           </select>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 emplytble">
                 <div class="row">
                     <div class="col-xs-7 voilet-grid">
-                        % d'activité :
+                        % d'activité <em>:</em>
                     </div>
                     <div class="col-xs-5 grey-grid">
-                            <input  type="number" class="form-control" ng-model="base_activity" >
+                            <input  type="text" currency class="form-control amount-base" ng-model="base_activity" id="base_activity" >
                     </div>
                 </div>
             </div>
             
         </div>
         <div class="repeat-list clearfix">
-            <div class="col-md-4">
+            <div class="col-md-4 emplytble">
                 <div class="row">
                     <div class="col-xs-5 voilet-grid">
-                       Forfait :
+                       Forfait <em>:</em>
                     </div>
                     <div class="col-xs-7 grey-grid">
                         <span class="consolant">218 js/an</span>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 emplytble-lrg">
                 <div class="row">
                     <div class="col-xs-7 voilet-grid">
-                       Assurance vieillesse :
+                       Assurance vieillesse <em>:</em>
                     </div>
                     <div class="col-xs-5 grey-grid">
-                        <select class="form-control" ng-model="oldage_ins">
+                        <select class="form-control" ng-model="oldage_ins" id="oldage_ins">
                           <option ng-repeat="value in oldage_ins_options">{{value}}</option>
                         </select>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 emplytble">
                 <div class="row">
                     <div class="col-xs-7 voilet-grid">
-                        Heures /Mois:
+                        Heures /Mois <em>:</em>
                     </div>
                     <div class="col-xs-5 grey-grid">
-                            <input  type="number" class="form-control" ng-model="base_dur">
+                            <input  type="text" currency class="form-control amount-base" id="base_dur" ng-model="base_dur">
                     </div>
                 </div>
             </div>
@@ -1672,26 +1704,26 @@
 
       </div>
     <div class="main-table ">
-    	<div class="row header-table">
-            <div class="col-xs-1 mobileVew">
+      <div class="row header-table">
+            <div class="col-xs-1 mobileVew hdng-colm">
                 Rub.
             </div>
             <div class="col-xs-6">
                Libellé
             </div>
-            <div class="col-xs-1 mobileVew">
+            <div class="col-xs-1 mobileVew hdng-colm">
                 Base
             </div>
             <div class="col-xs-1 mobileVew">
                 Taux
             </div>
-            <div class="col-xs-1">
+            <div class="col-xs-1 hdng-colm">
                Montant
             </div>
             <div class="col-xs-1 mobileVew">
                Taux
             </div>
-            <div class="col-xs-1">
+            <div class="col-xs-1 hdng-colm">
                 Cot. Pat.
             </div>
         </div>   
@@ -1701,10 +1733,10 @@
                 BASE
             </div>
             <div class="col-xs-6">
-                	Salaire de base
+                  Salaire de base
             </div>
-            <div class="col-xs-1 mobileVew">
-              {{(re_base_sal) | number}}
+            <div class="col-xs-1 mobileVew" id="re_base_sal">
+              {{(re_base_sal) | amountformat}}
             </div>
             <div class="col-xs-1 yellw-bg mobileVew">
              
@@ -1715,7 +1747,7 @@
             <div class="col-xs-1 yellw-bg mobileVew">
                
             </div>
-            <div class="col-xs-1 gry-bg">
+            <div class="col-xs-1  ">
               
             </div>
         </div>
@@ -1726,56 +1758,56 @@
             </div>
             <div class="col-xs-6">
                 <strong>*** Assurance santé ***</strong>
-                <span>{{(re_base_HIns) | number}} 	</span>
+                <span id="re_base_HIns">{{(re_base_HIns) | amountformat}}   </span>
             </div>
             <div class="col-xs-1 mobileVew">
-                <!-- {{(re_base_sal) | number}} -->
+                <!-- {{(re_base_sal) | amountformat}} -->
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-                {{re_tax_HI}}%
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_tax_HI">
+                {{re_tax_HI | rateformat }} %
             </div>
-            <div class="col-xs-1">
-                {{(re_amount_HIns) | number}}
+            <div class="col-xs-1" id="re_amount_HIns">
+                {{(re_amount_HIns) | amountformat}}
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-                {{re_Rate2_HIns}}%	
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate2_HIns">
+                {{re_Rate2_HIns| rateformat }} %  
             </div>
-            <div class="col-xs-1 gry-bg">
-              {{(re_cot_pat_HI) | number}}
+            <div class="col-xs-1  " id="re_cot_pat_HI">
+              {{(re_cot_pat_HI) | amountformat}}
             </div>
         </div>
-        <div class="row body-table">
+        <div ng-hide="visible_Ins == '0'"  class="row body-table">
             <div class="col-xs-1 mobileVew">
                 AM-RG
             </div>
             <div class="col-xs-6">
                 Assurance Maladie
-            </div>
+            </div >
             <div class="col-xs-1 mobileVew">
-                {{(re_base_sal) | number}}
+                {{(re_base_sal) | amountformat}}
+            </div >
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_Ins">
+                {{re_Rate_Ins| rateformat }} %  
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-                {{re_Rate_Ins}}% 	
+            <div class="col-xs-1" id="re_amount_ins">
+                {{(re_amount_ins) | amountformat}}
+            </div >
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate2_Ins">
+                {{re_Rate2_Ins| rateformat }} %
             </div>
-            <div class="col-xs-1">
-                {{(re_amount_ins) | number}}
-            </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-                {{re_Rate2_Ins}}%
-            </div>
-            <div class="col-xs-1 gry-bg">
-                {{(re_cot_pat_ins) | number}}
+            <div class="col-xs-1  " id="re_cot_pat_ins">
+                {{(re_cot_pat_ins) | amountformat}}
             </div>
         </div>
-        <div class="row body-table">
+        <div  ng-hide="visible_PHI == '0'" class="row body-table">
             <div class="col-xs-1 mobileVew">
                 AM-P
             </div>
             <div class="col-xs-6">
                 Assurance maladie privée (forfait)
             </div>
-            <div class="col-xs-1 mobileVew">
-               {{(re_Base_PHI) | number}} 	
+            <div class="col-xs-1 mobileVew" id="re_Base_PHI">
+               {{(re_Base_PHI) | amountformat}}   
             </div>
             <div class="col-xs-1 yellw-bg mobileVew">
                 
@@ -1783,72 +1815,72 @@
             <div class="col-xs-1">
                 
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-                {{re_Rate2_PHI}}%
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate2_PHI">
+                {{re_Rate2_PHI| rateformat }} %
             </div>
-            <div class="col-xs-1 gry-bg">
-                {{(re_cot_pat_PHI) | number}}
+            <div class="col-xs-1  " id="re_cot_pat_PHI">
+                {{(re_cot_pat_PHI) | amountformat}}
             </div>
         </div>
-        <div class="row body-table">
+        <div ng-hide="visible_GSC == '0'" class="row body-table">
             <div class="col-xs-1 mobileVew">
                 CSG
             </div>
             <div class="col-xs-6">
-                 	Contribution Sociale Généralisée non imposable
+                  Contribution Sociale Généralisée non imposable
             </div>
-            <div class="col-xs-1 mobileVew">
-                {{(re_base_sal) | number}}
+            <div class="col-xs-1 mobileVew" >
+                {{(re_base_sal) | amountformat}}
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-                {{re_Rate_GSC}}%
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_GSC">
+                {{re_Rate_GSC| rateformat }} %
             </div>
-            <div class="col-xs-1">
-                {{(re_amount_GSC) | number}}
+            <div class="col-xs-1" id="re_amount_GSC" id="re_amount_GSC">
+                {{(re_amount_GSC) | amountformat}}
             </div>
             <div class="col-xs-1 yellw-bg mobileVew">
                 
             </div>
-            <div class="col-xs-1 gry-bg">
+            <div class="col-xs-1  ">
                 
             </div>
         </div>
         
         
-        <div class="row body-table">
+        <div ng-hide="visible_CRTSD == '0'" class="row body-table">
             <div class="col-xs-1 mobileVew">
                 CRDS
             </div>
             <div class="col-xs-6">
-                 	 	Contribution pour le Remboursement de la Dette Sociale imposable
+                    Contribution pour le Remboursement de la Dette Sociale imposable
             </div>
-            <div class="col-xs-1 mobileVew">
-                {{(re_base_sal) | number}}
+            <div class="col-xs-1 mobileVew" >
+                {{(re_base_sal) | amountformat}}
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-               {{re_Rate_CRTSD}}%
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_CRTSD">
+               {{re_Rate_CRTSD| rateformat }} %
             </div>
-            <div class="col-xs-1">
-               {{(re_amount_CRTSD) | number}} 	
+            <div class="col-xs-1" id="re_amount_CRTSD">
+               {{(re_amount_CRTSD) | amountformat}}   
             </div>
             <div class="col-xs-1 yellw-bg mobileVew">
                 
             </div>
-            <div class="col-xs-1 gry-bg">
+            <div class="col-xs-1  ">
                 
             </div>
         </div>  
         
         
-        <div class="row body-table">
+        <div ng-hide="visible_MC == '0'" class="row body-table">
             <div class="col-xs-1 mobileVew">
                 AM-C
             </div>
             <div class="col-xs-6">
-                 	 Mutuelle complémentaire
+                   Mutuelle complémentaire
             </div>
             <div class="col-xs-1 mobileVew">
-               {{(re_base_sal) | number}}
+               {{(re_base_sal) | amountformat}}
             </div>
             <div class="col-xs-1 yellw-bg mobileVew">
               
@@ -1856,11 +1888,11 @@
             <div class="col-xs-1">
               
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-                {{re_Rate_MC}}%
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_MC">
+                {{re_Rate_MC| rateformat }} %
             </div>
-            <div class="col-xs-1 gry-bg">
-                {{(re_cot_pat_MC) | number}}
+            <div class="col-xs-1  " id="re_cot_pat_MC">
+                {{(re_cot_pat_MC) | amountformat}}
             </div>
         </div>
         
@@ -1872,7 +1904,7 @@
             </div>
             <div class="col-xs-6">
                 <strong>*** Assurance décès, invalidité & arrêt de travail ***</strong>
-                <span>{{(re_cot_pat_AD) | number}}</span>
+                <span id="re_cot_pat_AD">{{(re_cot_pat_AD) | amountformat}}</span>
             </div>
             <div class="col-xs-1 mobileVew">
                
@@ -1884,21 +1916,21 @@
               
             </div>
             <div class="col-xs-1 yellw-bg mobileVew">
-                1.100%
+                1,100 %
             </div>
-            <div class="col-xs-1 gry-bg">
-                {{(re_cot_pat_AD) | number}}
+            <div class="col-xs-1  " id="re_cot_pat_AD">
+                {{(re_cot_pat_AD) | amountformat}}
             </div>
         </div>
-        <div class="row body-table">
+        <div ng-hide="visible_CI == '0'" class="row body-table">
             <div class="col-xs-1 mobileVew">
                 ATMP
             </div>
             <div class="col-xs-6">
-                 	 Cotisations Accidents du Travail / Maladie Professionnelle
+                   Cotisations Accidents du Travail / Maladie Professionnelle
             </div>
             <div class="col-xs-1 mobileVew">
-               {{(re_base_sal) | number}}
+               {{(re_base_sal) | amountformat}}
             </div>
             <div class="col-xs-1 yellw-bg mobileVew">
               
@@ -1906,22 +1938,22 @@
             <div class="col-xs-1">
               
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-                {{re_Rate_CI}}% 	
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_CI">
+                {{re_Rate_CI | rateformat }} %  
             </div>
-            <div class="col-xs-1 gry-bg">
-              {{(re_cot_pat_CI) | number}}
+            <div class="col-xs-1  " id="re_cot_pat_CI">
+              {{(re_cot_pat_CI) | amountformat}}
             </div>
         </div>
-        <div class="row body-table">
+        <div ng-hide="visible_PP == '0'" class="row body-table">
             <div class="col-xs-1 mobileVew">
                 ATMP-P
             </div>
             <div class="col-xs-6">
-                 	Prévoyance privée
+                  Prévoyance privée
             </div>
             <div class="col-xs-1 mobileVew">
-               {{(re_base_sal) | number}}
+               {{(re_base_sal) | amountformat}}
             </div>
             <div class="col-xs-1 yellw-bg mobileVew">
               
@@ -1929,11 +1961,11 @@
             <div class="col-xs-1">
               
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-                {{re_Rate_PP}}%
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_PP">
+                {{re_Rate_PP | rateformat }} %
             </div>
-            <div class="col-xs-1 gry-bg">
-               {{(re_cot_pat_PP) | number}}
+            <div class="col-xs-1  " id="re_cot_pat_PP">
+               {{(re_cot_pat_PP) | amountformat}}
             </div>
         </div>
         <div class="divider-table"></div>
@@ -1942,57 +1974,57 @@
                 
             </div>
             <div class="col-xs-6">
-                 	<strong> 	*** Assurance chomage ***</strong>
-                <span>{{(re_base_UI) | number}}</span>
+                  <strong>  *** Assurance chomage ***</strong>
+                <span id="re_base_UI" >{{(re_base_UI) | amountformat}}</span>
             </div>
             <div class="col-xs-1 mobileVew">
                
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-              {{re_Rate_UI}}%
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_UI">
+              {{re_Rate_UI | rateformat }} %
             </div>
-            <div class="col-xs-1">
-              {{(re_amount_UI) | number}}
+            <div class="col-xs-1" id="re_amount_UI">
+              {{(re_amount_UI) | amountformat}}
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-                {{re_Rate2_UI}}%
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate2_UI">
+                {{re_Rate2_UI | rateformat }} %
             </div>
-            <div class="col-xs-1 gry-bg">
-               {{(re_cot_pat_UI) | number}}
+            <div class="col-xs-1  " id="re_cot_pat_UI">
+               {{(re_cot_pat_UI) | amountformat}}
             </div>
         </div>
-        <div class="row body-table">
+        <div ng-hide="visible_PE == '0'" class="row body-table">
             <div class="col-xs-1 mobileVew">
                 PE
             </div>
             <div class="col-xs-6">
-                 	Pole Emploi
+                  Pole Emploi
             </div>
             <div class="col-xs-1 mobileVew">
-               {{(re_base_sal) | number}}
+               {{(re_base_sal) | amountformat}}
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-              {{re_Rate_PE}}%
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_PE">
+              {{re_Rate_PE | rateformat }} %
             </div>
-            <div class="col-xs-1">
-              {{(re_amount_PE) | number}}
+            <div class="col-xs-1" id="re_amount_PE">
+              {{(re_amount_PE) | amountformat}}
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-                {{re_Rate_PE2}}%
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_PE2">
+                {{re_Rate_PE2 | rateformat }} %
             </div>
-            <div class="col-xs-1 gry-bg">
-                {{(re_cot_pat_PE) | number}}
+            <div class="col-xs-1  " id="re_cot_pat_PE">
+                {{(re_cot_pat_PE) | amountformat}}
             </div>
         </div>
-        <div class="row body-table">
+        <div ng-hide="visible_AREG == '0'" class="row body-table">
             <div class="col-xs-1 mobileVew">
                 AGS
             </div>
             <div class="col-xs-6">
-                 	 Assoc. pour la gest. du rég. de Garantie des créances des Salariés
+                   Assoc. pour la gest. du rég. de Garantie des créances des Salariés
             </div>
             <div class="col-xs-1 mobileVew">
-              {{(re_base_sal) | number}}
+              {{(re_base_sal) | amountformat}}
             </div>
             <div class="col-xs-1 yellw-bg mobileVew">
               
@@ -2000,34 +2032,34 @@
             <div class="col-xs-1 ">
               
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-                {{re_Rate_AREG}} %
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_AREG">
+                {{re_Rate_AREG | rateformat }} %
             </div>
-            <div class="col-xs-1 gry-bg">
-                {{(re_cot_pat_AREG) | number}}
+            <div class="col-xs-1  " id="re_cot_pat_AREG">
+                {{(re_cot_pat_AREG) | amountformat}}
             </div>
         </div>
-        <div class="row body-table">
+        <div ng-hide="visible_AEE == '0'" class="row body-table">
             <div class="col-xs-1 mobileVew">
                APEC
             </div>
             <div class="col-xs-6">
-                 	 	Association Pour lEmploi des Cadres
+                    Association Pour l’Emploi des Cadres
             </div>
             <div class="col-xs-1 mobileVew">
-               {{(re_base_sal) | number}}
+               {{(re_base_sal) | amountformat}}
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-             {{re_Rate_AEE}} %
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_AEE">
+             {{re_Rate_AEE | rateformat }} %
             </div>
-            <div class="col-xs-1">
-              {{(re_amount_AEE) | number}}
+            <div class="col-xs-1" id="re_amount_AEE">
+              {{(re_amount_AEE) | amountformat}}
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-                {{re_Rate_AEE2}} %
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_AEE2">
+                {{re_Rate_AEE2 | rateformat }} %
             </div>
-            <div class="col-xs-1 gry-bg">
-                {{(re_cot_pat_AEE) | number}} 
+            <div class="col-xs-1  " id="re_cot_pat_AEE">
+                {{(re_cot_pat_AEE) | amountformat}} 
             </div>
         </div>
         <div class="divider-table"></div>
@@ -2036,234 +2068,235 @@
                 
             </div>
             <div class="col-xs-6">
-                 	<strong>*** Assurance vieillesse ***</strong>
-                    <span>{{(re_oldage_ins_base) | number}}</span>
+                  <strong>*** Assurance vieillesse ***</strong>
+                    <span id="re_oldage_ins_base">{{(re_oldage_ins_base) | amountformat}}</span>
             </div>
             <div class="col-xs-1 mobileVew">
                
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-              {{re_Rate_Old_Age_Ins}}%
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_Old_Age_Ins">
+              {{re_Rate_Old_Age_Ins | rateformat }} %
             </div>
-            <div class="col-xs-1">
-              {{(re_amount_Old_Age_Ins) | number}}
+            <div class="col-xs-1" id="re_amount_Old_Age_Ins">
+              {{(re_amount_Old_Age_Ins) | amountformat}}
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-                {{re_Rate2_Old_Age_Ins}}%
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate2_Old_Age_Ins">
+                {{re_Rate2_Old_Age_Ins | rateformat }} %
             </div> 
-            <div class="col-xs-1 gry-bg">
-               {{(re_cot_Pat_Old_Age_Ins) | number}}
+            <div class="col-xs-1  " id="re_cot_Pat_Old_Age_Ins">
+               {{(re_cot_Pat_Old_Age_Ins) | amountformat}}
             </div>
         </div>
-        <div class="row body-table">
+        <div ng-hide="visible_AV_P == '0'" class="row body-table">
             
             <div class="col-xs-1 mobileVew">
-                 	 AV-P
+                   AV-P
             </div>
             <div class="col-xs-6">
               Assurance vieillesse plafonnée
             </div>
-            <div class="col-xs-1 mobileVew">
-              {{(re_base_Capped_pension_ins) | number}}
+            <div class="col-xs-1 mobileVew" id="re_base_Capped_pension_ins">
+              {{(re_base_Capped_pension_ins) | amountformat}}
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-              {{re_Rate_AV_P}}%
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_AV_P">
+              {{re_Rate_AV_P | rateformat }} %
             </div>
-            <div class="col-xs-1">
-               {{(re_amount_AV_P) | number}}
+            <div class="col-xs-1" id="re_amount_AV_P">
+               {{(re_amount_AV_P) | amountformat}}
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-                {{re_Rate2_AV_P}}%
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate2_AV_P">
+                {{re_Rate2_AV_P | rateformat }} %
             </div>
-            <div class="col-xs-1 gry-bg">
-                {{(re_cot_pat_AV_P) | number}}
+            <div class="col-xs-1  " id="re_cot_pat_AV_P">
+                {{(re_cot_pat_AV_P) | amountformat}}
             </div>
         </div>
-        <div class="row body-table">
+        <div ng-hide="visible_AV_DP == '0'" class="row body-table">
             <div class="col-xs-1 mobileVew">
                 AV-DP
             </div>
             <div class="col-xs-6">
-                 	 Assurance vieillesse déplafonnée
+                   Assurance vieillesse déplafonnée
             </div>
             <div class="col-xs-1 mobileVew">
-              {{(re_base_sal) | number}}
+              {{(re_base_sal) | amountformat}}
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-              {{re_Rate_AV_DP}}%
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_AV_DP">
+              {{re_Rate_AV_DP | rateformat }} %
             </div>
-            <div class="col-xs-1">
-              {{(re_amount_AV_DP) | number}}
+            <div class="col-xs-1" id="re_amount_AV_DP">
+              {{(re_amount_AV_DP) | amountformat}}
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-                {{re_Rate2_AV_DP}}%
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate2_AV_DP">
+                {{re_Rate2_AV_DP | rateformat }} %
             </div>
-            <div class="col-xs-1 gry-bg">
-                {{(re_cot_pat_AV_DP) | number}} 
+            <div class="col-xs-1  " id="re_cot_pat_AV_DP">
+                {{(re_cot_pat_AV_DP) | amountformat}} 
             </div>
         </div>
         
         
         
         
-        <div class="row body-table">
+        <div ng-hide="visible_ARRCO_T1 == '0'" class="row body-table">
             <div class="col-xs-1 mobileVew">
                 ARRCO-T1
             </div>
             <div class="col-xs-6">
-                 	Assoc. pour le Rég. de Retraite COmplémentaire des salariés (T1)
+                  Assoc. pour le Rég. de Retraite COmplémentaire des salariés (T1)
             </div>
-            <div class="col-xs-1 mobileVew">
-              {{(re_base_Capped_pension_ins) | number}}
+            <div class="col-xs-1 mobileVew" id="re_base_Capped_pension_ins">
+              {{(re_base_Capped_pension_ins) | amountformat}}
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-              {{re_Rate_ARRCO_T1}} %
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_ARRCO_T1">
+              {{re_Rate_ARRCO_T1 | rateformat }} %
             </div>
-            <div class="col-xs-1">
-              {{(re_amount_ARRCO_T1) | number}}
+            <div class="col-xs-1" id="re_amount_ARRCO_T1">
+              {{(re_amount_ARRCO_T1) | amountformat}}
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-               {{re_Rate2_ARRCO_T1}} %
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate2_ARRCO_T1">
+               {{re_Rate2_ARRCO_T1 | rateformat }} %
             </div>
-            <div class="col-xs-1 gry-bg">
-               {{(re_cot_pat_ARRCO_T1) | number}} 
+            <div class="col-xs-1  " id="re_cot_pat_ARRCO_T1">
+               {{(re_cot_pat_ARRCO_T1) | amountformat}} 
             </div>
         </div>
-        <div class="row body-table">
+        <div ng-hide="visible_ARRCO_T2 == '0'" class="row body-table">
             <div class="col-xs-1 mobileVew">
                 ARRCO-T2
             </div>
             <div class="col-xs-6">
-                 	Assoc. pour le Rég. de Retraite COmplémentaire des salariés (T2)
+                  Assoc. pour le Rég. de Retraite COmplémentaire des salariés (T2)
             </div>
-            <div class="col-xs-1 mobileVew">
-              {{(re_base_Complementary_Pensions_eT2) | number}}
+            <div class="col-xs-1 mobileVew" id="re_base_Complementary_Pensions_eT2">
+              {{(re_base_Complementary_Pensions_eT2) | amountformat}}
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-              {{re_Rate_ARRCO_T2}}%
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_ARRCO_T2">
+              {{re_Rate_ARRCO_T2 | rateformat }} %
             </div>
-            <div class="col-xs-1">
-              {{(re_amount_ARRCO_T2) | number}}
+            <div class="col-xs-1" id="re_amount_ARRCO_T2">
+              {{(re_amount_ARRCO_T2) | amountformat}}
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-               {{re_Rate2_ARRCO_T2}}%
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate2_ARRCO_T2">
+               {{re_Rate2_ARRCO_T2 | rateformat }} %
             </div>
-            <div class="col-xs-1 gry-bg">
-                {{(re_cot_pat_ARRCO_T2) | number}}
-            </div>
-        </div>
-        <div class="row body-table">
-            <div class="col-xs-1 mobileVew">
-                ARRCO-TB
-            </div>
-            <div class="col-xs-6">
-                 	Association Générale des Institutions de Retraite des Cadres (TB)
-            </div>
-            <div class="col-xs-1 mobileVew">
-              {{(re_base_Pension_Institutions_Fra_TB) | number}}
-            </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-              {{re_Rate_ARRCO_TB}}%
-            </div>
-            <div class="col-xs-1">
-             {{(re_amount_ARRCO_TB) | number}} 	
-            </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-                {{re_Rate2_ARRCO_TB}}%
-            </div>
-            <div class="col-xs-1 gry-bg">
-                {{(re_cot_pat_ARRCO_TB) | number}}
-            </div>
-        </div><div class="row body-table">
-            <div class="col-xs-1 mobileVew">
-                ARRCO-TC
-            </div>
-            <div class="col-xs-6">
-                 	Association Générale des Institutions de Retraite des Cadres (TC)
-            </div>
-            <div class="col-xs-1 mobileVew">
-              0.00
-            </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-             {{re_Rate_ARRCO_TC}}%
-            </div>
-            <div class="col-xs-1">
-             {{(re_amount_ARRCO_TC) | number}}
-            </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-               {{re_Rate2_ARRCO_TC}}%
-            </div>
-            <div class="col-xs-1 gry-bg">
-                {{(re_cot_pat_ARRCO_TC) | number}}
+            <div class="col-xs-1  " id="re_cot_pat_ARRCO_T2">
+                {{(re_cot_pat_ARRCO_T2) | amountformat}}
             </div>
         </div>
-        <div class="row body-table">
+        <div ng-hide="visible_ARRCO_TB == '0'" class="row body-table">
+            <div class="col-xs-1 mobileVew">
+                 AGIRC-TB
+            </div>
+            <div class="col-xs-6">
+                  Association Générale des Institutions de Retraite des Cadres (TB)
+            </div>
+            <div class="col-xs-1 mobileVew" id="re_base_Pension_Institutions_Fra_TB">
+              {{(re_base_Pension_Institutions_Fra_TB) | amountformat}}
+            </div>
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_ARRCO_TB">
+              {{re_Rate_ARRCO_TB | rateformat }} %
+            </div>
+            <div class="col-xs-1" id="re_amount_ARRCO_TB">
+             {{(re_amount_ARRCO_TB) | amountformat}}  
+            </div>
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate2_ARRCO_TB">
+                {{re_Rate2_ARRCO_TB | rateformat }} %
+            </div>
+            <div class="col-xs-1  " id="re_cot_pat_ARRCO_TB">
+                {{(re_cot_pat_ARRCO_TB) | amountformat}}
+            </div>
+        </div>
+        <div ng-hide="visible_ARRCO_TC == '0'" class="row body-table">
+            <div class="col-xs-1 mobileVew">
+                AGIRC-TC
+            </div>
+            <div class="col-xs-6">
+                  Association Générale des Institutions de Retraite des Cadres (TC)
+            </div>
+            <div class="col-xs-1 mobileVew">
+              0,00
+            </div>
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_ARRCO_TC">
+             {{re_Rate_ARRCO_TC | rateformat }} %
+            </div>
+            <div class="col-xs-1" id="re_amount_ARRCO_TC">
+             {{(re_amount_ARRCO_TC) | amountformat}}
+            </div>
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate2_ARRCO_TC">
+               {{re_Rate2_ARRCO_TC | rateformat }} %
+            </div>
+            <div class="col-xs-1  " id="re_cot_pat_ARRCO_TC">
+                {{(re_cot_pat_ARRCO_TC) | amountformat}}
+            </div>
+        </div>
+        <div ng-hide="visible_CET == '0'" class="row body-table">
             <div class="col-xs-1 mobileVew">
                CET
             </div>
             <div class="col-xs-6">
-                 	Contribution Exceptionnelle et Temporaire
+                  Contribution Exceptionnelle et Temporaire
             </div>
             <div class="col-xs-1 mobileVew">
-              {{(re_base_sal) | number}}
+              {{(re_base_sal) | amountformat}}
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-              {{re_Rate_CET}}%
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_CET">
+              {{re_Rate_CET | rateformat }} %
             </div>
-            <div class="col-xs-1">
-             {{(re_amount_CET) | number}}
+            <div class="col-xs-1" id="re_amount_CET">
+             {{(re_amount_CET) | amountformat}}
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-               {{re_Rate2_CET}}%
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate2_CET">
+               {{re_Rate2_CET | rateformat }} %
             </div>
-            <div class="col-xs-1 gry-bg">
-               {{(re_cot_pat_CET) | number}}
+            <div class="col-xs-1  " id="re_cot_pat_CET">
+               {{(re_cot_pat_CET) | amountformat}}
             </div>
         </div>
-        <div class="row body-table">
+        <div ng-hide="visible_AGFF_T1 == '0'" class="row body-table">
             <div class="col-xs-1 mobileVew">
                 AGFF-T1
             </div>
             <div class="col-xs-6">
-                 Assoc. pour la Gest. du Fonds de Fin. de lAGIRC et de lARRCO (T1)
+                 Assoc. pour la Gest. du Fonds de Fin. de lAGIRC et de lARRCO (T1)
             </div>
-            <div class="col-xs-1 mobileVew">
-             {{(re_base_Capped_pension_ins) | number}}
+            <div class="col-xs-1 mobileVew" id="re_base_Capped_pension_ins">
+             {{(re_base_Capped_pension_ins) | amountformat}}
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-              {{re_Rate_AGFF_T1}}%
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_AGFF_T1">
+              {{re_Rate_AGFF_T1 | rateformat }} %
             </div>
-            <div class="col-xs-1">
-             {{(re_amount_AGFF_T1) | number}}
+            <div class="col-xs-1" id="re_amount_AGFF_T1">
+             {{(re_amount_AGFF_T1) | amountformat}}
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-               {{re_Rate2_AGFF2_T1}}%
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate2_AGFF2_T1">
+               {{re_Rate2_AGFF2_T1 | rateformat }} %
             </div>
-            <div class="col-xs-1 gry-bg">
-                {{(re_cot_pat_AGFF_T1) | number}}
+            <div class="col-xs-1  " id="re_cot_pat_AGFF_T1">
+                {{(re_cot_pat_AGFF_T1) | amountformat}}
             </div>
         </div>
-        <div class="row body-table">
+        <div ng-hide="visible_AGFF_T2 == '0'" class="row body-table">
             <div class="col-xs-1 mobileVew">
                 AGFF-T2
             </div>
             <div class="col-xs-6">
-                 	Assoc. pour la Gest. du Fonds de Fin. de lAGIRC et de lARRCO (T2)
+                  Assoc. pour la Gest. du Fonds de Fin. de lAGIRC et de lARRCO (T2)
             </div>
-            <div class="col-xs-1 mobileVew">
-             {{(re_base_Complementary_Pensions_eT2) | number}}
+            <div class="col-xs-1 mobileVew" id="re_base_Complementary_Pensions_eT2">
+             {{(re_base_Complementary_Pensions_eT2) | amountformat}}
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-              {{re_Rate_AGFF_T2}}% 
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_AGFF_T2">
+              {{re_Rate_AGFF_T2 | rateformat }} %
             </div>
-            <div class="col-xs-1">
-             {{(re_amount_AGFF_T2) | number}}
+            <div class="col-xs-1" id="re_amount_AGFF_T2">
+             {{(re_amount_AGFF_T2) | amountformat}}
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-                {{re_Rate2_AGFF2_T2}}%
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate2_AGFF2_T2">
+                {{re_Rate2_AGFF2_T2 | rateformat }} %
             </div>
-            <div class="col-xs-1 gry-bg">
-               {{(re_cot_pat_AGFF_T2) | number}}
+            <div class="col-xs-1  " id="re_cot_pat_AGFF_T2">
+               {{(re_cot_pat_AGFF_T2) | amountformat}}
             </div>
         </div>
         <div class="divider-table"></div>
@@ -2272,8 +2305,8 @@
 
             </div>
             <div class="col-xs-6">
-                 	 <strong>*** Autres cotisations et contributions sociales ***</strong>
-                     <span>{{(re_OSSC) | number}}</span>
+                   <strong>*** Autres cotisations et contributions sociales ***</strong>
+                     <span id="re_OSSC">{{(re_OSSC) | amountformat}}</span>
             </div>
             <div class="col-xs-1 mobileVew">
               
@@ -2284,22 +2317,22 @@
             <div class="col-xs-1">
               
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-                {{re_Rate_OSSC}}%
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_OSSC">
+                {{re_Rate_OSSC | rateformat }} %
             </div>
-            <div class="col-xs-1 gry-bg">
-               {{(re_OSSC) | number}}
+            <div class="col-xs-1  ">
+               {{(re_OSSC) | amountformat}}
             </div>
         </div>
-        <div class="row body-table">
+        <div ng-hide="visible_FAC == '0'" class="row body-table">
             <div class="col-xs-1 mobileVew">
                 CAF
             </div>
             <div class="col-xs-6">
-                 	 Cotisations d'Allocations Familiales
+                   Cotisations d'Allocations Familiales
             </div>
             <div class="col-xs-1 mobileVew">
-              {{(re_base_sal) | number}}
+              {{(re_base_sal) | amountformat}}
             </div>
             <div class="col-xs-1 yellw-bg mobileVew">
              
@@ -2308,22 +2341,22 @@
             
             </div>
 
-            <div class="col-xs-1 yellw-bg mobileVew">
-               {{re_Rate_FAC}}%
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_FAC">
+               {{re_Rate_FAC | rateformat }} %
             </div>
-            <div class="col-xs-1 gry-bg">
-                {{(re_cot_pat_FAC) | number}}
+            <div class="col-xs-1  " id="re_cot_pat_FAC">
+                {{(re_cot_pat_FAC) | amountformat}}
             </div>
         </div>
-        <div class="row body-table">
+        <div ng-hide="visible_ASC == '0'" class="row body-table">
             <div class="col-xs-1 mobileVew">
                CSA
             </div>
             <div class="col-xs-6">
-                 	Contribution Solidarité Autonomie
+                  Contribution Solidarité Autonomie
             </div>
             <div class="col-xs-1 mobileVew">
-              {{(re_base_sal) | number}}
+              {{(re_base_sal) | amountformat}}
             </div>
             <div class="col-xs-1 yellw-bg mobileVew">
               
@@ -2331,25 +2364,25 @@
             <div class="col-xs-1">
             
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-                {{re_Rate_ASC}}%
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_ASC">
+                {{re_Rate_ASC | rateformat }} %
             </div>
-            <div class="col-xs-1 gry-bg">
-                {{(re_cot_pat_ASC) | number}}
+            <div class="col-xs-1  " id="re_cot_pat_ASC">
+                {{(re_cot_pat_ASC) | amountformat}}
             </div>
         </div>
         
         
         
-        <div class="row body-table">
+        <div ng-hide="visible_NHAF == '0'" class="row body-table">
             <div class="col-xs-1 mobileVew">
                FNAL
             </div>
             <div class="col-xs-6">
-                 	Fonds National d'Aide au Logement
+                  Fonds National d'Aide au Logement
             </div>
-            <div class="col-xs-1 mobileVew">
-              {{(re_base_NHAF) | number}}
+            <div class="col-xs-1 mobileVew" id="re_base_NHAF">
+              {{(re_base_NHAF) | amountformat}}
             </div>
             <div class="col-xs-1 yellw-bg mobileVew">
               
@@ -2357,22 +2390,22 @@
             <div class="col-xs-1">
             
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-               {{re_Rate_NHAF}}%
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_NHAF">
+               {{re_Rate_NHAF | rateformat }} %
             </div>
-            <div class="col-xs-1 gry-bg">
-               {{(re_cot_pat_NHAF) | number}}
+            <div class="col-xs-1  " id="re_cot_pat_NHAF">
+               {{(re_cot_pat_NHAF) | amountformat}}
             </div>
         </div>
-        <div class="row body-table">
+        <div ng-hide="visible_SP == '0'" class="row body-table">
             <div class="col-xs-1 mobileVew">
                FORF-SOC
             </div>
             <div class="col-xs-6">
-                 	Forfait Social
+                  Forfait Social
             </div>
-            <div class="col-xs-1 mobileVew">
-              {{(re_base_SP) | number}}
+            <div class="col-xs-1 mobileVew" id="re_base_SP">
+              {{(re_base_SP) | amountformat}}
             </div>
             <div class="col-xs-1 yellw-bg mobileVew">
               
@@ -2380,11 +2413,11 @@
             <div class="col-xs-1">
             
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-                {{re_Rate_SP}}%
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_SP">
+                {{re_Rate_SP | rateformat }} %
             </div>
-            <div class="col-xs-1 gry-bg">
-                 	{{(re_cot_pat_SP) | number}}
+            <div class="col-xs-1  " id="re_cot_pat_SP">
+                  {{(re_cot_pat_SP) | amountformat}}
             </div>
         </div>
         <div class="divider-table"></div>
@@ -2394,7 +2427,7 @@
             </div>
             <div class="col-xs-6">
                <strong>*** Autres taxes et participations ***</strong>
-               <span>{{(re_OTAE) | number}}</span>
+               <span id="re_OTAE">{{(re_OTAE) | amountformat}}</span>
             </div>
             <div class="col-xs-1 mobileVew">
               
@@ -2405,22 +2438,22 @@
             <div class="col-xs-1">
             
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-               {{re_Rate_OTAE}}%
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_OTAE">
+               {{re_Rate_OTAE | rateformat }} %
             </div>
-            <div class="col-xs-1 gry-bg">
-                {{(re_cot_pat_OTAE) | number}}
+            <div class="col-xs-1  " id="re_cot_pat_OTAE">
+                {{(re_cot_pat_OTAE) | amountformat}}
             </div>
         </div>
-        <div class="row body-table">
+        <div ng-hide="visible_PT == '0'" class="row body-table">
             <div class="col-xs-1 mobileVew">
               VT
             </div>
             <div class="col-xs-6">
-                 	 	Versement Transport (Versailles)
+                    Versement Transport (Versailles)
             </div>
             <div class="col-xs-1 mobileVew">
-             {{(re_base_sal) | number}}
+             {{(re_base_sal) | amountformat}}
             </div>
             <div class="col-xs-1 yellw-bg mobileVew">
               
@@ -2428,88 +2461,945 @@
             <div class="col-xs-1">
             
             </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-                {{re_Rate_PT}}%
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_PT">
+                {{re_Rate_PT | rateformat }} %
             </div>
-            <div class="col-xs-1 gry-bg">
-                {{(re_cot_pat_PT) | number}}
+            <div class="col-xs-1  " id="re_cot_pat_PT">
+                {{(re_cot_pat_PT) | amountformat}}
             </div>
         </div>
         
         
     </div>
     <div class="row mrg-row">
-      	<div class="col-md-4">
-        	<div class="bs-example hrzntl-algin align-grid-first">
-        <!--	<h2>Horizontal Definition Lists</h2>-->
+        <div class="col-md-3">
+          <div class="bs-example hrzntl-algin align-grid-first">
+        <!--  <h2>Horizontal Definition Lists</h2>-->
                 <dl class="dl-horizontal">
-                    <dt>Net à payer</dt>
+                    <dt>Net à payer <em>:</em></dt>
                     
-                    <dd> 	{{(re_Net_Cash) | number}}</dd>
+                    <dd id="re_Net_Cash">  {{(re_Net_Cash) | amountformat}}</dd>
                  </dl>   
                  <dl class="dl-horizontal">
-                    <dt>Net imposable</dt>
-                    <dd> 	 	{{(re_Net_taxable) | number}}</dd>
+                    <dt>Net imposable <em>:</em></dt>
+                    <dd id="re_Net_taxable">    {{(re_Net_taxable) | amountformat}}</dd>
                   </dl>
                   <dl class="dl-horizontal">  
-                    <dt>Salaire total</dt>
-                    <dd>{{(re_Total_wages) | number}}</dd>
+                    <dt>Salaire total <em>:</em></dt>
+                    <dd id="re_Total_wages">{{(re_Total_wages) | amountformat}}</dd>
                   </dl>  
-            </div>	
+            </div>  
         </div>
-        <div class="col-md-4">
-        	<div class="bs-example hrzntl-algin">
-        <!--	<h2>Horizontal Definition Lists</h2>-->
+        <div class="col-md-5">
+          <div class="bs-example hrzntl-algin dt-size">
+        <!--  <h2>Horizontal Definition Lists</h2>-->
                 <dl class="dl-horizontal">
                     <dt>Versement URSAFF :</dt>
                     
-                    <dd>{{(re_Payment_URSAFF) | number}}</dd>
+                    <dd id="re_Payment_URSAFF">{{(re_Payment_URSAFF) | amountformat}}</dd>
                  </dl>   
                  <dl class="dl-horizontal">
                     <dt>Versement AGIRC-ARRCO :</dt>
-                    <dd> {{(re_Payment_AGIRC_ARRCO) | number}}</dd>
+                    <dd id="re_Payment_AGIRC_ARRCO"> {{(re_Payment_AGIRC_ARRCO) | amountformat}}</dd>
                   </dl>
                   <dl class="dl-horizontal">  
                     <dt>Versement mutuelles privées :</dt>
-                    <dd>{{(re_Private_Mutual_Pay) | number}}</dd>
+                    <dd id="re_Private_Mutual_Pay">{{(re_Private_Mutual_Pay) | amountformat}}</dd>
                   </dl>  
-            </div>	
+            </div>  
         </div>
         <div class="col-md-4">
-        	<div class="bs-example hrzntl-algin align-grid-first">
-        <!--	<h2>Horizontal Definition Lists</h2>-->
+          <div class="bs-example hrzntl-algin align-grid-chrg">
+        <!--  <h2>Horizontal Definition Lists</h2>-->
                 <dl class="dl-horizontal">
-                    <dt>Charges Salariales</dt>
+                    <dt>Charges Salariales <em>:</em></dt>
                     
-                    <dd>{{(re_wages_costs) | number}}</dd>
+                    <dd id="re_wages_costs">{{(re_wages_costs) | amountformat}}</dd>
                  </dl>   
                  <dl class="dl-horizontal">
-                    <dt>Charges Patronales</dt>
-                    <dd> 	 	{{(re_Patron_Charges) | number}}</dd>
+                    <dt>Charges Patronales <em>:</em></dt>
+                    <dd id="re_Patron_Charges">    {{(re_Patron_Charges) | amountformat}}</dd>
                   </dl>
                   
-            </div>	
+            </div>  
         </div>
-	</div> 
-
-    <button class="btn btn-primary exported" ng-if="paymentStatus" ng-disabled="disablePdf" id="exportPdf"  ng-click="payment()" style="float:right">{{pdfButton}}</button>
-    <button class="btn btn-primary exported" ng-disabled="disablePdf" ng-if="!paymentStatus" ng-click="payment()" style="float:right">{{pdfButton}}</button></div>
+  </div> 
+  <div class="notes">
+      <p>Nous vous recommandons de conserver votre bulletin de paie, sans limitation de durée.</p>
+    </div>
+  <!-- <button class="btn btn-primary exported"  id="downloadPdf"   style="float:right">{{pdfButton}}</button>
+ 
+    <button class="btn btn-primary exported" ng-if="paymentStatus" ng-disabled="disablePdf" id="exportPdf"  ng-click="payment()" style="float:right">{{pdfButton}}</button> -->
+   <!--  <button class="btn btn-primary exported" ng-disabled="disablePdf" ng-if="!paymentStatus" ng-click="payment()" style="float:right">{{pdfButton}}</button></div> -->
+</div>
 </div>
 <br/><br/>
 <div class="clearfix"></div>
  <footer class="footer">
    <div class="container">
       <div class="row">
-	    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-	  </div>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </div>
    </div>
  </footer>
  
 <script type="text/javascript">
-$(window).load(function() {
-gethyt();	
+
+//base_activity;
+$(window).load(function() { 
+var dd,
+base_dur,
+base_activity,
+base_sal,
+health_ins,
+category,
+disability_ins,
+oldage_ins,
+re_base_sal,
+re_Rate2_HIns,
+re_tax_HI,
+re_cot_pat_HI,
+re_amount_ins,
+re_cot_pat_ins,
+re_base_HIns,
+re_amount_HIns,
+re_Rate2_Ins,
+re_Rate_Ins,
+re_Base_PHI,
+re_Rate2_PHI,
+re_cot_pat_PHI,
+re_amount_GSC,
+re_Rate_GSC,
+re_Rate_CRTSD,
+re_amount_CRTSD,
+re_Rate_MC,
+re_cot_pat_MC,
+re_Rate_CI,
+re_cot_pat_CI,
+re_Rate_PP,
+re_cot_pat_PP,
+re_amount_PE,
+re_Rate_PE,
+re_Rate_PE2,
+re_cot_pat_PE,
+re_Rate_AREG,
+re_cot_pat_AREG,
+re_Rate_AEE,
+re_Rate_AEE2,
+re_amount_AEE,
+re_cot_pat_AEE,
+re_base_Capped_pension_ins,
+re_Rate_Old_Age_Ins,
+re_amount_Old_Age_Ins,
+re_Rate2_Old_Age_Ins,
+re_cot_Pat_Old_Age_Ins,
+re_amount_AV_P,
+re_cot_pat_AV_P,
+re_Rate_AV_P,
+re_Rate2_AV_P ,
+re_Rate_AV_DP,
+re_Rate2_AV_DP ,
+re_amount_AV_DP,
+re_cot_pat_AV_DP,
+re_Rate_ARRCO_T1,
+re_Rate2_ARRCO_T1,
+re_amount_ARRCO_T1,
+re_cot_pat_ARRCO_T1,
+re_Rate_ARRCO_T2,
+re_Rate2_ARRCO_T2,
+re_amount_ARRCO_T2 ,
+re_cot_pat_ARRCO_T2 ,
+re_base_Complementary_Pensions_eT2,
+re_Rate_ARRCO_TB ,
+re_Rate2_ARRCO_TB ,
+re_amount_ARRCO_TB,
+re_cot_pat_ARRCO_TB,
+re_base_Pension_Institutions_Fra_TB ,
+re_Rate_ARRCO_TC,
+re_Rate2_ARRCO_TC,
+re_amount_ARRCO_TC,
+re_cot_pat_ARRCO_TC,
+re_Rate_CET ,
+re_Rate2_CET,
+re_amount_CET ,
+re_cot_pat_CET ,
+re_Rate_AGFF_T1,
+re_Rate2_AGFF2_T1,
+re_amount_AGFF_T1,
+re_cot_pat_AGFF_T1,
+re_Rate_AGFF_T2,
+re_Rate2_AGFF2_T2,
+re_amount_AGFF_T2 ,
+re_cot_pat_AGFF_T2 ,
+re_Rate_FAC ,
+re_cot_pat_FAC,
+re_Rate_ASC ,
+re_cot_pat_ASC,
+re_base_NHAF ,
+re_Rate_NHAF ,
+re_cot_pat_NHAF,
+re_base_SP,
+re_Rate_SP ,
+re_cot_pat_SP ,
+re_cot_pat_OTAE ,
+re_Rate_OTAE ,
+re_OTAE ,
+re_Rate_PT ,
+re_cot_pat_PT,
+re_cot_pat_AD ,
+re_wages_costs ,
+re_OSSC ,
+re_Rate_OSSC,
+re_cot_pat_OSSC ,
+re_Patron_Charges,
+re_Payment_URSAFF ,
+re_Payment_AGIRC_ARRCO ,
+re_Private_Mutual_Pay ,
+re_Net_Cash ,
+re_Net_taxable,
+re_Total_wages,
+re_oldage_ins_base ,
+re_cot_pat_UI ,
+re_amount_UI,
+re_Rate_UI,
+re_Rate2_UI ,
+re_base_UI;
+
+EveryOneSec();
+
+  function EveryOneSec() {
+  
+  console.log('Tax is ', re_tax_HI);
+  
+  setTimeout(EveryOneSec, 5000);
+
+  var scope_base_dur = angular.element(document.getElementById("base_dur")).scope();
+  base_dur = scope_base_dur.base_dur;
+
+  var scope_base_activity = angular.element(document.getElementById("base_activity")).scope();
+  base_activity = scope_base_activity.base_activity;
+
+  var scope_base_sal = angular.element(document.getElementById("base_sal")).scope();
+  base_sal = scope_base_sal.base_sal;
+
+  var scope_health_ins = angular.element(document.getElementById("health_ins")).scope();
+  health_ins = scope_health_ins.health_ins;
+
+  var scope_disability_ins = angular.element(document.getElementById("disability_ins")).scope();
+  disability_ins = scope_base_activity.disability_ins;
+  
+  var scope_category = angular.element(document.getElementById("category")).scope();
+  category = scope_category.category;
+
+  var scope_oldage_ins = angular.element(document.getElementById("oldage_ins")).scope();
+  oldage_ins = scope_base_sal.oldage_ins;
+
+  var scope_re_base_sal = angular.element(document.getElementById("re_base_sal")).scope();
+  re_base_sal = scope_re_base_sal.re_base_sal;
+
+  var scope_re_Rate2_HIns = angular.element(document.getElementById("re_Rate2_HIns")).scope();
+  re_Rate2_HIns = scope_re_Rate2_HIns.re_Rate2_HIns;
+
+  var scope_re_tax_HI = angular.element(document.getElementById("re_tax_HI")).scope();
+  re_tax_HI = scope_re_tax_HI.re_tax_HI;
+
+  var scope_re_cot_pat_HI = angular.element(document.getElementById("re_cot_pat_HI")).scope();
+  re_cot_pat_HI = scope_re_cot_pat_HI.re_cot_pat_HI;
+
+  var scope_re_amount_ins = angular.element(document.getElementById("re_amount_ins")).scope();
+  re_amount_ins = scope_re_amount_ins.re_amount_ins;
+
+  var scope_re_cot_pat_ins = angular.element(document.getElementById("re_cot_pat_ins")).scope();
+  re_cot_pat_ins = scope_re_cot_pat_ins.re_cot_pat_ins;
+
+  var scope_re_base_HIns = angular.element(document.getElementById("re_base_HIns")).scope();
+  re_base_HIns = scope_re_base_HIns.re_base_HIns;
+
+  var scope_re_amount_HIns = angular.element(document.getElementById("re_amount_HIns")).scope();
+  re_amount_HIns = scope_re_amount_HIns.re_amount_HIns;
+
+
+  var scope_re_Rate2_Ins = angular.element(document.getElementById("re_Rate2_Ins")).scope();
+  re_Rate2_Ins = scope_re_Rate2_Ins.re_Rate2_Ins;
+
+  var scope_re_Rate_Ins = angular.element(document.getElementById("re_Rate_Ins")).scope();
+  re_Rate_Ins = scope_re_Rate_Ins.re_Rate_Ins;
+
+  var scope_re_Base_PHI = angular.element(document.getElementById("re_Base_PHI")).scope();
+  re_Base_PHI = scope_re_Base_PHI.re_Base_PHI;
+
+  var scope_oldage_ins = angular.element(document.getElementById("oldage_ins")).scope();
+  oldage_ins = scope_base_sal.oldage_ins;
+
+  var scope_re_Rate2_PHI = angular.element(document.getElementById("re_Rate2_PHI")).scope();
+  re_Rate2_PHI = scope_re_Rate2_PHI.re_Rate2_PHI;
+
+  var scope_re_cot_pat_PHI = angular.element(document.getElementById("re_cot_pat_PHI")).scope();
+  re_cot_pat_PHI = scope_re_cot_pat_PHI.re_cot_pat_PHI;
+
+  var scope_re_amount_GSC = angular.element(document.getElementById("re_amount_GSC")).scope();
+  re_amount_GSC = scope_re_amount_GSC.re_amount_GSC;
+
+  var scope_re_Rate_GSC = angular.element(document.getElementById("re_Rate_GSC")).scope();
+  re_Rate_GSC = scope_re_Rate_GSC.re_Rate_GSC;
+
+  var scope_re_Rate_CRTSD = angular.element(document.getElementById("re_Rate_CRTSD")).scope();
+  re_Rate_CRTSD = scope_re_Rate_CRTSD.re_Rate_CRTSD;
+
+  var scope_re_amount_CRTSD = angular.element(document.getElementById("re_amount_CRTSD")).scope();
+  re_amount_CRTSD = scope_re_amount_CRTSD.re_amount_CRTSD;
+
+  var scope_re_Rate_MC = angular.element(document.getElementById("re_Rate_MC")).scope();
+  re_Rate_MC = scope_re_Rate_MC.re_Rate_MC;
+
+  var scope_re_cot_pat_MC = angular.element(document.getElementById("re_cot_pat_MC")).scope();
+  re_cot_pat_MC = scope_re_cot_pat_MC.re_cot_pat_MC;
+
+  var scope_re_Rate_CI = angular.element(document.getElementById("re_Rate_CI")).scope();
+  re_Rate_CI = scope_re_Rate_CI.re_Rate_CI;
+
+  var scope_re_cot_pat_CI = angular.element(document.getElementById("re_cot_pat_CI")).scope();
+  re_cot_pat_CI = scope_re_cot_pat_CI.re_cot_pat_CI;
+
+  var scope_re_Rate_PP = angular.element(document.getElementById("re_Rate_PP")).scope();
+  re_Rate_PP = scope_re_Rate_PP.re_Rate_PP;
+
+  var scope_re_cot_pat_PP = angular.element(document.getElementById("re_cot_pat_PP")).scope();
+  re_cot_pat_PP = scope_re_cot_pat_PP.re_cot_pat_PP;
+
+  var scope_re_amount_PE = angular.element(document.getElementById("re_amount_PE")).scope();
+  re_amount_PE = scope_re_amount_PE.re_amount_PE;
+
+  var scope_re_Rate_PE = angular.element(document.getElementById("re_Rate_PE")).scope();
+  re_Rate_PE = scope_re_Rate_PE.re_Rate_PE;
+
+  var scope_re_Rate_PE2 = angular.element(document.getElementById("re_Rate_PE2")).scope();
+  re_Rate_PE2 = scope_re_Rate_PE2.re_Rate_PE2;
+
+  var scope_re_cot_pat_PE = angular.element(document.getElementById("re_cot_pat_PE")).scope();
+  re_cot_pat_PE = scope_re_cot_pat_PE.re_cot_pat_PE;
+
+  var scope_re_Rate_AREG = angular.element(document.getElementById("re_Rate_AREG")).scope();
+  re_Rate_AREG = scope_re_Rate_AREG.re_Rate_AREG;
+
+  var scope_re_cot_pat_AREG = angular.element(document.getElementById("re_cot_pat_AREG")).scope();
+  re_cot_pat_AREG = scope_re_cot_pat_AREG.re_cot_pat_AREG;
+
+  var scope_re_Rate_AEE = angular.element(document.getElementById("re_Rate_AEE")).scope();
+  re_Rate_AEE = scope_re_Rate_AEE.re_Rate_AEE;
+
+  var scope_re_Rate_AEE2 = angular.element(document.getElementById("re_Rate_AEE2")).scope();
+  re_Rate_AEE2 = scope_re_Rate_AEE2.re_Rate_AEE2;
+
+  var scope_re_amount_AEE = angular.element(document.getElementById("re_amount_AEE")).scope();
+  re_amount_AEE = scope_re_amount_AEE.re_amount_AEE;
+
+  var scope_re_cot_pat_AEE = angular.element(document.getElementById("re_cot_pat_AEE")).scope();
+  re_cot_pat_AEE = scope_re_cot_pat_AEE.re_cot_pat_AEE;
+
+  var scope_re_base_Capped_pension_ins = angular.element(document.getElementById("re_base_Capped_pension_ins")).scope();
+  re_base_Capped_pension_ins = scope_re_base_Capped_pension_ins.re_base_Capped_pension_ins;
+
+  var scope_re_Rate_Old_Age_Ins = angular.element(document.getElementById("re_Rate_Old_Age_Ins")).scope();
+  re_Rate_Old_Age_Ins = scope_re_Rate_Old_Age_Ins.re_Rate_Old_Age_Ins;
+
+  var scope_re_amount_Old_Age_Ins = angular.element(document.getElementById("re_amount_Old_Age_Ins")).scope();
+  re_amount_Old_Age_Ins = scope_re_amount_Old_Age_Ins.re_amount_Old_Age_Ins;
+
+  var scope_re_Rate2_Old_Age_Ins = angular.element(document.getElementById("re_Rate2_Old_Age_Ins")).scope();
+  re_Rate2_Old_Age_Ins = scope_re_Rate2_Old_Age_Ins.re_Rate2_Old_Age_Ins;
+
+  var scope_re_cot_Pat_Old_Age_Ins = angular.element(document.getElementById("re_cot_Pat_Old_Age_Ins")).scope();
+  re_cot_Pat_Old_Age_Ins = scope_re_cot_Pat_Old_Age_Ins.re_cot_Pat_Old_Age_Ins;
+
+  var scope_re_amount_AV_P = angular.element(document.getElementById("re_amount_AV_P")).scope();
+  re_amount_AV_P = scope_re_amount_AV_P.re_amount_AV_P;
+
+  var scope_re_cot_pat_AV_P = angular.element(document.getElementById("re_cot_pat_AV_P")).scope();
+  re_cot_pat_AV_P = scope_re_cot_pat_AV_P.re_cot_pat_AV_P;
+
+  var scope_re_Rate_AV_P = angular.element(document.getElementById("re_Rate_AV_P")).scope();
+  re_Rate_AV_P = scope_re_Rate_AV_P.re_Rate_AV_P;
+
+  var scope_re_Rate2_AV_P = angular.element(document.getElementById("re_Rate2_AV_P")).scope();
+  re_Rate2_AV_P = scope_re_Rate2_AV_P.re_Rate2_AV_P;
+
+  var scope_re_Rate_AV_DP = angular.element(document.getElementById("re_Rate_AV_DP")).scope();
+  re_Rate_AV_DP = scope_re_Rate_AV_DP.re_Rate_AV_DP;
+
+  var scope_re_Rate2_AV_DP = angular.element(document.getElementById("re_Rate2_AV_DP")).scope();
+  re_Rate2_AV_DP = scope_re_Rate2_AV_DP.re_Rate2_AV_DP;
+
+  var scope_re_amount_AV_DP = angular.element(document.getElementById("re_amount_AV_DP")).scope();
+  re_amount_AV_DP = scope_re_amount_AV_DP.re_amount_AV_DP;
+
+  var scope_re_cot_pat_AV_DP = angular.element(document.getElementById("re_cot_pat_AV_DP")).scope();
+  re_cot_pat_AV_DP = scope_re_cot_pat_AV_DP.re_cot_pat_AV_DP;
+
+  var scope_re_Rate_ARRCO_T1 = angular.element(document.getElementById("re_Rate_ARRCO_T1")).scope();
+  re_Rate_ARRCO_T1 = scope_re_Rate_ARRCO_T1.re_Rate_ARRCO_T1;
+
+  var scope_re_Rate2_ARRCO_T1 = angular.element(document.getElementById("re_Rate2_ARRCO_T1")).scope();
+  re_Rate2_ARRCO_T1 = scope_re_Rate2_ARRCO_T1.re_Rate2_ARRCO_T1;
+
+  var scope_re_amount_ARRCO_T1 = angular.element(document.getElementById("re_amount_ARRCO_T1")).scope();
+  re_amount_ARRCO_T1 = scope_re_amount_ARRCO_T1.re_amount_ARRCO_T1;
+
+  var scope_re_cot_pat_ARRCO_T1 = angular.element(document.getElementById("re_cot_pat_ARRCO_T1")).scope();
+  re_cot_pat_ARRCO_T1 = scope_re_cot_pat_ARRCO_T1.re_cot_pat_ARRCO_T1;
+
+  var scope_re_Rate_ARRCO_T2 = angular.element(document.getElementById("re_Rate_ARRCO_T2")).scope();
+  re_Rate_ARRCO_T2 = scope_re_Rate_ARRCO_T2.re_Rate_ARRCO_T2;
+
+  var scope_re_Rate2_ARRCO_T2 = angular.element(document.getElementById("re_Rate2_ARRCO_T2")).scope();
+  re_Rate2_ARRCO_T2 = scope_re_Rate2_ARRCO_T2.re_Rate2_ARRCO_T2;
+
+  var scope_re_amount_ARRCO_T2 = angular.element(document.getElementById("re_amount_ARRCO_T2")).scope();
+  re_amount_ARRCO_T2 = scope_re_amount_ARRCO_T2.re_amount_ARRCO_T2;
+
+  var scope_re_cot_pat_ARRCO_T2 = angular.element(document.getElementById("re_cot_pat_ARRCO_T2")).scope();
+  re_cot_pat_ARRCO_T2 = scope_re_cot_pat_ARRCO_T2.re_cot_pat_ARRCO_T2;
+
+  var scope_re_base_Complementary_Pensions_eT2 = angular.element(document.getElementById("re_base_Complementary_Pensions_eT2")).scope();
+  re_base_Complementary_Pensions_eT2 = scope_re_base_Complementary_Pensions_eT2.re_base_Complementary_Pensions_eT2;
+
+  var scope_re_Rate_ARRCO_TB = angular.element(document.getElementById("re_Rate_ARRCO_TB")).scope();
+  re_Rate_ARRCO_TB = scope_re_Rate_ARRCO_TB.re_Rate_ARRCO_TB;
+
+  var scope_re_Rate2_ARRCO_TB = angular.element(document.getElementById("re_Rate2_ARRCO_TB")).scope();
+  re_Rate2_ARRCO_TB = scope_re_Rate2_ARRCO_TB.re_Rate2_ARRCO_TB;
+
+  var scope_re_amount_ARRCO_TB = angular.element(document.getElementById("re_amount_ARRCO_TB")).scope();
+  re_amount_ARRCO_TB = scope_re_amount_ARRCO_TB.re_amount_ARRCO_TB;
+
+  var scope_re_cot_pat_ARRCO_TB = angular.element(document.getElementById("re_cot_pat_ARRCO_TB")).scope();
+  re_cot_pat_ARRCO_TB = scope_re_cot_pat_ARRCO_TB.re_cot_pat_ARRCO_TB;
+
+  var scope_re_base_Pension_Institutions_Fra_TB = angular.element(document.getElementById("re_base_Pension_Institutions_Fra_TB")).scope();
+  re_base_Pension_Institutions_Fra_TB = scope_re_base_Pension_Institutions_Fra_TB.re_base_Pension_Institutions_Fra_TB;
+
+  var scope_re_Rate_ARRCO_TC = angular.element(document.getElementById("re_Rate_ARRCO_TC")).scope();
+  re_Rate_ARRCO_TC = scope_re_Rate_ARRCO_TC.re_Rate_ARRCO_TC;
+
+  var scope_re_Rate2_ARRCO_TC = angular.element(document.getElementById("re_Rate2_ARRCO_TC")).scope();
+  re_Rate2_ARRCO_TC = scope_re_Rate2_ARRCO_TC.re_Rate2_ARRCO_TC;
+
+  var scope_re_amount_ARRCO_TC = angular.element(document.getElementById("re_amount_ARRCO_TC")).scope();
+  re_amount_ARRCO_TC = scope_re_amount_ARRCO_TC.re_amount_ARRCO_TC;
+
+  var scope_re_cot_pat_ARRCO_TC = angular.element(document.getElementById("re_cot_pat_ARRCO_TC")).scope();
+  re_cot_pat_ARRCO_TC = scope_re_cot_pat_ARRCO_TC.re_cot_pat_ARRCO_TC;
+
+  var scope_re_Rate_CET = angular.element(document.getElementById("re_Rate_CET")).scope();
+  re_Rate_CET = scope_re_Rate_CET.re_Rate_CET;
+
+  var scope_re_Rate2_CET = angular.element(document.getElementById("re_Rate2_CET")).scope();
+  re_Rate2_CET = scope_re_Rate2_CET.re_Rate2_CET;
+
+  var scope_re_amount_CET = angular.element(document.getElementById("re_amount_CET")).scope();
+  re_amount_CET = scope_re_amount_CET.re_amount_CET;
+
+  var scope_re_cot_pat_CET = angular.element(document.getElementById("re_cot_pat_CET")).scope();
+  re_cot_pat_CET = scope_re_cot_pat_CET.re_cot_pat_CET;
+
+  var scope_re_Rate_AGFF_T1 = angular.element(document.getElementById("re_Rate_AGFF_T1")).scope();
+  re_Rate_AGFF_T1 = scope_re_Rate_AGFF_T1.re_Rate_AGFF_T1;
+
+  var scope_re_Rate2_AGFF2_T1 = angular.element(document.getElementById("re_Rate2_AGFF2_T1")).scope();
+  re_Rate2_AGFF2_T1 = scope_re_Rate2_AGFF2_T1.re_Rate2_AGFF2_T1;
+
+  var scope_re_amount_AGFF_T1 = angular.element(document.getElementById("re_amount_AGFF_T1")).scope();
+  re_amount_AGFF_T1 = scope_re_amount_AGFF_T1.re_amount_AGFF_T1;
+
+  var scope_re_cot_pat_AGFF_T1 = angular.element(document.getElementById("re_cot_pat_AGFF_T1")).scope();
+  re_cot_pat_AGFF_T1 = scope_re_cot_pat_AGFF_T1.re_cot_pat_AGFF_T1;
+
+  var scope_re_Rate_AGFF_T2 = angular.element(document.getElementById("re_Rate_AGFF_T2")).scope();
+  re_Rate_AGFF_T2 = scope_re_Rate_AGFF_T2.re_Rate_AGFF_T2;
+
+  var scope_re_Rate2_AGFF2_T2 = angular.element(document.getElementById("re_Rate2_AGFF2_T2")).scope();
+  re_Rate2_AGFF2_T2 = scope_re_Rate2_AGFF2_T2.re_Rate2_AGFF2_T2;
+
+  var scope_re_amount_AGFF_T2 = angular.element(document.getElementById("re_amount_AGFF_T2")).scope();
+  re_amount_AGFF_T2 = scope_re_amount_AGFF_T2.re_amount_AGFF_T2; 
+
+  var scope_re_cot_pat_AGFF_T2 = angular.element(document.getElementById("re_cot_pat_AGFF_T2")).scope();
+  re_cot_pat_AGFF_T2 = scope_re_cot_pat_AGFF_T2.re_cot_pat_AGFF_T2;
+
+  var scope_re_Rate_FAC = angular.element(document.getElementById("re_Rate_FAC")).scope();
+  re_Rate_FAC = scope_re_Rate_FAC.re_Rate_FAC;
+
+  var scope_re_cot_pat_FAC = angular.element(document.getElementById("re_cot_pat_FAC")).scope();
+  re_cot_pat_FAC = scope_re_cot_pat_FAC.re_cot_pat_FAC;
+
+  var scope_re_Rate_ASC = angular.element(document.getElementById("re_Rate_ASC")).scope();
+  re_Rate_ASC = scope_re_Rate_ASC.re_Rate_ASC;
+
+  var scope_re_cot_pat_ASC = angular.element(document.getElementById("re_cot_pat_ASC")).scope();
+  re_cot_pat_ASC = scope_re_cot_pat_ASC.re_cot_pat_ASC;
+
+  var scope_re_base_NHAF = angular.element(document.getElementById("re_base_NHAF")).scope();
+  re_base_NHAF = scope_re_base_NHAF.re_base_NHAF;
+
+  var scope_re_Rate_NHAF = angular.element(document.getElementById("re_Rate_NHAF")).scope();
+  re_Rate_NHAF = scope_re_Rate_NHAF.re_Rate_NHAF;
+
+  var scope_re_cot_pat_NHAF = angular.element(document.getElementById("re_cot_pat_NHAF")).scope();
+  re_cot_pat_NHAF = scope_re_cot_pat_NHAF.re_cot_pat_NHAF;
+
+  var scope_re_base_SP = angular.element(document.getElementById("re_base_SP")).scope();
+  re_base_SP = scope_re_base_SP.re_base_SP;
+
+  var scope_re_Rate_SP = angular.element(document.getElementById("re_Rate_SP")).scope();
+  re_Rate_SP = scope_re_Rate_SP.re_Rate_SP;
+
+  var scope_re_cot_pat_SP = angular.element(document.getElementById("re_cot_pat_SP")).scope();
+  re_cot_pat_SP = scope_re_cot_pat_SP.re_cot_pat_SP;
+
+  var scope_re_cot_pat_OTAE = angular.element(document.getElementById("re_cot_pat_OTAE")).scope();
+  re_cot_pat_OTAE = scope_re_cot_pat_OTAE.re_cot_pat_OTAE;
+
+  var scope_re_Rate_OTAE = angular.element(document.getElementById("re_Rate_OTAE")).scope();
+  re_Rate_OTAE = scope_re_Rate_OTAE.re_Rate_OTAE;
+
+  var scope_re_OTAE = angular.element(document.getElementById("re_OTAE")).scope();
+  re_OTAE = scope_re_OTAE.re_OTAE;
+
+  var scope_re_Rate_PT = angular.element(document.getElementById("re_Rate_PT")).scope();
+  re_Rate_PT = scope_re_Rate_PT.re_Rate_PT;
+
+  var scope_re_cot_pat_PT = angular.element(document.getElementById("re_cot_pat_PT")).scope();
+  re_cot_pat_PT = scope_re_cot_pat_PT.re_cot_pat_PT;
+
+  var scope_re_cot_pat_AD = angular.element(document.getElementById("re_cot_pat_AD")).scope();
+  re_cot_pat_AD = scope_re_cot_pat_AD.re_cot_pat_AD;
+
+  var scope_re_wages_costs = angular.element(document.getElementById("re_wages_costs")).scope();
+  re_wages_costs = scope_re_wages_costs.re_wages_costs;
+
+  var scope_re_OSSC = angular.element(document.getElementById("re_OSSC")).scope();
+  re_OSSC = scope_re_OSSC.re_OSSC;
+
+  var scope_re_Rate_OSSC = angular.element(document.getElementById("re_Rate_OSSC")).scope();
+  re_Rate_OSSC = scope_re_Rate_OSSC.re_Rate_OSSC;
+
+  // var scope_re_cot_pat_OSSC = angular.element(document.getElementById("re_cot_pat_OSSC")).scope();
+  // re_cot_pat_OSSC = scope_re_cot_pat_OSSC.re_cot_pat_OSSC;
+
+  var scope_re_Patron_Charges = angular.element(document.getElementById("re_Patron_Charges")).scope();
+  re_Patron_Charges = scope_re_Patron_Charges.re_Patron_Charges;
+
+  var scope_re_Payment_URSAFF = angular.element(document.getElementById("re_Payment_URSAFF")).scope();
+  re_Payment_URSAFF = scope_re_Payment_URSAFF.re_Payment_URSAFF;
+
+  var scope_re_Payment_AGIRC_ARRCO = angular.element(document.getElementById("re_Payment_AGIRC_ARRCO")).scope();
+  re_Payment_AGIRC_ARRCO = scope_re_Payment_AGIRC_ARRCO.re_Payment_AGIRC_ARRCO;
+
+  var scope_re_Private_Mutual_Pay = angular.element(document.getElementById("re_Private_Mutual_Pay")).scope();
+  re_Private_Mutual_Pay = scope_re_Private_Mutual_Pay.re_Private_Mutual_Pay;
+
+  var scope_re_Net_Cash = angular.element(document.getElementById("re_Net_Cash")).scope();
+  re_Net_Cash = scope_re_Net_Cash.re_Net_Cash;
+
+  var scope_re_Net_taxable = angular.element(document.getElementById("re_Net_taxable")).scope();
+  re_Net_taxable = scope_re_Net_taxable.re_Net_taxable;
+
+  var scope_re_Total_wages = angular.element(document.getElementById("re_Total_wages")).scope();
+  re_Total_wages = scope_re_Total_wages.re_Total_wages;
+
+  var scope_re_oldage_ins_base = angular.element(document.getElementById("re_oldage_ins_base")).scope();
+  re_oldage_ins_base = scope_re_oldage_ins_base.re_oldage_ins_base;
+
+  var scope_re_cot_pat_UI = angular.element(document.getElementById("re_cot_pat_UI")).scope();
+  re_cot_pat_UI = scope_re_cot_pat_UI.re_cot_pat_UI;
+
+  var scope_re_amount_UI = angular.element(document.getElementById("re_amount_UI")).scope();
+  re_amount_UI = scope_re_amount_UI.re_amount_UI;
+
+  var scope_re_Rate_UI = angular.element(document.getElementById("re_Rate_UI")).scope();
+  re_Rate_UI = scope_re_Rate_UI.re_Rate_UI;
+
+  var scope_re_Rate2_UI = angular.element(document.getElementById("re_Rate2_UI")).scope();
+  re_Rate2_UI = scope_re_Rate2_UI.re_Rate2_UI;
+
+  var scope_re_base_UI = angular.element(document.getElementById("re_base_UI")).scope();
+  re_base_UI = scope_re_base_UI.re_base_UI;
+
+
+
+
+ dd = {
+  content: [
+        
+        {
+            style: 'tableExample',
+            table: {
+                widths: [100, '*', 200, '*'],
+                body: [
+                    [ 'width=100', 'star-sized', 'width=200', 'star-sized'],
+                    [ 'fixed-width cells have exactly the specified width', { text: 'nothing interesting here', italics: true, color: 'gray' }, { text: 'nothing interesting here', italics: true, color: 'gray' }, { text: 'nothing interesting here', italics: true, color: 'gray' }]
+                ]
+            }
+        },
+        { text: 'Headers', style: 'subheader' },
+        {
+            style: 'dropDowns',
+            table: {
+                headerRows: 1,
+                body: [
+                    [{ text: 'Emploi : Consultant', style: 'tableHeader' }, { text: 'Assurance santé :'+health_ins, style: 'tableHeader' }, { text: 'Sal. Tp plein :'+base_sal, style: 'tableHeader' }],
+                    [{ text: 'Catégorie :' +category, style: 'tableHeader' }, { text: 'Assurance invalidité : '+disability_ins, style: 'tableHeader' }, { text: "% d'activité : "+base_activity, style: 'tableHeader' }],
+                    [{ text: 'Forfait : 218 js/an', style: 'tableHeader' }, { text: 'Assurance vieillesse : '+oldage_ins, style: 'tableHeader' }, { text: "Heures /Mois : "+base_dur, style: 'tableHeader' }]
+                ]
+            }
+        },
+
+        {
+            style: 'main_header_row',
+            table: {
+                headerRows: 1,
+                // keepWithHeaderRows: 1,
+                // dontBreakRows: true,
+                body: [
+                    [{ text: 'Rub.', style: 'col_rub' }, { text: 'Libellé ', style: 'full_width' }, { text: 'Base', style: 'col_base' }, { text: 'Taux', style: 'col_tax' }, { text: 'Montant', style: 'col_amnt' }, { text: 'Taux', style: 'col_tax2' }, { text: 'Cot. Pat.', style: 'col_cot_pat' }]
+                ]
+            }
+        },
+
+        {
+            style: 'first_base_row',
+            table: {
+                headerRows: 1,
+                // keepWithHeaderRows: 1,
+                // dontBreakRows: true,
+                body: [
+                    [{ text: 'BASE.', style: 'col_rub_lower' }, { text: 'Salaire de base ', style: 'cal_name' }, { text: base_sal, style: 'col_base_lower' }, { text: '', style: 'col_tax_lower' }, { text: '', style: 'col_amnt_lower' }, { text: '', style: 'col_tax2_lower' }, { text: '', style: 'col_cot_pat_lower' }]
+                ]
+            }
+        },
+
+        {
+            style: 'first_grid_main_row',
+            table: {
+                headerRows: 1,
+                // keepWithHeaderRows: 1,
+                // dontBreakRows: true,
+                body: [
+                    [{ text: '', style: 'col_rub_lower' }, { text: '*** Assurance santé *** '+re_base_HIns, style: 'cal_name_bold' }, { text: '', style: 'col_base_lower_bold' }, { text: re_tax_HI+' %', style: 'col_tax_lower_bold' }, { text: re_amount_HIns, style: 'col_amnt_lower_bold' }, { text: re_Rate2_HIns+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_HI, style: 'col_cot_pat_lower_bold' }],
+
+                    [{ text: 'AM-RG', style: 'col_rub_lower' }, { text: 'Assurance Maladie', style: 'cal_name_bold' }, { text: base_sal, style: 'col_base_lower_bold' }, { text: re_Rate_Ins+' %', style: 'col_tax_lower_bold' }, { text: re_amount_ins, style: 'col_amnt_lower_bold' }, { text: re_Rate2_Ins+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_ins, style: 'col_cot_pat_lower_bold' }],
+
+                    [{ text: 'AM-P', style: 'col_rub_lower' }, { text: 'Assurance maladie privée (forfait)', style: 'cal_name_bold' }, { text: re_Base_PHI, style: 'col_base_lower_bold' }, { text: ' ', style: 'col_tax_lower_bold' }, { text: ' ', style: 'col_amnt_lower_bold' }, { text: re_Rate2_PHI+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_PHI, style: 'col_cot_pat_lower_bold' }],
+
+                    [{ text: 'CSG', style: 'col_rub_lower' }, { text: 'Contribution Sociale Généralisée non imposable', style: 'cal_name_bold' }, { text: base_sal, style: 'col_base_lower_bold' }, { text: re_Rate_GSC+' %', style: 'col_tax_lower_bold' }, { text: re_amount_GSC+' %', style: 'col_amnt_lower_bold' }, { text: '', style: 'col_tax2_lower_bold' }, { text: '', style: 'col_cot_pat_lower_bold' }],
+
+                    [{ text: 'CRDS', style: 'col_rub_lower' }, { text: 'Contribution pour le Remboursement de la Dette Sociale imposable', style: 'cal_name_bold' }, { text: base_sal, style: 'col_base_lower_bold' }, { text: re_Rate_CRTSD+' %', style: 'col_tax_lower_bold' }, { text: re_amount_CRTSD, style: 'col_amnt_lower_bold' }, { text: '', style: 'col_tax2_lower_bold' }, { text: '', style: 'col_cot_pat_lower_bold' }],
+
+                    [{ text: 'AM-C', style: 'col_rub_lower' }, { text: 'Mutuelle complémentaire', style: 'cal_name_bold' }, { text: base_sal, style: 'col_base_lower_bold' }, { text: '', style: 'col_tax_lower_bold' }, { text: '', style: 'col_amnt_lower_bold' }, { text: re_Rate_MC+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_MC, style: 'col_cot_pat_lower_bold' }]
+                ]
+            }
+        },
+
+        {
+            style: 'first_grid_main_row',
+            table: {
+                headerRows: 1,
+                // keepWithHeaderRows: 1,
+                // dontBreakRows: true,
+                body: [
+                    [{ text: '', style: 'col_rub_lower' }, { text: '*** Assurance décès, invalidité & arrêt de travail ***  '+re_cot_pat_AD, style: 'cal_name_bold' }, { text: '', style: 'col_base_lower_bold' }, { text: '', style: 'col_tax_lower_bold' }, { text: '', style: 'col_amnt_lower_bold' }, { text: '1,100 %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_AD, style: 'col_cot_pat_lower_bold' }],
+
+                    [{ text: 'ATMP', style: 'col_rub_lower' }, { text: 'Cotisations Accidents du Travail / Maladie Professionnelle', style: 'cal_name_bold' }, { text: base_sal, style: 'col_base_lower_bold' }, { text: '', style: 'col_tax_lower_bold' }, { text: '', style: 'col_amnt_lower_bold' }, { text: re_Rate_CI+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_CI, style: 'col_cot_pat_lower_bold' }],
+
+                    [{ text: 'ATMP-P', style: 'col_rub_lower' }, { text: 'Prévoyance privée', style: 'cal_name_bold' }, { text: base_sal, style: 'col_base_lower_bold' }, { text: '', style: 'col_tax_lower_bold' }, { text: '', style: 'col_amnt_lower_bold' }, { text: re_Rate_PP+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_PP, style: 'col_cot_pat_lower_bold' }]
+                   
+                ]
+            }
+        },
+
+        {
+            style: 'first_grid_main_row',
+            table: {
+                headerRows: 1,
+                // keepWithHeaderRows: 1,
+                // dontBreakRows: true,
+                body: [
+                    [{ text: '', style: 'col_rub_lower' }, { text: '*** Assurance chomage ***  '+re_base_UI, style: 'cal_name_bold' }, { text: '', style: 'col_base_lower_bold' }, { text: re_Rate_UI+' %', style: 'col_tax_lower_bold' }, { text: re_amount_UI, style: 'col_amnt_lower_bold' }, { text: re_Rate2_UI+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_UI, style: 'col_cot_pat_lower_bold' }],
+
+                    [{ text: 'PE', style: 'col_rub_lower' }, { text: 'Pole Emploi', style: 'cal_name_bold' }, { text: base_sal, style: 'col_base_lower_bold' }, { text: re_Rate_PE+' %', style: 'col_tax_lower_bold' }, { text: re_amount_PE, style: 'col_amnt_lower_bold' }, { text: re_Rate_PE2+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_PE, style: 'col_cot_pat_lower_bold' }],
+
+                    [{ text: 'AGS', style: 'col_rub_lower' }, { text: 'Assoc. pour la gest. du rég. de Garantie des créances des Salariés', style: 'cal_name_bold' }, { text: base_sal, style: 'col_base_lower_bold' }, { text: '', style: 'col_tax_lower_bold' }, { text: '', style: 'col_amnt_lower_bold' }, { text: re_Rate_AREG+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_AREG, style: 'col_cot_pat_lower_bold' }],
+
+                    [{ text: 'APEC', style: 'col_rub_lower' }, { text: "Association Pour l'Emploi des Cadres", style: 'cal_name_bold' }, { text: base_sal, style: 'col_base_lower_bold' }, { text: re_Rate_AEE+' %', style: 'col_tax_lower_bold' }, { text: re_amount_AEE, style: 'col_amnt_lower_bold' }, { text: re_Rate_AEE2+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_AEE, style: 'col_cot_pat_lower_bold' }]
+                   
+                ]
+            }
+        }, 
+        {
+            style: 'first_grid_main_row',
+            table: {
+                headerRows: 1,
+                // keepWithHeaderRows: 1,
+                // dontBreakRows: true,
+                body: [
+                    [{ text: '', style: 'col_rub_lower' }, { text:  '*** Assurance vieillesse *** '+re_oldage_ins_base, style: 'cal_name_bold' }, { text: '', style: 'col_base_lower_bold' }, { text: re_Rate_Old_Age_Ins+' %', style: 'col_tax_lower_bold' }, { text: re_amount_Old_Age_Ins, style: 'col_amnt_lower_bold' }, { text: re_Rate2_Old_Age_Ins+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_Pat_Old_Age_Ins, style: 'col_cot_pat_lower_bold' }],
+
+                    [{ text: 'AV-P', style: 'col_rub_lower' }, { text: 'Assurance vieillesse plafonnée', style: 'cal_name_bold' }, { text: re_base_Capped_pension_ins, style: 'col_base_lower_bold' }, { text: re_Rate_AV_P+' %', style: 'col_tax_lower_bold' }, { text: re_amount_AV_P, style: 'col_amnt_lower_bold' }, { text: re_Rate2_AV_P+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_AV_P, style: 'col_cot_pat_lower_bold' }],
+
+                    [{ text: 'AV-DP', style: 'col_rub_lower' }, { text: 'Assurance vieillesse déplafonnée', style: 'cal_name_bold' }, { text: re_base_sal, style: 'col_base_lower_bold' }, { text: re_Rate_AV_DP+' %', style: 'col_tax_lower_bold' }, { text: re_amount_AV_DP, style: 'col_amnt_lower_bold' }, { text: re_Rate2_AV_DP+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_AV_DP, style: 'col_cot_pat_lower_bold' }],
+
+                    [{ text: 'ARRCO-T1', style: 'col_rub_lower' }, { text: "Assoc. pour le Rég. de Retraite COmplémentaire des salariés (T1)", style: 'cal_name_bold' }, { text: re_base_Capped_pension_ins, style: 'col_base_lower_bold' }, { text: re_Rate_ARRCO_T1+' %', style: 'col_tax_lower_bold' }, { text: re_amount_ARRCO_T1, style: 'col_amnt_lower_bold' }, { text: re_Rate2_ARRCO_T1+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_ARRCO_T1, style: 'col_cot_pat_lower_bold' }],
+
+                    [{ text: 'ARRCO-T2', style: 'col_rub_lower' }, { text:  'Assoc. pour le Rég. de Retraite COmplémentaire des salariés (T2)', style: 'cal_name_bold' }, { text: re_base_Complementary_Pensions_eT2, style: 'col_base_lower_bold' }, { text: re_Rate_ARRCO_T2+' %', style: 'col_tax_lower_bold' }, { text: re_amount_ARRCO_T2, style: 'col_amnt_lower_bold' }, { text: re_Rate2_ARRCO_T2+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_ARRCO_T2, style: 'col_cot_pat_lower_bold' }],
+
+                    [{ text: 'ARRCO-TB', style: 'col_rub_lower' }, { text: 'Association Générale des Institutions de Retraite des Cadres (TB)', style: 'cal_name_bold' }, { text: re_base_Pension_Institutions_Fra_TB, style: 'col_base_lower_bold' }, { text: re_Rate_ARRCO_TB+' %', style: 'col_tax_lower_bold' }, { text: re_amount_ARRCO_TB, style: 'col_amnt_lower_bold' }, { text: re_Rate2_ARRCO_TB+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_ARRCO_TB, style: 'col_cot_pat_lower_bold' }],
+
+                    [{ text: 'ARRCO-TC', style: 'col_rub_lower' }, { text: 'Association Générale des Institutions de Retraite des Cadres (TC)', style: 'cal_name_bold' }, { text: '0.00', style: 'col_base_lower_bold' }, { text: re_Rate_ARRCO_TC+' %', style: 'col_tax_lower_bold' }, { text: re_amount_ARRCO_TC, style: 'col_amnt_lower_bold' }, { text: re_Rate2_ARRCO_TC+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_ARRCO_TC, style: 'col_cot_pat_lower_bold' }],
+
+                    [{ text: 'CET', style: 'col_rub_lower' }, { text: "Contribution Exceptionnelle et Temporaire", style: 'cal_name_bold' }, { text: re_base_sal, style: 'col_base_lower_bold' }, { text: re_Rate_CET+' %', style: 'col_tax_lower_bold' }, { text: re_amount_CET, style: 'col_amnt_lower_bold' }, { text: re_Rate2_CET+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_CET, style: 'col_cot_pat_lower_bold' }],
+
+                    [{ text: 'AGFF-T1', style: 'col_rub_lower' }, { text: "Assoc. pour la Gest. du Fonds de Fin. de lAGIRC et de lARRCO (T1)", style: 'cal_name_bold' }, { text: re_base_Capped_pension_ins, style: 'col_base_lower_bold' }, { text: re_Rate_AGFF_T1+' %', style: 'col_tax_lower_bold' }, { text: re_amount_AGFF_T1, style: 'col_amnt_lower_bold' }, { text: re_Rate2_AGFF2_T1+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_AGFF_T1, style: 'col_cot_pat_lower_bold' }],
+
+                    [{ text: 'AGFF-T2', style: 'col_rub_lower' }, { text: "Assoc. pour la Gest. du Fonds de Fin. de lAGIRC et de lARRCO (T2)", style: 'cal_name_bold' }, { text: re_base_Complementary_Pensions_eT2, style: 'col_base_lower_bold' }, { text: re_Rate_AGFF_T2+' %', style: 'col_tax_lower_bold' }, { text: re_amount_AGFF_T2, style: 'col_amnt_lower_bold' }, { text: re_Rate2_AGFF2_T2+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_AGFF_T2, style: 'col_cot_pat_lower_bold' }]
+                   
+                ]
+            }
+        }, 
+        {
+            style: 'first_grid_main_row',
+            table: {
+                headerRows: 1,
+                // keepWithHeaderRows: 1,
+                // dontBreakRows: true,
+                body: [
+                    [{ text: '', style: 'col_rub_lower' }, { text:  ' *** Autres cotisations et contributions sociales *** '+re_OSSC, style: 'cal_name_bold' }, { text: '', style: 'col_base_lower_bold' }, { text: '', style: 'col_tax_lower_bold' }, { text: '', style: 'col_amnt_lower_bold' }, { text: re_Rate_OSSC+' %', style: 'col_tax2_lower_bold' }, { text: re_OSSC, style: 'col_cot_pat_lower_bold' }],
+
+                    [{ text: 'CAF', style: 'col_rub_lower' }, { text: "Cotisations d'Allocations Familiales", style: 'cal_name_bold' }, { text: re_base_sal, style: 'col_base_lower_bold' }, { text: '', style: 'col_tax_lower_bold' }, { text: '', style: 'col_amnt_lower_bold' }, { text: re_Rate_FAC+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_FAC, style: 'col_cot_pat_lower_bold' }],
+
+                    [{ text: 'CSA', style: 'col_rub_lower' }, { text: 'Contribution Solidarité Autonomie', style: 'cal_name_bold' }, { text: re_base_sal, style: 'col_base_lower_bold' }, { text: '', style: 'col_tax_lower_bold' }, { text: '', style: 'col_amnt_lower_bold' }, { text: re_Rate_ASC+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_ASC, style: 'col_cot_pat_lower_bold' }],
+
+                    [{ text: 'FNAL', style: 'col_rub_lower' }, { text: "Fonds National d'Aide au Logement", style: 'cal_name_bold' }, { text: re_base_NHAF, style: 'col_base_lower_bold' }, { text: '', style: 'col_tax_lower_bold' }, { text: '', style: 'col_amnt_lower_bold' }, { text: re_Rate_NHAF+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_NHAF, style: 'col_cot_pat_lower_bold' }],
+
+                    [{ text: 'FORF-SOC', style: 'col_rub_lower' }, { text:  'Forfait Social', style: 'cal_name_bold' }, { text: re_base_SP, style: 'col_base_lower_bold' }, { text: ' ', style: 'col_tax_lower_bold' }, { text: ' ', style: 'col_amnt_lower_bold' }, { text: re_Rate_SP+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_SP, style: 'col_cot_pat_lower_bold' }],
+                   
+                ]
+            }
+        },      
+        {
+            style: 'first_grid_main_row',
+            table: {
+                headerRows: 1,
+                // keepWithHeaderRows: 1,
+                // dontBreakRows: true,
+                body: [
+                    [{ text: '', style: 'col_rub_lower' }, { text:  '*** Autres taxes et participations ***  '+re_OTAE, style: 'cal_name_bold' }, { text: '', style: 'col_base_lower_bold' }, { text: '', style: 'col_tax_lower_bold' }, { text: '', style: 'col_amnt_lower_bold' }, { text: re_Rate_OTAE+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_OTAE, style: 'col_cot_pat_lower_bold' }],
+
+                    [{ text: 'VT', style: 'col_rub_lower' }, { text: "Versement Transport (Versailles)", style: 'cal_name_bold' }, { text: re_base_sal, style: 'col_base_lower_bold' }, { text: '', style: 'col_tax_lower_bold' }, { text: '', style: 'col_amnt_lower_bold' }, { text: re_Rate_PT+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_PT, style: 'col_cot_pat_lower_bold' }], 
+                ]
+            }
+        },
+
+        {
+            style: 'footer_cal_first',
+            table: {
+                headerRows: 1,
+                // keepWithHeaderRows: 1,
+                // dontBreakRows: true,
+                body: [
+                    [{ text: 'Net à payer', style: 'col_rub_lower' }, { text:  re_Net_Cash, style: 'cal_name_bold' }],
+                    [{ text: 'Net imposable', style: 'col_rub_lower' }, { text: re_Net_taxable, style: 'cal_name_bold' }],
+                    [{ text: 'Salaire total', style: 'col_rub_lower' }, { text: re_Total_wages, style: 'cal_name_bold' }], 
+                ]
+            }
+        },
+
+        {
+            style: 'footer_cal_second',
+            table: {
+                headerRows: 1,
+                // keepWithHeaderRows: 1,
+                // dontBreakRows: true,
+                body: [
+                    [{ text: 'Versement URSAFF :', style: 'col_rub_lower' }, { text: re_Payment_URSAFF, style: 'cal_name_bold' }],
+                    [{ text: 'Versement AGIRC-ARRCO :', style: 'col_rub_lower' }, { text: re_Payment_AGIRC_ARRCO, style: 'cal_name_bold' }],
+                    [{ text: 'Versement mutuelles privées :', style: 'col_rub_lower' }, { text: re_Private_Mutual_Pay, style: 'cal_name_bold' }], 
+                ]
+            }
+        },
+        {
+            style: 'footer_cal_third',
+            table: {
+                headerRows: 1,
+                // keepWithHeaderRows: 1,
+                // dontBreakRows: true,
+                body: [
+                    [{ text: 'Charges Salariales', style: 'col_rub_lower' }, { text:  re_wages_costs, style: 'cal_name_bold' }],
+                    [{ text: 'Charges Patronales', style: 'col_rub_lower' }, { text: re_Patron_Charges, style: 'cal_name_bold' }],
+                ]
+            }
+        },    
+  ],
+  styles: {
+    header: {
+      fontSize: 18,
+     // bold: true,
+      margin: [0, 0, 0, 10]
+    },
+    subheader: {
+      fontSize: 16,
+      bold: false,
+      margin: [0, 10, 0, 5]
+    },
+    tableExample: {
+      margin: [0, 5, 0, 15],
+     // bold: true,
+      color: '#000',
+     // background: '#EDF6FC'
+    },
+    //upper drop down table
+    dropDowns: {
+      margin: [0, 5, 0, 15],
+      // bold: true,
+      // color: '#000',
+      border: false,
+     // background: '#EDF6FC'
+    },
+    //main header row
+    main_header_row: {
+      border: false,
+   //   bold:true
+    //  background: '#EDF6FC'
+    },
+    first_base_row: {
+      margin: [0, 5, 0, 5],
+      border: false,
+      width: '100%'
+      //background: '#EDF6FC'
+    },
+    first_grid_main_row:{
+      margin: [0, 5, 0, 5],
+      border: false,
+      width: '100%',
+      bold:true
+    },
+    //footer calculators
+    footer_cal_first:{
+      margin: [0, 10, 0, 5],
+      border: false,
+      width: '100%',
+      bold:true,
+      alignment: 'right'
+    },
+    footer_cal_second:{
+      margin: [0, 10, 0, 5],
+      border: false,
+      width: '100%',
+      bold:true,
+      alignment: 'right',
+      padding: [50, 50, 50, 50]
+    },
+    footer_cal_third:{
+      margin: [0, 10, 0, 5],
+      border: false,
+      width: '100%',
+      bold:true,
+      alignment: 'right',
+      padding: [0, 0, 0, 0]
+    },
+    full_width: {
+      margin: [52, 5, 52, 5]
+    },
+    cal_name:{
+      margin: [29, 5, 29, 5]
+    },
+    col_rub: {
+      margin: [20, 5, 20, 5]
+    },
+    col_rub_lower:{
+      margin: [15, 5, 15, 5]
+    },
+    col_base: {
+      margin: [5, 5, 10, 5]
+    },
+    col_tax: {
+      margin: [5, 5, 10, 5]
+    },
+    col_amnt: {
+      margin: [5, 5, 10, 5]
+    },
+    col_tax2: {
+      margin: [5, 5, 10, 5]
+    },
+    col_cot_pat: {
+      margin: [5, 5, 10, 5]
+    },
+    //starting lower table
+    col_base_lower: {
+      margin: [5, 5, 8, 5]
+    },
+    col_tax_lower: {
+      margin: [15, 5, 15, 5],
+      //width: '510px'
+    },
+    col_amnt_lower: {
+      margin: [5, 5, 10, 5]
+    },
+    col_tax2_lower: {
+      margin: [15, 5, 15, 5]
+    },
+    col_cot_pat_lower: {
+      margin: [15, 5, 15, 5]
+    },
+    //bold style rows
+    col_base_lower_bold: {
+      margin: [5, 5, 8, 5],
+      bold: true
+    },
+    col_tax_lower_bold: {
+      margin: [15, 5, 15, 5],
+      bold: true
+    },
+    col_amnt_lower_bold: {
+      margin: [5, 5, 10, 5],
+      bold: true
+    },
+    col_tax2_lower_bold: {
+      margin: [15, 5, 15, 5],
+      bold: true
+    },
+    col_cot_pat_lower_bold: {
+      margin: [15, 5, 15, 5],
+      bold: true
+    },
+    tableHeader: {
+      bold: true,
+      fontSize: 13,
+      color: 'black'
+    }
+  },
+  defaultStyle: {
+    // alignment: 'justify'
+  }
+  
+}
+
+}
+
+ $('#downloadPdf').click(function(){ console.log('here');
+    pdfMake.createPdf(dd).download('optionalName.pdf');
+    //var scope = angular.element(document.getElementById("base_dur")).scope();
+    // console.log('scope is ', scope.base_dur);
+    // base_dur = scope.base_dur;
+   
+ });
+// var scope = angular.element(document.getElementById("base_dur")).scope();
+
+
+
+gethyt(); 
 });
-function gethyt() {	  
+
+function gethyt() {   
 $(".body-table").each(function() {
     var h = $(this).height(); 
     $(this).children().css("min-height", h);
@@ -2531,7 +3421,10 @@ $(".body-table").each(function() {
   });
 }
 $(window).resize(function() {
-gethyt();	
+$(".body-table").each(function() {
+    $(".body-table").children().css("min-height", "5px");
+});
+gethyt(); 
 });
 </script>
 <script src="javascripts/libs/angular.min.js" type="text/javascript"></script>
