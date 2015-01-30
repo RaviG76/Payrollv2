@@ -1,0 +1,44 @@
+{
+  "name": "ngMask",
+  "version": "3.0.8",
+  "homepage": "https://github.com/candreoliveira/ngMask",
+  "authors": [
+    "Carlos Oliveira <candreoliveira@gmail.com>"
+  ],
+  "main": "dist/ngMask.js",
+  "description": "Best ngMask for AngularJS!",
+  "moduleType": [
+    "globals",
+    "node",
+    "yui"
+  ],
+  "keywords": [
+    "angular",
+    "mask",
+    "ngMask",
+    "best"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "angular": "~1.2.21",
+    "angular-mocks": "~1.2.21",
+    "angular-route": "~1.2.21"
+  },
+  "_release": "3.0.8",
+  "_resolution": {
+    "type": "version",
+    "tag": "3.0.8",
+    "commit": "dfc09654a9cecce9b0921b26566be02fadce3f82"
+  },
+  "_source": "git://github.com/candreoliveira/ngMask.git",
+  "_target": "~3.0.8",
+  "_originalSource": "angular-mask",
+  "_direct": true
+}

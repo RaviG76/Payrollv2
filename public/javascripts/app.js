@@ -1,8 +1,10 @@
 'use strict';
 
-var payApp = angular.module('payRoll', []);
+var payApp = angular.module('payRoll', ["xeditable", "ui.bootstrap"]);
 
-
+payApp.run(function(editableOptions) {
+  editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+});
 // Change format
 payApp.filter('amountformat', function() {
     return function(input){
@@ -33,17 +35,89 @@ payApp.directive('currency', ['$filter', function ($filter) {
 }]);
 
 
-payApp.controller('mainCtrl', function($scope, $http, $window,$location) {
+payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter) {
+    
+    $scope.Zip_City_options = [];
+    //x-editable values
+    $scope.company_name = 'FABRIKAM';
+    $scope.address1 = 'Immeuble le Parisien';
+    $scope.address2 = '1 avenue des Champs Elysées';
+    $scope.zip_code = '75007 Paris';
+    $scope.zip_city = 'Paris';
+    $scope.company_estab = 'ETABLISSEMENT PRINCIPAL';
+    $scope.comany_ID = 'XXX XXX XXX';
+    $scope.comany_insurance = "XXXXXXXXXXXX";
+    $scope.Convention_collective = "";
+    //var dateObject = new Date("January 31, 2015");//"31.01.2015";
+    $scope.payroll_date = new Date("January 31, 2015").toISOString();
+    $scope.payroll_period = new Date("January 31, 2015").toISOString();
+    $scope.payroll_start = new Date("January 01, 2015").toISOString();
+    $scope.payroll_end = new Date("January 31, 2015").toISOString();
+    $scope.employ_ID = "X XX XX XXXXX XXX XX";
+    $scope.employ_name = " M. John Doe";
+    $scope.employ_address1 = "Parc Chauchard";
+    $scope.employ_address2 = "1 avenue du Louvre";
+    $scope.employ_zip = "78000 Paris";
+    $scope.employ_city = "Versailles";
+    $scope.employ_role = "Consultant";
+    $scope.category = "Cadre";
+    $scope.health_ins = 'Rég. Gén.';
+    $scope.disability_ins = 'Rég. Gén.';
+    $scope.oldage_ins = 'Rég. Gén.';
+    $scope.Code_NAF = "58.29C";
 
-    $http.get('/zip_city.json')
-        .success(function(response) { 
-           //console.log("Res", response)
-           //$scope.Zip_City_options = response;
+    // $scope.loadGroups = function() {
+        $http.get('/zip_city.json')
+            .success(function(response) { 
+            //console.log("Res", response)
+            $scope.Zip_City_options = response;
         })
         .error(function(error) {
             console.log("Error", error)
         });
-    
+    // }        
+    $scope.changeZip = function(data) {
+        console.log('Data is ', data);
+    }
+  //   $scope.$watch('zip_code', function(newVal, oldVal) {
+  //   if (newVal !== oldVal) {
+  //     var selected = $filter('filter')($scope.Zip_City_options, {ZIP_code: $scope.zip_code});
+  //     $scope.zip_city = selected.length ? selected[0].text : null;
+  //   }
+  // });
+    $scope.checkString = function(data) { 
+        if (!isNaN(parseFloat(data))) {
+            return "Please enter valid value";
+        }       
+
+    };
+
+    $scope.checkNumeric = function(data) {
+        var data = data.match(/\d+/g);
+        if (data != null) {
+            return "Please enter valid string";
+        }
+    }
+
+    $scope.showCategory = function() { 
+        var selectedCategory = $filter('filter')($scope.category_options, {value:$scope.category});
+        return ($scope.category && selectedCategory.length) ? selectedCategory[0].text : 'Cadre';
+    }
+
+    $scope.showHealthCategory = function() {
+        var selectedHealthCategory = $filter('filter')($scope.health_ins_options, {value:$scope.health_ins});
+        return ($scope.health_ins && selectedHealthCategory.length) ? selectedHealthCategory[0].text : 'Rég. Gén.';
+    }
+
+    $scope.showDisabilityCategory = function() {
+        var selectedDisabilityCategory = $filter('filter')($scope.health_ins_options, {value:$scope.disability_ins});
+        return ($scope.disability_ins && selectedDisabilityCategory.length) ? selectedDisabilityCategory[0].text : 'Rég. Gén.';
+    }
+
+    $scope.showOldAgeCategory = function() {
+        var selectedOldAgeCategory = $filter('filter')($scope.health_ins_options, {value:$scope.oldage_ins});
+        return ($scope.oldage_ins && selectedOldAgeCategory.length) ? selectedOldAgeCategory[0].text : 'Rég. Gén.';
+    }
     $http.get('/Code_NAF.json')
         .success(function(response){
             $scope.Code_NAF_options = response;
@@ -51,18 +125,34 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location) {
         .error(function(error){
             console.log("Error", error)
         });
+//$scope.selected_zip = '75007 Paris';
+    // $scope.showStatus = function() {
+    //     var selected = $filter('filter')($scope.Zip_City_options, {ZIP_code: $scope.zip_code});
+    //     console.log('Selected ', selected);
+    //     return ($scope.selected_zip && selected.length) ? selected[0].text : 'Not set';
+    // };
 
-    $scope.health_ins_options = ["Rég. Gén.", "Privée"];
-    $scope.category_options = ["Non cadre", "Cadre", "Mandataire social"];
-    $scope.disability_ins_options = ["Rég. Gén.", "Privée"];
-    $scope.oldage_ins_options = ["Rég. Gén.", "Privée"];
+    
+
+    $scope.health_ins_options = [ {value:"Rég. Gén.", text:"Rég. Gén."} , {value:"Privée", text:"Privée"} ];
+    $scope.category_options = [
+                            {
+                                value: "Cadre",
+                                text: "Cadre"
+                            }, {
+                                value: "Non cadre",
+                                text: "Non cadre"
+                            }, {
+                                value: "Mandataire social",
+                                text: "Mandataire social"
+                            }, ];
+    $scope.disability_ins_options = [ {value:"Rég. Gén.", text:"Rég. Gén."} , {value:"Privée", text:"Privée"} ];
+    $scope.oldage_ins_options = [ {value:"Rég. Gén.", text:"Rég. Gén."} , {value:"Privée", text:"Privée"} ];
 
     $scope.base_sal = 3789.00;
     $scope.base_activity = 100.00;
     $scope.base_dur = 151.67;
-    $scope.health_ins = 'Rég. Gén.';
-    $scope.disability_ins = 'Rég. Gén.';
-    $scope.oldage_ins = 'Rég. Gén.';
+    
     $scope.$watch('base_sal', resetRoundMode);
     $scope.$watch('base_activity', resetRoundMode);
     $scope.$watch('base_dur', resetRoundMode);
@@ -78,7 +168,7 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location) {
   //       //$scope.base_sal = newVal;
   // });
 
-    $scope.category = 'Mandataire social';
+    //$scope.category = 'Mandataire social';
 
     $scope.re_base_sal = 3789.00;
     $scope.re_Rate2_HIns = parseFloat((17.850).toFixed(3));
