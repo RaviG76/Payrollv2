@@ -29,7 +29,8 @@
 <!-- BEGIN BODY -->
 <body class="">
 <!-- BEGIN HEADER -->
-<header role="banner" id="top" class="navbar navbar-static-top bs-docs-nav navbar-fixed-top" ng-controller="mainCtrl">
+<header role="banner" id="top" class="navbar navbar-static-top bs-docs-nav navbar-fixed-top" ng-controller="mainCtrl" >
+
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -43,9 +44,8 @@
     <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
       <li class="active">
-      <button class="btn btn-primary exported" ng-if="paymentStatus" ng-disabled="disablePdf" id="downloadPdf1"  ng-click="payment()" style="float:right">{{pdfButton}}</button>
-    <button class="btn btn-primary exported" ng-disabled="disablePdf" ng-if="!paymentStatus" ng-click="payment()" style="float:right">{{pdfButton}}</button></div>
-      <!-- <a href="javascript:void(0);">GENERER UN BULLETIN DE PAIE</a></li> -->
+         <button class="btn btn-primary exported" ng-show="paymentStatus" ng-disabled="disablePdf" id="downloadPdf"  style="float:right">{{pdfButton}}</button>
+      <button class="btn btn-primary exported" ng-disabled="disablePdf" ng-hide="paymentStatus" ng-click="payment()" style="float:right">{{pdfButton}}</button>   
         </ul>
       </div><!--/.nav-collapse -->
   </div>
@@ -65,8 +65,9 @@
     <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
       <li class="active">
-      <button class="btn btn-primary exported" ng-if="paymentStatus" ng-disabled="disablePdf" id="downloadPdf"  ng-click="payment()" style="float:right">{{pdfButton}}</button>
-    <button class="btn btn-primary exported" ng-disabled="disablePdf" ng-if="!paymentStatus" ng-click="payment()" style="float:right">{{pdfButton}}</button></div>
+      <button class="btn btn-primary exported" ng-show="paymentStatus" ng-disabled="disablePdf" id="downloadPdf"  style="float:right">{{pdfButton}}</button>
+      <button class="btn btn-primary exported" ng-disabled="disablePdf" ng-hide="paymentStatus" ng-click="payment()" style="float:right">{{pdfButton}}</button>
+    </li>
       <!-- <a href="javascript:void(0);">GENERER UN BULLETIN DE PAIE</a></li> -->
         </ul>
       </div><!--/.nav-collapse -->
@@ -74,7 +75,7 @@
 </header>
 <!-- END HEADER -->
 
-  <div class="container content-calculator" id="payrollPDF" ng-controller="mainCtrl" >
+  <div class="container content-calculator" id="payrollPDF" ng-controller="mainCtrl" data-ng-init="loadJson()">
 <div class="cal-main">
   <div class="row ">
         <div class="col-md-7 padding-max">
@@ -93,20 +94,12 @@
                   <p class="list-group-item-text" editable-text="address2" e-max="64">{{address2}}</p>
                </span>
                 <span  class="list-group-item">
-                  <!-- <p class="list-group-item-text" editable-text="zip_code" >{{ zip_city}} </p> -->
                     <a href="#" ng-model="zip_code" onaftersave="changeZip(zip_code)" editable-text="zip_code" e-typeahead="city for city in Zip_City_options | filter:$viewValue | limitTo:8">
                       {{ zip_code || '58.29C' }}
-                    </a>
-                  <!-- <p class="list-group-item-text" editable-select="zip_code" onshow="loadGroups()" e-ng-options="g.ZIP_code as g.City_name for g in Zip_City_options">{{ zip_city || '75007 Paris' }} </p> -->
+                    </a>                  
+                 
                </span>
-               <!-- <span  class="list-group-item">
-                  <p class="list-group-item-text">
-                  <input type="text" ng-model="Zip_City" class="form-control">
-                  <select ng-model="Zip_City">
-                    <option ng-repeat="val in Zip_City_options">{{val.ZIP_code}} {{val.City_name}}</option>
-                  </select>
-                  </p>
-               </span> -->
+              
             </div>
             <div class="bs-example hrzntl-algin algin-slct">
     <!--  <h2>Horizontal Definition Lists</h2>-->
@@ -140,7 +133,7 @@
                     <dt>CONV. COLLECTIVE <em>: </em></dt>
                     <dd>
                     <select ng-model="Convention_collective" class="form-control">
-                      <option value="KALICONT000027040696" title="5 branches industries alimentaires diverses du 21 mars 2012 ">
+  <option value="KALICONT000027040696" title="5 branches industries alimentaires diverses du 21 mars 2012 ">
     5 branches industries alimentaires diverses du 21 mars 2012 
   </option>
 
@@ -1611,7 +1604,7 @@
                         Emploi  <em>:</em>
                     </div>
                     <div class="col-xs-7 grey-grid">
-                       <span class="consolant" editable-text="employ_role" naftersave="checkNumeric(employ_role)" e-max="16"> {{employ_role}}</span>
+                       <span class="consolant x-edit-change" editable-text="employ_role" naftersave="checkNumeric(employ_role)" e-max="16"> {{employ_role}}</span>
                     </div>
                 </div>
             </div>
@@ -2687,7 +2680,7 @@ EveryOneSec();
   
   //console.log('Tax is ', re_tax_HI);
   
- // setTimeout(EveryOneSec, 5000);
+  setTimeout(EveryOneSec, 1000);
 
   var scope_base_dur = angular.element(document.getElementById("base_dur")).scope();
   base_dur = scope_base_dur.base_dur;

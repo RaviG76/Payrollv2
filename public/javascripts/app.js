@@ -66,7 +66,8 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
     $scope.oldage_ins = 'Rég. Gén.';
     $scope.Code_NAF = "58.29C";
 
-    // $scope.loadGroups = function() {
+   $scope.loadJson = function() {
+
         $http.get('/zip_city.json')
             .success(function(response) { 
             //console.log("Res", response)
@@ -75,16 +76,17 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
         .error(function(error) {
             console.log("Error", error)
         });
-    // }        
-    $scope.changeZip = function(data) {
-        console.log('Data is ', data);
+
+        $http.get('/Code_NAF.json')
+            .success(function(response){
+                $scope.Code_NAF_options = response;
+            })
+            .error(function(error){
+                console.log("Error", error)
+        });
+
     }
-  //   $scope.$watch('zip_code', function(newVal, oldVal) {
-  //   if (newVal !== oldVal) {
-  //     var selected = $filter('filter')($scope.Zip_City_options, {ZIP_code: $scope.zip_code});
-  //     $scope.zip_city = selected.length ? selected[0].text : null;
-  //   }
-  // });
+
     $scope.checkString = function(data) { 
         if (!isNaN(parseFloat(data))) {
             return "Please enter valid value";
@@ -118,23 +120,7 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
         var selectedOldAgeCategory = $filter('filter')($scope.health_ins_options, {value:$scope.oldage_ins});
         return ($scope.oldage_ins && selectedOldAgeCategory.length) ? selectedOldAgeCategory[0].text : 'Rég. Gén.';
     }
-    $http.get('/Code_NAF.json')
-        .success(function(response){
-            $scope.Code_NAF_options = response;
-        })
-        .error(function(error){
-            console.log("Error", error)
-        });
-//$scope.selected_zip = '75007 Paris';
-    // $scope.showStatus = function() {
-    //     var selected = $filter('filter')($scope.Zip_City_options, {ZIP_code: $scope.zip_code});
-    //     console.log('Selected ', selected);
-    //     return ($scope.selected_zip && selected.length) ? selected[0].text : 'Not set';
-    // };
-
     
-
-    $scope.health_ins_options = [ {value:"Rég. Gén.", text:"Rég. Gén."} , {value:"Privée", text:"Privée"} ];
     $scope.category_options = [
                             {
                                 value: "Cadre",
@@ -146,6 +132,7 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
                                 value: "Mandataire social",
                                 text: "Mandataire social"
                             }, ];
+    $scope.health_ins_options = [ {value:"Rég. Gén.", text:"Rég. Gén."} , {value:"Privée", text:"Privée"} ];
     $scope.disability_ins_options = [ {value:"Rég. Gén.", text:"Rég. Gén."} , {value:"Privée", text:"Privée"} ];
     $scope.oldage_ins_options = [ {value:"Rég. Gén.", text:"Rég. Gén."} , {value:"Privée", text:"Privée"} ];
 
@@ -159,16 +146,7 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
     $scope.$watch('health_ins', resetRoundMode);
     $scope.$watch('category', resetRoundMode);
     $scope.$watch('disability_ins', resetRoundMode);
-    $scope.$watch('oldage_ins', resetRoundMode);
-
-  //   $scope.$watch('base_sal', function(value){
-  //       //$scope.entity.date = $filter('date')(formattedDate, 'yyy/MM/dd');
-  //       var newVal = accounting.formatMoney(value, "", 2, "", ".");
-  //       console.log('Value is ',value, newVal);
-  //       //$scope.base_sal = newVal;
-  // });
-
-    //$scope.category = 'Mandataire social';
+    $scope.$watch('oldage_ins', resetRoundMode);  
 
     $scope.re_base_sal = 3789.00;
     $scope.re_Rate2_HIns = parseFloat((17.850).toFixed(3));
@@ -465,10 +443,11 @@ $scope.visible_PT = 0;
 
     var paymentToken =  getParameterByName('token');
     $scope.pdfButton = "GENERER UN BULLETIN DE PAIE";
-    if(paymentToken) 
-        $scope.paymentStatus = 1;
+    if(paymentToken)
+        $scope.paymentStatus = true;
     else
-        $scope.paymentStatus = 0;
+        $scope.paymentStatus = false;
+
 
     $scope.payment = function() {
         if (!paymentToken) {
@@ -477,7 +456,7 @@ $scope.visible_PT = 0;
             $http.get('/payment')
                 .success(function(response) {
                     console.log('success ', response);
-                    $scope.paymentStatus = 1;
+                    $scope.paymentStatus = true;
                     $scope.disablePdf = true;
                     $window.location.href = response.url ;//'http://google.com';
                 }).error(function(message) {
