@@ -1,4 +1,4 @@
-body{font-family: courier New; font-size: 16px; background:#f4f4f4; }
+body{font-family: sans-serif; font-size: 16px; background:#f4f4f4; }
 
 .content-calculator{
     margin-top: 110px;
@@ -818,7 +818,7 @@ div.content-calculator{
 	background:#b9d8e6;
 }
 .body-table .col-xs-1, .body-table .col-xs-2, .body-table .col-xs-6 {
-	padding:7px 7px;
+	padding:1px 7px 1px 7px;
 	/*border-right:1px solid #ddd;*/	
 	min-height:40px;
 }
