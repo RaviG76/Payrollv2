@@ -88,7 +88,7 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
     $scope.health_ins = 'Rég. Gén.';
     $scope.disability_ins = 'Rég. Gén.';
     $scope.oldage_ins = 'Rég. Gén.';
-    $scope.Code_NAF = "58.29C";
+    $scope.Code_NAF = "58.29C EDITION DE LOGICIELS APPLICATIFS";
 
    $scope.loadJson = function() {
 
