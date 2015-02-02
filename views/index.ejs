@@ -75,7 +75,7 @@ pageTracker._trackPageview();
     <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
       <li class="active">
-      <button class="btn btn-primary exported" ng-show="paymentStatus" ng-disabled="disablePdf" id="downloadPdf"  style="float:right">{{pdfButton}}</button>
+      <button class="btn btn-primary exported downloadPdf" ng-show="paymentStatus" ng-disabled="disablePdf"   style="float:right">{{pdfButton}}</button>
       <button class="btn btn-primary exported" ng-disabled="disablePdf" ng-hide="paymentStatus" ng-click="payment()" style="float:right">{{pdfButton}}</button>
     </li>
       <!-- <a href="javascript:void(0);">GENERER UN BULLETIN DE PAIE</a></li> -->
@@ -1182,6 +1182,15 @@ pageTracker._trackPageview();
 
 //base_activity;
 $(window).load(function() { 
+
+   $('.downloadPdf').click(function(){ console.log('here');
+    pdfMake.createPdf(dd).download('optionalName.pdf');
+    //var scope = angular.element(document.getElementById("base_dur")).scope();
+    // console.log('scope is ', scope.base_dur);
+    // base_dur = scope.base_dur;
+   
+ });
+
 var dd,
 base_dur,
 base_activity,
@@ -2019,13 +2028,6 @@ EveryOneSec();
 
 }
 
- $('#downloadPdf').click(function(){ console.log('here');
-    pdfMake.createPdf(dd).download('optionalName.pdf');
-    //var scope = angular.element(document.getElementById("base_dur")).scope();
-    // console.log('scope is ', scope.base_dur);
-    // base_dur = scope.base_dur;
-   
- });
 // var scope = angular.element(document.getElementById("base_dur")).scope();
 
 
