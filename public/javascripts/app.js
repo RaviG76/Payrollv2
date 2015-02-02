@@ -102,7 +102,7 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
         });
 
         $http.get('/Code_NAF.json')
-            .success(function(response){ //console.log('Response is ', response);
+            .success(function(response){ console.log('Response is ', response);
                 $scope.Code_NAF_options = response;
             })
             .error(function(error){
