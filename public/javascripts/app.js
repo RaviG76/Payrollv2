@@ -44,6 +44,13 @@ payApp.filter('employIdFormat', function() {
 //     }
 // });
 
+//change company ID format 
+// payApp.filter('customCurrency', function() {
+//     return function(input){
+//         return accounting.formatNumber(input, 0, " ", "", ",");
+//     }
+// });
+
 payApp.directive('currency', ['$filter', function ($filter) {
     return {
         require: 'ngModel',
@@ -102,7 +109,7 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
         });
 
         $http.get('/Code_NAF.json')
-            .success(function(response){ console.log('Response is ', response);
+            .success(function(response){
                 $scope.Code_NAF_options = response;
             })
             .error(function(error){
@@ -133,9 +140,9 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
     };
 
     $scope.validateCompanyId = function(data) { 
-        if(data.length > 9) {
+        if(data.length > 9 || data.length < 9) {
             $scope.company_ID = "999999999";
-            return "Please enter less than 10 digits";
+            return "Please enter atleast 9 digits";
         }
     };
 

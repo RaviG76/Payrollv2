@@ -897,18 +897,19 @@ div.content-calculator{
 
 
 @media (min-width: 1200px){
+
  .col-md-4.emplytble {
-    width: 29%;
+    width: 34%;
 }  
 .emplytble-lrg{
     padding: 0 3%;
-    width: 42%;
+    width: 32%;
 }    
 .emplytble-lrg .voilet-grid{
-    width: 36%;
+    width: 55%;
 }
 .emplytble-lrg .grey-grid{
-    width: 64%;
+    width: 44%;
 }
 .emplytble .voilet-grid{
     width: 33%;
@@ -917,11 +918,11 @@ div.content-calculator{
     width: 67%;
 }
 .mrg-row .col-md-5{
-    padding-left: 105px;
+    padding-left: 95px;
     padding-right: 45px;
 }    
 .mrg-row .col-md-4{
-    padding-left: 130px;
+    padding-left: 120px;
 }
 .mrg-row .col-md-3{
     padding-right: 60px;
@@ -939,10 +940,10 @@ div.content-calculator{
     margin-left:125px;
 }    
 .dt-size.hrzntl-algin .dl-horizontal dt{
-    width: 215px;
+    width: 216px;
 }
 .dt-size.hrzntl-algin .dl-horizontal dd {
-    margin-left: 215px;
+    margin-left: 216px;
     text-align: right;
 }
 }
@@ -1143,11 +1144,9 @@ div.hrzntl-algin .dl-horizontal dd {
 }
 
 div.repeat-list .voilet-grid{
-    padding-top: 5px;
     padding-right: 5px;
 }
 .consolant{
-    padding-top: 4px;
     display: inline-block;
     width: 100%;
 }
@@ -1229,6 +1228,7 @@ div.repeat-list .voilet-grid{
 .hrzntl-algin.autoWdith .dl-horizontal dd
 {
     width: auto;
+    position: relative;
     display: inline-block;
     margin-left: 10px;
 }
@@ -1339,7 +1339,9 @@ div.repeat-list .col-xs-7, div.repeat-list .col-xs-5{
 }
 .cal-main .btn{
     padding: 5px 10px;
-    border-radius: 0px;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
     box-shadow: none;
     -webkit-box-shadow: none;
     -ms-box-shadow: none;
@@ -1349,10 +1351,10 @@ div.repeat-list .col-xs-7, div.repeat-list .col-xs-5{
 }
 .repeat-list-hldr .emplytble .editable-buttons{
     position: absolute;
-    right: -10px;
+    right: 0px;
 }
 .repeat-list-hldr .emplytble .editable-controls{
-    padding-right: 68px;
+    padding-right: 80px;
 }
 .repeat-list-hldr .emplytble .editable-controls .form-control{
     width: 100%;
@@ -1376,14 +1378,17 @@ div.repeat-list .col-xs-7, div.repeat-list .col-xs-5{
 .padding-max .hrzntl-algin .dl-horizontal dd,
 .padding-none .hrzntl-algin .dl-horizontal dd{
     min-height: 30px;
+    position: relative;
 }
 .cal-main .padding-max .editable-wrap,
 .cal-main .padding-none .editable-wrap {
     margin-bottom: 0;
     margin-top: -6px;
-    position: absolute;
+    position: absolute;  
 }
-
+.padding-none .dl-horizontal .editable-wrap{
+    top: 0px;
+}
 .list-group-item{
     min-height: 26px;
 }
@@ -1440,4 +1445,71 @@ div.repeat-list .col-xs-7, div.repeat-list .col-xs-5{
 }
 .padding-right .editable-controls{
     padding-right: 0px;
+}
+.cal-main .repeat-list-hldr .editable-wrap {
+    margin-top: -5px;
+}
+.repeat-list-hldr div{
+    min-height: 30px;
+}
+.paddng-ers .editable-wrap{
+    left: 10px;
+    right: 10px;
+}
+.paddng-ers .editable-controls,
+.paddng-ers .form-control {
+    width: 100%;
+}
+.dropdown-menu{
+    border-radius: 0px;
+}
+.dropdown-menu table tr td:first-child{
+
+    text-align: center;
+}
+.dropdown-menu table thead tr:last-child th:first-child{
+
+    text-align: center;
+}
+.dropdown-menu table th, .dropdown-menu table strong{
+    font-weight: normal;
+    text-align: center;
+    color: #333;
+}
+.dropdown-menu table .btn{
+    background: none;
+}
+.dropdown-menu li:last-child{
+    display: none;
+}
+.dropdown-menu li.divider{
+    display: none;
+}  
+.icon-chevron-left{
+    padding: 10px;
+    opacity: 0.6;
+    background: url("../images/arrow-left.png") center center no-repeat;
+}
+.icon-chevron-right{
+    padding: 10px;
+    opacity: 0.6;
+    background: url("../images/arrow-right.png") center center no-repeat;
+}
+.muted{
+    color: #acafb5;
+}
+.dropdown-menu table .btn.btn-info {
+    background-color: #5bc0de;
+    color: #fff;
+}
+.dropdown-menu table .btn
+{
+    color: #555;
+}
+.dropdown-menu li a{
+    cursor: pointer;
+}
+.dropdown-menu li a:focus, 
+.dropdown-menu li a:active{
+    outline: none;
 }
