@@ -26,12 +26,23 @@ payApp.filter('companyIdFormat', function() {
     }
 });
 
-//change employee ID format 
+//change company ID format 
 payApp.filter('employIdFormat', function() {
     return function(input){
-        return accounting.formatNumber(input, 0, " ", "");
+       if(input.length === 15) {
+          var output = input.slice(0, 1) + ' ' + input.slice(1, 3) + ' ' + input.slice(3, 5) + ' ' + input.slice(5, 10) + ' ' + input.slice(10, 13) + ' ' + input.slice(13, 15);
+        }
+        return (output);
     }
 });
+
+
+//change employee ID format 
+// payApp.filter('employIdFormat', function() {
+//     return function(input){
+//         return accounting.formatNumber(input, 0, " ", 2," ");
+//     }
+// });
 
 payApp.directive('currency', ['$filter', function ($filter) {
     return {
@@ -91,7 +102,7 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
         });
 
         $http.get('/Code_NAF.json')
-            .success(function(response){
+            .success(function(response){ //console.log('Response is ', response);
                 $scope.Code_NAF_options = response;
             })
             .error(function(error){
@@ -106,6 +117,13 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
         }       
 
     };
+
+    $scope.checkEmployId = function(data) { 
+        if(data.length < 15) {
+            $scope.employ_ID = "999999999999999";
+            return "Please enter atleast 15 digits";
+        }
+    }
 
     $scope.checkNumeric = function(data) {
         var data = data.match(/\d+/g);
@@ -388,7 +406,7 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
 {value:"KALICONT000005635376",text:"Organisations professionnelles de l'habitat social du 20 septembre 2005"},
 {value:"KALICONT000005635435",text:"Organismes de formation du 10 juin 1988"},
 {value:"KALICONT000005635728",text:"Organismes de tourisme du 5 février 1996"},
-{value:"KALICONT000005635560",text:"rganismes gestionnaires de foyers et services pour jeunes travailleurs du 16 juillet 2003"},
+{value:"KALICONT000005635560",text:"Organismes gestionnaires de foyers et services pour jeunes travailleurs du 16 juillet 2003"},
 {value:"KALICONT000005635283",text:"Ouvriers de l'importation charbonnière maritime et usines d'agglomération de houille du littoral ..."},
 {value:"KALICONT000005635245",text:"Ouvriers de la presse quotidienne départementale du 25 octobre 1980"},
 {value:"KALICONT000019459287",text:"Ouvriers de la presse quotidienne régionale du 2 décembre 1970"},
@@ -404,7 +422,7 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
 {value:"KALICONT000005635890",text:"Peintres en lettres, décorateurs et graphistes en signalisation, enseignes, publicité peinte du 1..."},
 {value:"KALICONT000005635872",text:"Personnel au sol des entreprises de transport aérien du 22 mai 1959"},
 {value:"KALICONT000005635336",text:"Personnel d'encadrement des agences de presse du 1er janvier 1996"},
-{value:"KALICONT000023974594",text:" Personnel de direction du régime social des indépendants du 20 mars 2008"},
+{value:"KALICONT000023974594",text:"Personnel de direction du régime social des indépendants du 20 mars 2008"},
 {value:"KALICONT000005635473",text:"Personnel de l'industrie, de la manutention et du nettoyage sur les aéroports ouverts à la circul..."},
 {value:"KALICONT000005635891",text:"Personnel de la reprographie du 18 décembre 1972"},
 {value:"KALICONT000005635858",text:"Personnel de la restauration publique du 1er juillet 1970"},
@@ -826,7 +844,7 @@ $scope.visible_PT = 0;
     $scope.payment = function() {
         if (!paymentToken) {
             $scope.disablePdf = true;
-            $scope.pdfButton = "Se il vous plaît attendre...";
+            $scope.pdfButton = "Veuillez patienter..";
             $http.get('/payment')
                 .success(function(response) {
                     console.log('success ', response);

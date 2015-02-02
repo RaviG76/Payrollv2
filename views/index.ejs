@@ -31,7 +31,9 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 try{
 var pageTracker = _gat._getTracker("UA-59225729-1");
 pageTracker._trackPageview();
-} catch(err) {}</script>
+} catch(err) {}
+
+</script>
 
 </head>
 
@@ -184,7 +186,7 @@ pageTracker._trackPageview();
                   <dl class="dl-horizontal">  
                     <dt>No Sécurité Sociale :</dt>
                     <dd>
-                      <span editable-tel="employ_ID" e-title="X XX XX XXXXX XXX XX">
+                      <span editable-tel="employ_ID" onaftersave="checkEmployId(employ_ID)" e-title="X XX XX XXXXX XXX XX">
                       {{employ_ID | employIdFormat}}
                       </span>
                     </dd>
