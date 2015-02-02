@@ -1,10 +1,10 @@
 var express = require('express');
 var settingsObj = require('../bin/settings.json');
 var router = express.Router();
-var paypal = require('paypal-express-checkout').init('mss.naveensharma-facilitator_api1.gmail.com', '1403521583', 'AFcWxV21C7fd0v3bYYYRCpSSRl31AGjelgIYjdIGjGvf2IUyW1bBDw3T', 'http://mastersoftwaretechnologies.com:8555', 'http://mastersoftwaretechnologies.com:8555', true);
+var paypal = require('paypal-express-checkout').init('mss.naveensharma-facilitator_api1.gmail.com', '1403521583', 'AFcWxV21C7fd0v3bYYYRCpSSRl31AGjelgIYjdIGjGvf2IUyW1bBDw3T', 'https://payroll-calculator.herokuapp.com/', 'https://payroll-calculator.herokuapp.com/', true);
 
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Payroll App' });
+  res.render('index', { title: 'Mon Bulletin de Paie' });
 });
 
 /*paypal payment*/
@@ -33,6 +33,14 @@ router.post('/calculate', function(req, res, next) {
         health_ins = req.body.health_ins,
         disability_ins = req.body.disability_ins,
         category = req.body.category;
+
+        if(category == "1") {
+            category = "Non cadre"
+        }else if(category == "2") {
+            category = "Cadre";
+        }else {
+            category = "Mandataire social";
+        }
 
     if(typeof base_sal != 'undefined' && typeof base_activity != 'undefined' && typeof base_dur != 'undefined') {
 
