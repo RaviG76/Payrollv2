@@ -76,8 +76,12 @@ pageTracker._trackPageview();
     <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
       <li class="active">
-      <button class="btn btn-primary exported downloadPdf" ng-show="paymentStatus" ng-disabled="disablePdf"   style="float:right">{{pdfButton}}</button>
-      <button class="btn btn-primary exported" ng-disabled="disablePdf" ng-hide="paymentStatus" ng-click="payment()" style="float:right">{{pdfButton}}</button>
+
+            <button class="btn btn-primary exported downloadPdf" ng-disabled="disablePdf"   style="float:right">{{pdfButton}}</button>
+
+
+<!--       <button class="btn btn-primary exported downloadPdf" ng-show="paymentStatus" ng-disabled="disablePdf"   style="float:right">{{pdfButton}}</button>
+ -->     <!--  <button class="btn btn-primary exported" ng-disabled="disablePdf" ng-hide="paymentStatus" ng-click="payment()" style="float:right">{{pdfButton}}</button> -->
     </li>
       <!-- <a href="javascript:void(0);">GENERER UN BULLETIN DE PAIE</a></li> -->
         </ul>
@@ -1674,26 +1678,48 @@ EveryOneSec();
 
  dd = {
   content: [
-        
+
+   {
+      alignment: 'right',
+     // style: 'top_header',
+      columns: [
         {
-            style: 'tableExample',
-            table: {
-                widths: [100, '*', 200, '*'],
-                body: [
-                    [ 'width=100', 'star-sized', 'width=200', 'star-sized'],
-                    [ 'fixed-width cells have exactly the specified width', { text: 'nothing interesting here', italics: true, color: 'gray' }, { text: 'nothing interesting here', italics: true, color: 'gray' }, { text: 'nothing interesting here', italics: true, color: 'gray' }]
-                ]
-            }
+          text: 'BULLETIN DE PAIE'
         },
-        { text: 'Headers', style: 'subheader' },
+      ]
+    },
+        {
+      alignment: 'left',
+      columns: [
+        {
+          text: 'FABRIKAM \n Immeuble le Parisien \n 1 avenue des Champs Elysées \n 75007 Paris'+ 
+                '                                                                                                ' +' Mois/année de paie : 01/2015\n\n'
+        },
+      ]
+    },   
+
+    {
+      alignment: 'justify',
+      style:'full_width_clmn',
+      columns: [
+        {
+          width: 310,
+          text: 'ETABLISSEMENT :ETABLISSEMENT PRINCIPAL \nN° DE SIREN : 999 999 999 \nN° URSAFF : XXXXXXXXXXXX \nCODE NAF : 58.29C EDITION DE LOGICIELS APPLICATIFS \nCONV. COLLECTIVE : 5 branches industries alimentaires diverses du 21 mars 2012 \nPaiement le : 31.01.2015'
+        },
+        {
+          width: 190,
+          text: ''+'   '+'Période du : 31.01.2015 au 31.01.2015\n '+'   '+'No Sécurité Sociale : 9 99 99 99999 99999\n\n'+'   '+'M. John Doe\n'+'   '+'Parc Chauchard\n'+'   '+'1 avenue du Louvre\n'+'   '+'78000 Paris \n\n\n'
+        }
+      ]
+    },
         {
             style: 'dropDowns',
             table: {
                 headerRows: 1,
                 body: [
-                    [{ text: 'Emploi : Consultant', style: 'tableHeader' }, { text: 'Assurance santé :'+health_ins, style: 'tableHeader' }, { text: 'Sal. Tp plein :'+base_sal, style: 'tableHeader' }],
-                    [{ text: 'Catégorie :' +category, style: 'tableHeader' }, { text: 'Assurance invalidité : '+disability_ins, style: 'tableHeader' }, { text: "% d'activité : "+base_activity, style: 'tableHeader' }],
-                    [{ text: 'Forfait : 218 js/an', style: 'tableHeader' }, { text: 'Assurance vieillesse : '+oldage_ins, style: 'tableHeader' }, { text: "Heures /Mois : "+base_dur, style: 'tableHeader' }]
+                    [{ text: 'Emploi : '+'      '+'Consultant', style: 'tableHeader' }, { text: 'Assurance santé :'+'      '+health_ins, style: 'tableHeader' }, { text: 'Sal. Tp plein :'+'      '+base_sal, style: 'tableHeader' }],
+                    [{ text: 'Catégorie :'+'      '+category, style: 'tableHeader' }, { text: 'Assurance invalidité : '+'      '+disability_ins, style: 'tableHeader' }, { text: "% d'activité : "+"  "+base_activity, style: 'tableHeader' }],
+                    [{ text: 'Forfait : 218 js/an', style: 'tableHeader' }, { text: 'Assurance vieillesse : '+'  '+oldage_ins, style: 'tableHeader' }, { text: "Heures /Mois : "+"  "+base_dur, style: 'tableHeader' }]
                 ]
             }
         },
@@ -1844,46 +1870,67 @@ EveryOneSec();
         },
 
         {
-            style: 'footer_cal_first',
-            table: {
-                headerRows: 1,
-                // keepWithHeaderRows: 1,
-                // dontBreakRows: true,
-                body: [
-                    [{ text: 'Net à payer', style: 'col_rub_lower' }, { text:  re_Net_Cash+'', style: 'cal_name_bold' }],
-                    [{ text: 'Net imposable', style: 'col_rub_lower' }, { text: re_Net_taxable+'', style: 'cal_name_bold' }],
-                    [{ text: 'Salaire total', style: 'col_rub_lower' }, { text: re_Total_wages+'', style: 'cal_name_bold' }], 
-                ]
-            }
+      alignment: 'justify',
+      style:'full_width_clmn',
+      columns: [
+        {
+          width: 110,
+          text: 'Net à payer : '+re_Net_Cash+ ' \nNet imposable : '+re_Net_taxable+' \nSalaire total : '+re_Total_wages
         },
+        {
+          text: 'Versement URSAFF : '+re_Payment_URSAFF+' \nVersement AGIRC-ARRCO : '+re_Payment_AGIRC_ARRCO+' \nVersement mutuelles privées : '+re_Private_Mutual_Pay
+        },
+        {
+          text: 'Charges Salariales : '+re_wages_costs+'\nCharges Patronales'+re_Patron_Charges
+        }
+      ]
+    },
 
-        {
-            style: 'footer_cal_second',
-            table: {
-                headerRows: 1,
-                // keepWithHeaderRows: 1,
-                // dontBreakRows: true,
-                body: [
-                    [{ text: 'Versement URSAFF :', style: 'col_rub_lower' }, { text: re_Payment_URSAFF+'', style: 'cal_name_bold' }],
-                    [{ text: 'Versement AGIRC-ARRCO :', style: 'col_rub_lower' }, { text: re_Payment_AGIRC_ARRCO+'', style: 'cal_name_bold' }],
-                    [{ text: 'Versement mutuelles privées :', style: 'col_rub_lower' }, { text: re_Private_Mutual_Pay+'', style: 'cal_name_bold' }], 
-                ]
-            }
-        },
-        {
-            style: 'footer_cal_third',
-            table: {
-                headerRows: 1,
-                // keepWithHeaderRows: 1,
-                // dontBreakRows: true,
-                body: [
-                    [{ text: 'Charges Salariales', style: 'col_rub_lower' }, { text:  re_wages_costs+'', style: 'cal_name_bold' }],
-                    [{ text: 'Charges Patronales', style: 'col_rub_lower' }, { text: re_Patron_Charges+'', style: 'cal_name_bold' }],
-                ]
-            }
-        },    
+        // {
+        //     style: 'footer_cal_first',
+        //     table: {
+        //         headerRows: 1,
+        //         // keepWithHeaderRows: 1,
+        //         // dontBreakRows: true,
+        //         body: [
+        //             [{ text: 'Net à payer', style: 'col_rub_lower' }, { text:  re_Net_Cash+'', style: 'cal_name_bold' }],
+        //             [{ text: 'Net imposable', style: 'col_rub_lower' }, { text: re_Net_taxable+'', style: 'cal_name_bold' }],
+        //             [{ text: 'Salaire total', style: 'col_rub_lower' }, { text: re_Total_wages+'', style: 'cal_name_bold' }], 
+        //         ]
+        //     }
+        // },
+
+        // {
+        //     style: 'footer_cal_second',
+        //     table: {
+        //         headerRows: 1,
+        //         // keepWithHeaderRows: 1,
+        //         // dontBreakRows: true,
+        //         body: [
+        //             [{ text: 'Versement URSAFF :', style: 'col_rub_lower' }, { text: re_Payment_URSAFF+'', style: 'cal_name_bold' }],
+        //             [{ text: 'Versement AGIRC-ARRCO :', style: 'col_rub_lower' }, { text: re_Payment_AGIRC_ARRCO+'', style: 'cal_name_bold' }],
+        //             [{ text: 'Versement mutuelles privées :', style: 'col_rub_lower' }, { text: re_Private_Mutual_Pay+'', style: 'cal_name_bold' }], 
+        //         ]
+        //     }
+        // },
+        // {
+        //     style: 'footer_cal_third',
+        //     table: {
+        //         headerRows: 1,
+        //         // keepWithHeaderRows: 1,
+        //         // dontBreakRows: true,
+        //         body: [
+        //             [{ text: 'Charges Salariales', style: 'col_rub_lower' }, { text:  re_wages_costs+'', style: 'cal_name_bold' }],
+        //             [{ text: 'Charges Patronales', style: 'col_rub_lower' }, { text: re_Patron_Charges+'', style: 'cal_name_bold' }],
+        //         ]
+        //     }
+        // },    
   ],
   styles: {
+    top_header:{
+      //fontSize: 18,
+      bold: true,      
+    },
     header: {
       fontSize: 18,
      // bold: true,
@@ -1905,9 +1952,15 @@ EveryOneSec();
       margin: [0, 5, 0, 15],
       // bold: true,
       // color: '#000',
+      fontSize:10,
       border: false,
      // background: '#EDF6FC'
     },
+    full_width_clmn:{
+      fontSize:10,
+      margin: [0,10,0,0],
+    },
+
     //main header row
     main_header_row: {
       border: false,
@@ -2022,7 +2075,7 @@ EveryOneSec();
     }
   },
   defaultStyle: {
-    // alignment: 'justify'
+    columnGap: 20,
   }
   
 }
