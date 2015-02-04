@@ -190,7 +190,7 @@ router.post('/calculate', function(req, res, next) {
         var cot_pat_AD =  (cot_pat_CI * visible_CI + cot_pat_PP* visible_PP).toFixed(2);
 
         var cot_pat_OSSC = (cot_pat_FAC*1+cot_pat_NHAF*1+cot_pat_ASC*visible_ASC+cot_pat_SP*visible_SP).toFixed(2);
-        console.log('Here ', cot_pat_FAC*1, cot_pat_NHAF*1, cot_pat_ASC*visible_ASC, cot_pat_SP*visible_SP);
+       // console.log('Here ', cot_pat_FAC*1, cot_pat_NHAF*1, cot_pat_ASC*visible_ASC, cot_pat_SP*visible_SP);
         var cot_pat_OTAE = ((base_sal*Rate_PT/100)*0).toFixed(2);
         var cot_pat_PHI  = (Base_PHI*Rate2_PHI/100).toFixed(2);
         var cot_pat_AREG = (parseFloat(base_sal)*parseFloat(Rate2_AREG)/100).toFixed(2);
@@ -211,17 +211,17 @@ router.post('/calculate', function(req, res, next) {
         
         var Net_taxable_third_val = (health_ins == 'Rég. Gén.') ? cot_pat_MC : 0;
         
-var Net_Cash = (parseFloat(base_sal)
+        var Net_Cash = (parseFloat(base_sal)
             -
             (parseFloat(amount_ins)+parseFloat(amount_GSC)+parseFloat(amount_CRTSD)+parseFloat(amount_PE)+parseFloat(Amount_AV_P)+parseFloat(Amount_AV_DP))
            -
             (parseFloat(amount_AEE)+parseFloat(Amount_ARRCO_T1)+parseFloat(Amount_ARRCO_T2)+parseFloat(Amount_ARRCO_TB)+parseFloat(Amount_ARRCO_TC)+parseFloat(Amount_CET)+parseFloat(Amount_AGFF_T1)+parseFloat(Amount_AGFF_T2))
             +
-            (Net_Cash_third_Val)
+            parseFloat(Net_Cash_third_Val)
             +
-            (Net_Cash_four_Val)
+            parseFloat(Net_Cash_four_Val)
             +
-            (Net_Cash_fifth_Val)); //.toFixed(2)
+            parseFloat(Net_Cash_fifth_Val)); //.toFixed(2)
         
         var wages_costs = (parseFloat(amount_HIns)+parseFloat(amount_UI)+parseFloat(Amount_Old_Age_Ins)).toFixed(2);
  
@@ -385,11 +385,6 @@ var Net_Cash = (parseFloat(base_sal)
             'Total_wages':(parseFloat(Net_Cash) + parseFloat(wages_costs) + parseFloat(Patron_Charges)).toFixed(2),
             'visible_hide': visible_hide,
            };
-
-
-
-           //console.log( (parseFloat(cot_pat_ins)*visible_Ins*1) + (parseFloat(cot_pat_CI)*visible_CI*1) + (parseFloat(cot_pat_PE)* visible_PE * 1) + ( parseFloat(cot_pat_AREG)*visible_AREG*1 )+(parseFloat(Cot_Pat_AV_P)*visible_AV_P*1)+(parseFloat(Cot_Pat_AV_DP)*visible_AV_DP*1) + (parseFloat(cot_pat_FAC)*visible_FAC) + (parseFloat(cot_pat_ASC)*visible_ASC*1) + (parseFloat(cot_pat_NHAF)*visible_NHAF*1) + (parseFloat(cot_pat_SP)*visible_SP*1) + ( parseFloat(cot_pat_PT)*visible_PT*1 ))
-
             
       res.status(200).json(response)
     }else{
