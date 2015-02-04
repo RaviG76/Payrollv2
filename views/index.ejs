@@ -238,7 +238,7 @@ pageTracker._trackPageview();
             <div class="col-md-4 emplytble-lrg">
                 <div class="row">
                     <div class="col-xs-7 voilet-grid">
-                         Assurance santé <em>:</em>
+                         Assurance santé et Prévoyance <em>:</em>
                     </div>
                     <div class="col-xs-5 grey-grid">
                        <!-- <input type="text" ng-model="health_ins" class="form-control"> -->
@@ -280,7 +280,7 @@ pageTracker._trackPageview();
             <div class="col-md-4 emplytble-lrg">
                 <div class="row">
                     <div class="col-xs-7 voilet-grid">
-                       Assurance invalidité <em>:</em>
+                       Assurance chômage <em>:</em>
                     </div>
                     <div class="col-xs-5 grey-grid">
                       <a href="#" buttons="no" editable-select="disability_ins"  id="disability_ins" ng-model="disability_ins" e-ng-options="s.value as s.text for s in disability_ins_options">{{ showDisabilityCategory() }}</a>
@@ -444,7 +444,7 @@ pageTracker._trackPageview();
                 AM-P
             </div>
             <div class="col-xs-6">
-                Assurance maladie privée (forfait)
+                Assurance maladie financée directement par le salarié (obligatoire)
             </div>
             <div class="col-xs-1 mobileVew" id="re_Base_PHI">
                {{(re_Base_PHI) | amountformat}}   
@@ -460,6 +460,29 @@ pageTracker._trackPageview();
             </div>
             <div class="col-xs-1  " id="re_cot_pat_PHI">
                 {{(re_cot_pat_PHI) | amountformat}}
+            </div>
+        </div>
+        <div  ng-hide="visible_FEP == '0'" class="row body-table">
+            <div class="col-xs-1 mobileVew">
+                PREV-P
+            </div>
+            <div class="col-xs-6">
+                Prévoyance financée directement par le salarié (recommandé)
+            </div>
+            <div class="col-xs-1 mobileVew" id="re_Base_PHI">
+             
+            </div>
+            <div class="col-xs-1 yellw-bg mobileVew">
+                
+            </div>
+            <div class="col-xs-1">
+                
+            </div>
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate2_PHI">
+             
+            </div>
+            <div class="col-xs-1  " id="re_cot_pat_PHI">
+             
             </div>
         </div>
         <div ng-hide="visible_GSC == '0'" class="row body-table">
@@ -533,6 +556,30 @@ pageTracker._trackPageview();
             </div>
             <div class="col-xs-1  " id="re_cot_pat_MC">
                 {{(re_cot_pat_MC) | amountformat}}
+            </div>
+        </div>
+
+        <div ng-hide="visible_SS == '0'" class="row body-table">
+            <div class="col-xs-1 mobileVew">
+                PR-C
+            </div>
+            <div class="col-xs-6">
+                   Prévoyance complémentaire
+            </div>
+            <div class="col-xs-1 mobileVew">
+               {{(re_base_sal) | amountformat}}
+            </div>
+            <div class="col-xs-1 yellw-bg mobileVew">
+              
+            </div>
+            <div class="col-xs-1">
+              
+            </div>
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate2_SS">
+                {{re_Rate2_SS| rateformat }} %
+            </div>
+            <div class="col-xs-1  " id="re_cot_pat_SS">
+                {{(re_cot_pat_SS) | amountformat}}
             </div>
         </div>
         
@@ -679,6 +726,7 @@ pageTracker._trackPageview();
                 {{(re_cot_pat_AREG) | amountformat}}
             </div>
         </div>
+
         <div ng-hide="visible_AEE == '0'" class="row body-table">
             <div class="col-xs-1 mobileVew">
                APEC
@@ -702,6 +750,31 @@ pageTracker._trackPageview();
                 {{(re_cot_pat_AEE) | amountformat}} 
             </div>
         </div>
+
+        <div ng-hide="visible_AC_P == '0'" class="row body-table">
+            <div class="col-xs-1 mobileVew">
+               AC-P
+            </div>
+            <div class="col-xs-6">
+                    Assurance chômage financée directement par le salarié (optionnel)
+            </div>
+            <div class="col-xs-1 mobileVew">
+               
+            </div>
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_AEE">
+             
+            </div>
+            <div class="col-xs-1" id="re_amount_AEE">
+              
+            </div>
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_AEE2">
+                
+            </div>
+            <div class="col-xs-1  " id="re_cot_pat_AEE">
+                
+            </div>
+        </div>
+
         <div class="divider-table"></div>
         <div class="row body-table bold-text">
             <div class="col-xs-1 mobileVew">
@@ -730,7 +803,7 @@ pageTracker._trackPageview();
         <div ng-hide="visible_AV_P == '0'" class="row body-table">
             
             <div class="col-xs-1 mobileVew">
-                   AV-P
+                   AV-PL
             </div>
             <div class="col-xs-6">
               Assurance vieillesse plafonnée
@@ -916,6 +989,7 @@ pageTracker._trackPageview();
                 {{(re_cot_pat_AGFF_T1) | amountformat}}
             </div>
         </div>
+
         <div ng-hide="visible_AGFF_T2 == '0'" class="row body-table">
             <div class="col-xs-1 mobileVew">
                 AGFF-T2
@@ -939,6 +1013,31 @@ pageTracker._trackPageview();
                {{(re_cot_pat_AGFF_T2) | amountformat}}
             </div>
         </div>
+
+        <div ng-hide="visible_AV_P2 == '0'" class="row body-table">
+            <div class="col-xs-1 mobileVew">
+                AV-P
+            </div>
+            <div class="col-xs-6">
+                  Assurance vie financée directement par le salarié (obligatoire)
+            </div>
+            <div class="col-xs-1 mobileVew" id="re_base_Complementary_Pensions_eT2">
+             
+            </div>
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_AGFF_T2">
+              
+            </div>
+            <div class="col-xs-1" id="re_amount_AGFF_T2">
+             
+            </div>
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate2_AGFF2_T2">
+                
+            </div>
+            <div class="col-xs-1  " id="re_cot_pat_AGFF_T2">
+               
+            </div>
+        </div>
+
         <div class="divider-table"></div>
         <div class="row body-table bold-text">
             <div class="col-xs-1 mobileVew">
@@ -1717,8 +1816,8 @@ EveryOneSec();
             table: {
                 headerRows: 1,
                 body: [
-                    [{ text: 'Emploi : '+'      '+'Consultant', style: 'tableHeader' }, { text: 'Assurance santé :'+'      '+health_ins, style: 'tableHeader' }, { text: 'Sal. Tp plein :'+'      '+base_sal, style: 'tableHeader' }],
-                    [{ text: 'Catégorie :'+'      '+category, style: 'tableHeader' }, { text: 'Assurance invalidité : '+'      '+disability_ins, style: 'tableHeader' }, { text: "% d'activité : "+"  "+base_activity, style: 'tableHeader' }],
+                    [{ text: 'Emploi : '+'      '+'Consultant', style: 'tableHeader' }, { text: 'Assurance santé et Prévoyance :'+'      '+health_ins, style: 'tableHeader' }, { text: 'Sal. Tp plein :'+'      '+base_sal, style: 'tableHeader' }],
+                    [{ text: 'Catégorie :'+'      '+category, style: 'tableHeader' }, { text: 'Assurance invaliditéAssurance chômage :'+'      '+disability_ins, style: 'tableHeader' }, { text: "% d'activité : "+"  "+base_activity, style: 'tableHeader' }],
                     [{ text: 'Forfait : 218 js/an', style: 'tableHeader' }, { text: 'Assurance vieillesse : '+'  '+oldage_ins, style: 'tableHeader' }, { text: "Heures /Mois : "+"  "+base_dur, style: 'tableHeader' }]
                 ]
             }
@@ -1759,13 +1858,17 @@ EveryOneSec();
 
                     [{ text: 'AM-RG', style: 'col_rub_lower' }, { text: 'Assurance Maladie', style: 'cal_name_bold' }, { text: base_sal+'', style: 'col_base_lower_bold' }, { text: re_Rate_Ins+' %', style: 'col_tax_lower_bold' }, { text: re_amount_ins+'', style: 'col_amnt_lower_bold' }, { text: re_Rate2_Ins+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_ins+'', style: 'col_cot_pat_lower_bold' }],
 
-                    [{ text: 'AM-P', style: 'col_rub_lower' }, { text: 'Assurance maladie privée (forfait)', style: 'cal_name_bold' }, { text: re_Base_PHI+'', style: 'col_base_lower_bold' }, { text: ' ', style: 'col_tax_lower_bold' }, { text: ' ', style: 'col_amnt_lower_bold' }, { text: re_Rate2_PHI+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_PHI+'', style: 'col_cot_pat_lower_bold' }],
+                    [{ text: 'AM-P', style: 'col_rub_lower' }, { text: 'Assurance maladie financée directement par le salarié (obligatoire)', style: 'cal_name_bold' }, { text: re_Base_PHI+'', style: 'col_base_lower_bold' }, { text: ' ', style: 'col_tax_lower_bold' }, { text: ' ', style: 'col_amnt_lower_bold' }, { text: re_Rate2_PHI+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_PHI+'', style: 'col_cot_pat_lower_bold' }],
+
+                    [{ text: 'PREV-P', style: 'col_rub_lower' }, { text: 'Prévoyance financée directement par le salarié (recommandé)', style: 'cal_name_bold' }, { text:'', style: 'col_base_lower_bold' }, { text: '', style: 'col_tax_lower_bold' }, { text: '', style: 'col_amnt_lower_bold' }, { text: '', style: 'col_tax2_lower_bold' }, { text: '', style: 'col_cot_pat_lower_bold' }],
 
                     [{ text: 'CSG', style: 'col_rub_lower' }, { text: 'Contribution Sociale Généralisée non imposable', style: 'cal_name_bold' }, { text: base_sal+'', style: 'col_base_lower_bold' }, { text: re_Rate_GSC+' %', style: 'col_tax_lower_bold' }, { text: re_amount_GSC+'', style: 'col_amnt_lower_bold' }, { text: '', style: 'col_tax2_lower_bold' }, { text: '', style: 'col_cot_pat_lower_bold' }],
 
                     [{ text: 'CRDS', style: 'col_rub_lower' }, { text: 'Contribution pour le Remboursement de la Dette Sociale imposable', style: 'cal_name_bold' }, { text: base_sal+'', style: 'col_base_lower_bold' }, { text: re_Rate_CRTSD+' %', style: 'col_tax_lower_bold' }, { text: re_amount_CRTSD+'', style: 'col_amnt_lower_bold' }, { text: '', style: 'col_tax2_lower_bold' }, { text: '', style: 'col_cot_pat_lower_bold' }],
 
-                    [{ text: 'AM-C', style: 'col_rub_lower' }, { text: 'Mutuelle complémentaire', style: 'cal_name_bold' }, { text: base_sal+'', style: 'col_base_lower_bold' }, { text: '', style: 'col_tax_lower_bold' }, { text: '', style: 'col_amnt_lower_bold' }, { text: re_Rate_MC+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_MC+'', style: 'col_cot_pat_lower_bold' }]
+                    [{ text: 'AM-C', style: 'col_rub_lower' }, { text: 'Mutuelle complémentaire', style: 'cal_name_bold' }, { text: base_sal+'', style: 'col_base_lower_bold' }, { text: '', style: 'col_tax_lower_bold' }, { text: '', style: 'col_amnt_lower_bold' }, { text: re_Rate_MC+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_MC+'', style: 'col_cot_pat_lower_bold' }],
+
+                    [{ text: 'PR-C', style: 'col_rub_lower' }, { text: 'Prévoyance complémentaire', style: 'cal_name_bold' }, { text: base_sal+'', style: 'col_base_lower_bold' }, { text: '', style: 'col_tax_lower_bold' }, { text: '', style: 'col_amnt_lower_bold' }, { text: re_Rate_MC+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_MC+'', style: 'col_cot_pat_lower_bold' }]
                 ]
             }
         },
@@ -1800,7 +1903,9 @@ EveryOneSec();
 
                     [{ text: 'AGS', style: 'col_rub_lower' }, { text: 'Assoc. pour la gest. du rég. de Garantie des créances des Salariés', style: 'cal_name_bold' }, { text: base_sal+'', style: 'col_base_lower_bold' }, { text: '', style: 'col_tax_lower_bold' }, { text: '', style: 'col_amnt_lower_bold' }, { text: re_Rate_AREG+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_AREG+'', style: 'col_cot_pat_lower_bold' }],
 
-                    [{ text: 'APEC', style: 'col_rub_lower' }, { text: "Association Pour l'Emploi des Cadres", style: 'cal_name_bold' }, { text: base_sal+'', style: 'col_base_lower_bold' }, { text: re_Rate_AEE+' %', style: 'col_tax_lower_bold' }, { text: re_amount_AEE+'', style: 'col_amnt_lower_bold' }, { text: re_Rate_AEE2+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_AEE+'', style: 'col_cot_pat_lower_bold' }]
+                    [{ text: 'APEC', style: 'col_rub_lower' }, { text: "Association Pour l'Emploi des Cadres", style: 'cal_name_bold' }, { text: base_sal+'', style: 'col_base_lower_bold' }, { text: re_Rate_AEE+' %', style: 'col_tax_lower_bold' }, { text: re_amount_AEE+'', style: 'col_amnt_lower_bold' }, { text: re_Rate_AEE2+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_AEE+'', style: 'col_cot_pat_lower_bold' }],
+
+                    [{ text: 'AC-P', style: 'col_rub_lower' }, { text: "Assurance chômage financée directement par le salarié (optionnel)", style: 'cal_name_bold' }, { text: '', style: 'col_base_lower_bold' }, { text: '', style: 'col_tax_lower_bold' }, { text: '', style: 'col_amnt_lower_bold' }, { text: '', style: 'col_tax2_lower_bold' }, { text: '', style: 'col_cot_pat_lower_bold' }]                    
                    
                 ]
             }
@@ -1814,7 +1919,7 @@ EveryOneSec();
                 body: [
                     [{ text: '', style: 'col_rub_lower' }, { text:  '*** Assurance vieillesse *** '+re_oldage_ins_base, style: 'cal_name_bold' }, { text: '', style: 'col_base_lower_bold' }, { text: re_Rate_Old_Age_Ins+' %', style: 'col_tax_lower_bold' }, { text: re_amount_Old_Age_Ins+'', style: 'col_amnt_lower_bold' }, { text: re_Rate2_Old_Age_Ins+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_Pat_Old_Age_Ins+'', style: 'col_cot_pat_lower_bold' }],
 
-                    [{ text: 'AV-P', style: 'col_rub_lower' }, { text: 'Assurance vieillesse plafonnée', style: 'cal_name_bold' }, { text: re_base_Capped_pension_ins+'', style: 'col_base_lower_bold' }, { text: re_Rate_AV_P+' %', style: 'col_tax_lower_bold' }, { text: re_amount_AV_P+'', style: 'col_amnt_lower_bold' }, { text: re_Rate2_AV_P+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_AV_P+'', style: 'col_cot_pat_lower_bold' }],
+                    [{ text: 'AV-PL', style: 'col_rub_lower' }, { text: 'Assurance vieillesse plafonnée', style: 'cal_name_bold' }, { text: re_base_Capped_pension_ins+'', style: 'col_base_lower_bold' }, { text: re_Rate_AV_P+' %', style: 'col_tax_lower_bold' }, { text: re_amount_AV_P+'', style: 'col_amnt_lower_bold' }, { text: re_Rate2_AV_P+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_AV_P+'', style: 'col_cot_pat_lower_bold' }],
 
                     [{ text: 'AV-DP', style: 'col_rub_lower' }, { text: 'Assurance vieillesse déplafonnée', style: 'cal_name_bold' }, { text: base_sal, style: 'col_base_lower_bold' }, { text: re_Rate_AV_DP+' %', style: 'col_tax_lower_bold' }, { text: re_amount_AV_DP+'', style: 'col_amnt_lower_bold' }, { text: re_Rate2_AV_DP+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_AV_DP+'', style: 'col_cot_pat_lower_bold' }],
 
@@ -1830,7 +1935,9 @@ EveryOneSec();
 
                     [{ text: 'AGFF-T1', style: 'col_rub_lower' }, { text: "Assoc. pour la Gest. du Fonds de Fin. de lAGIRC et de lARRCO (T1)", style: 'cal_name_bold' }, { text: re_base_Capped_pension_ins+'', style: 'col_base_lower_bold' }, { text: re_Rate_AGFF_T1+' %', style: 'col_tax_lower_bold' }, { text: re_amount_AGFF_T1+'', style: 'col_amnt_lower_bold' }, { text: re_Rate2_AGFF2_T1+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_AGFF_T1+'', style: 'col_cot_pat_lower_bold' }],
 
-                    [{ text: 'AGFF-T2', style: 'col_rub_lower' }, { text: "Assoc. pour la Gest. du Fonds de Fin. de lAGIRC et de lARRCO (T2)", style: 'cal_name_bold' }, { text: re_base_Complementary_Pensions_eT2+'', style: 'col_base_lower_bold' }, { text: re_Rate_AGFF_T2+' %', style: 'col_tax_lower_bold' }, { text: re_amount_AGFF_T2+'', style: 'col_amnt_lower_bold' }, { text: re_Rate2_AGFF2_T2+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_AGFF_T2+'', style: 'col_cot_pat_lower_bold' }]
+                    [{ text: 'AGFF-T2', style: 'col_rub_lower' }, { text: "Assoc. pour la Gest. du Fonds de Fin. de lAGIRC et de lARRCO (T2)", style: 'cal_name_bold' }, { text: re_base_Complementary_Pensions_eT2+'', style: 'col_base_lower_bold' }, { text: re_Rate_AGFF_T2+' %', style: 'col_tax_lower_bold' }, { text: re_amount_AGFF_T2+'', style: 'col_amnt_lower_bold' }, { text: re_Rate2_AGFF2_T2+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_AGFF_T2+'', style: 'col_cot_pat_lower_bold' }],
+
+                    [{ text: 'AV-P', style: 'col_rub_lower' }, { text: "Assurance vie financée directement par le salarié (obligatoire)", style: 'cal_name_bold' }, { text: '', style: 'col_base_lower_bold' }, { text: '', style: 'col_tax_lower_bold' }, { text: '', style: 'col_amnt_lower_bold' }, { text: '', style: 'col_tax2_lower_bold' }, { text: '', style: 'col_cot_pat_lower_bold' }]
                    
                 ]
             }

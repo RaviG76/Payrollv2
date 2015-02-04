@@ -8,6 +8,7 @@
   "Rate2_Private_health_insurance": 100.000,
   "Base_Private_health_insurance": 260,
   "Rate2_Mutual_complementary": 4.750,
+  "Rate2_Supplementary_System": 4.75,
   "Rate_Contributions_Injuries": 1.100,
   "Rate_Private_pensions": 1.000,
   "Rate_Pole_Emploi": 2.4,

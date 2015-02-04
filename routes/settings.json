@@ -1,114 +1,41 @@
 {
-    "PMSS": 3170.00,
-  
-    "Rate_Insurance": 0.750
-  ,
-  
-    "Amount_General_Social_Contribution_tax": 0.9825
-  ,
-  
-    "Rate_General_Social_Contribution_tax": 5.100
-  ,
-  
-    "Rate_Contribution_Repayment_taxable_Social_Debt": 2.900
-  ,
-  
-    "Rate2_Insurance": 13.100
-  ,
-  
-    "Rate2_Private_health_insurance": 100.000
-  ,
-  
-    "Base_Private_health_insurance": 260
-  ,
-  
-    "Rate2_Mutual complementary": 4.750
-  ,
-  
-    "Rate_Contributions_Injuries": 1.100
-  ,
-  
-    "Rate_Private_pensions": 1.000
-  ,
-  
-    "Rate_Pole_Emploi": 2.4
-  ,
-  
-    "Rate2_Pole_Emploi": 4.00
-  ,
-  
-    "Rate2_Assoc_Reg_Employees_receivables_Guarantee": 0.300
-  ,
-  
-    "Rate_Association_Executive_Employment": 0.024
-  ,
-  
-    "Rate_Association_Executive_Employment2": 0.036
-  ,
-  
-    "Rate2_Autonomy_Solidarity_Contribution": 0.300
-  ,
-  
-    "Rate2_National_Housing_Aid_Fund": 0.100
-  ,
-  
-    "Rate2_Payment_Transport": 1.700
-  ,
-  
-    "settings": 1
-  ,
-  
-    "Rate_Capped_pension_insurance": 6.850
-  ,
-  
-    "Rate_Deplafonnee_pension_insurance": 0.300
-  ,
-  
-    "Rate_Assoc_Reg_Complementary_Pensions_employees_T1": 3.100
-  ,
-  
-    "Rate_Assoc_Reg_Complementary_Pensions_employees_T2": 8.100
-  ,
-  
-    "Rate_General_Association_of_Pension_Institutions_Frameworks_TB": 7.800
-  ,
-  
-    "Rate_General_Association_of_Pension_Institutions_Frameworks_TC": 0.360
-  ,
-  
-    "Rate_Exceptional_and_Temporary_Contribution": 0.130
-  ,
-  
-    "Rate_Assoc_for_Gest_End_Fund_T1": 0.800
-  ,
-  
-    "Rate_Assoc_for_Gest_End_Fund_T2": 0.900
-  ,
-  
-    "Rate2_Capped_pension_insurance": 8.500
-  ,
-  
-    "Rate2_Deplafonnee_pension_insurance": 1.800
-  ,
-  
-    "Rate2_Assoc_Reg_Complementary_Pensions_employees_T1": 4.650
-  ,
-  
-    "Rate2_Assoc_Reg_Complementary_Pensions_employees_T2": 12.150
-  ,
-  
-    "Rate2_General_Association_of_Pension_Institutions_Frameworks_TB": 12.750
-  ,
-  
-    "Rate2_General_Association_of_Pension_Institutions_Frameworks_TC": 20.190
-  ,
-  
-    "Rate2_Exceptional_and_Temporary_Contribution": 0.220
-  ,
-  
-    "Rate2_Assoc_for_Gest_End_Fund_T1": 1.200
-  ,
-  
-    "Rate2_Assoc_for_Gest_End_Fund_T2": 1.300
-  
+    "PMSS": 3170,
+    "Rate_Insurance": 0.75,
+    "Amount_General_Social_Contribution_tax": 0.9825,
+    "Rate_General_Social_Contribution_tax": 5.1,
+    "Rate_Contribution_Repayment_taxable_Social_Debt": 2.9,
+    "Rate2_Insurance": 13.1,
+    "Rate2_Private_health_insurance": 100,
+    "Base_Private_health_insurance": 260,
+    "Rate2_Supplementary_System": 4.75,
+    "Rate2_Mutual complementary": 4.75,
+    "Rate_Contributions_Injuries": 1.1,
+    "Rate_Private_pensions": 1,
+    "Rate_Pole_Emploi": 2.4,
+    "Rate2_Pole_Emploi": 4,
+    "Rate2_Assoc_Reg_Employees_receivables_Guarantee": 0.3,
+    "Rate_Association_Executive_Employment": 0.024,
+    "Rate_Association_Executive_Employment2": 0.036,
+    "Rate2_Autonomy_Solidarity_Contribution": 0.3,
+    "Rate2_National_Housing_Aid_Fund": 0.1,
+    "Rate2_Payment_Transport": 1.7,
+    "settings": 1,
+    "Rate_Capped_pension_insurance": 6.85,
+    "Rate_Deplafonnee_pension_insurance": 0.3,
+    "Rate_Assoc_Reg_Complementary_Pensions_employees_T1": 3.1,
+    "Rate_Assoc_Reg_Complementary_Pensions_employees_T2": 8.1,
+    "Rate_General_Association_of_Pension_Institutions_Frameworks_TB": 7.8,
+    "Rate_General_Association_of_Pension_Institutions_Frameworks_TC": 0.36,
+    "Rate_Exceptional_and_Temporary_Contribution": 0.13,
+    "Rate_Assoc_for_Gest_End_Fund_T1": 0.8,
+    "Rate_Assoc_for_Gest_End_Fund_T2": 0.9,
+    "Rate2_Capped_pension_insurance": 8.5,
+    "Rate2_Deplafonnee_pension_insurance": 1.8,
+    "Rate2_Assoc_Reg_Complementary_Pensions_employees_T1": 4.65,
+    "Rate2_Assoc_Reg_Complementary_Pensions_employees_T2": 12.15,
+    "Rate2_General_Association_of_Pension_Institutions_Frameworks_TB": 12.75,
+    "Rate2_General_Association_of_Pension_Institutions_Frameworks_TC": 20.19,
+    "Rate2_Exceptional_and_Temporary_Contribution": 0.22,
+    "Rate2_Assoc_for_Gest_End_Fund_T1": 1.2,
+    "Rate2_Assoc_for_Gest_End_Fund_T2": 1.3
 }

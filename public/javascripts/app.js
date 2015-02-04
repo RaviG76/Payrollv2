@@ -568,6 +568,8 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
     $scope.re_Rate_MC = parseFloat((4.750).toFixed(3));
     $scope.re_cot_pat_MC = 179.98;
     $scope.re_Rate_CI = parseFloat((1.000).toFixed(3));
+    $scope.re_Rate2_SS = parseFloat((4.750).toFixed(3));
+    $scope.re_cot_pat_SS = parseFloat((213.75).toFixed(2));
     $scope.re_cot_pat_CI = 41.68;
     $scope.re_Rate_PP = parseFloat((1.100).toFixed(3)); 
     $scope.re_cot_pat_PP = 37.89;
@@ -661,10 +663,12 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
     //hide
 $scope.visible_Ins=1
 $scope.visible_PHI = 0;
+$scope.visible_FEP = 0;
 $scope.visible_GSC = 1;
 $scope.visible_CRTSD = 1;
 $scope.visible_MC = 1;
 $scope.visible_CI = 1;
+$scope.visible_SS = 1;
 $scope.visible_PP = 0;
 $scope.visible_PE =0;
 $scope.visible_AREG = 0;
@@ -683,6 +687,8 @@ $scope.visible_ASC = 1;
 $scope.visible_NHAF = 1
 $scope.visible_SP = 1
 $scope.visible_PT = 0;
+$scope.visible_AC_P = 0;
+$scope.visible_AV_P2 = 0;
 
 
     function resetRoundMode(newValue, oldValue) {
@@ -731,6 +737,8 @@ $scope.visible_PT = 0;
             $scope.re_Rate_AREG = response.Rate_AREG;
             $scope.re_cot_pat_AREG = response.cot_pat_AREG;
             $scope.re_Rate_AEE = response.Rate_AEE;
+            $scope.re_Rate2_SS = response.Rate2_SS;
+            $scope.re_cot_pat_SS = response.cot_pat_SS;
             $scope.re_Rate_AEE2 = response.Rate_AEE2;
             $scope.re_amount_AEE = response.amount_AEE;
             $scope.re_cot_pat_AEE = response.cot_pat_AEE;
@@ -809,9 +817,12 @@ $scope.visible_PT = 0;
             $scope.re_Rate2_UI = response.Rate2_UI;
             $scope.re_base_UI = response.base_UI;
             $scope.re_Net_taxable = response.Net_taxable;
+
             console.log('response.visible_hide', response.visible_hide);
             $scope.visible_Ins= response.visible_hide.visible_Ins;
             $scope.visible_PHI= response.visible_hide.visible_PHI;
+            $scope.visible_FEP= response.visible_hide.visible_FEP;
+            $scope.visible_SS = response.visible_hide.visible_SS;
             $scope.visible_GSC= response.visible_hide.visible_GSC;
             $scope.visible_CRTSD= response.visible_hide.visible_CRTSD;
             $scope.visible_MC= response.visible_hide.visible_MC;
@@ -820,6 +831,7 @@ $scope.visible_PT = 0;
             $scope.visible_PE= response.visible_hide.visible_PE;
             $scope.visible_AREG= response.visible_hide.visible_AREG;
             $scope.visible_AEE= response.visible_hide.visible_AEE;
+            $scope.visible_AC_P = response.visible_hide.visible_AC_P;
             $scope.visible_AV_P= response.visible_hide.visible_AV_P;
             $scope.visible_AV_DP= response.visible_hide.visible_AV_DP;
             $scope.visible_ARRCO_T1= response.visible_hide.visible_ARRCO_T1;
@@ -834,6 +846,7 @@ $scope.visible_PT = 0;
             $scope.visible_NHAF= response.visible_hide.visible_NHAF;
             $scope.visible_SP= response.visible_hide.visible_SP;
             $scope.visible_PT= response.visible_hide.visible_PT;
+            $scope.visible_AV_P2 = response.visible_hide.visible_AV_P2;
           })
           .error(function(error) {
             console.log('error', error)
