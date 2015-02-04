@@ -1479,7 +1479,7 @@ div.repeat-list .col-xs-7, div.repeat-list .col-xs-5{
 .dropdown-menu table .btn{
     background: none;
 }
-.dropdown-menu li:last-child{
+.ng-valid-date.dropdown-menu li:last-child{
     display: none;
 }
 .dropdown-menu li.divider{

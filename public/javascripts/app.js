@@ -5,6 +5,7 @@ var payApp = angular.module('payRoll', ["xeditable", "ui.bootstrap"]);
 payApp.run(function(editableOptions) {
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 });
+
 // Change format
 payApp.filter('amountformat', function() {
     return function(input){
