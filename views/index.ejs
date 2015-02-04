@@ -77,11 +77,11 @@ pageTracker._trackPageview();
         <ul class="nav navbar-nav navbar-right">
       <li class="active">
 
-            <button class="btn btn-primary exported downloadPdf" ng-disabled="disablePdf"   style="float:right">{{pdfButton}}</button>
+           <!--  <button class="btn btn-primary exported downloadPdf" ng-disabled="disablePdf"   style="float:right">{{pdfButton}}</button> -->
 
 
-<!--       <button class="btn btn-primary exported downloadPdf" ng-show="paymentStatus" ng-disabled="disablePdf"   style="float:right">{{pdfButton}}</button>
- -->     <!--  <button class="btn btn-primary exported" ng-disabled="disablePdf" ng-hide="paymentStatus" ng-click="payment()" style="float:right">{{pdfButton}}</button> -->
+      <button class="btn btn-primary exported downloadPdf" ng-show="paymentStatus" ng-disabled="disablePdf"   style="float:right">{{pdfButton}}</button>
+      <button class="btn btn-primary exported" ng-disabled="disablePdf" ng-hide="paymentStatus" ng-click="payment()" style="float:right">{{pdfButton}}</button>
     </li>
       <!-- <a href="javascript:void(0);">GENERER UN BULLETIN DE PAIE</a></li> -->
         </ul>
