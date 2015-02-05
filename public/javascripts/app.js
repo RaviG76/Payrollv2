@@ -846,15 +846,17 @@ $scope.visible_AV_P2 = 0;
     }
 
     var paymentToken =  getParameterByName('token');
+    var payerId = getParameterByName('PayerID');
     $scope.pdfButton = "GENERER UN BULLETIN DE PAIE";
-    if(paymentToken)
+    
+    if(paymentToken && payerId)
         $scope.paymentStatus = true;
     else
         $scope.paymentStatus = false;
 
 
     $scope.payment = function() {
-        if (!paymentToken) {
+        if (!paymentToken || !payerId) {
             $scope.disablePdf = true;
             $scope.pdfButton = "Veuillez patienter..";
             $http.get('/payment')
