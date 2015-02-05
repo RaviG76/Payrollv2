@@ -397,7 +397,7 @@ pageTracker._trackPageview();
                
             </div>
             <div class="col-xs-6">
-                <strong>*** Assurance santé ***</strong>
+                <strong>*** Assurance santé et Prévoyance ***</strong>
                 <span id="re_base_HIns">{{(re_base_HIns) | amountformat}}   </span>
             </div>
             <div class="col-xs-1 mobileVew">
@@ -439,6 +439,31 @@ pageTracker._trackPageview();
                 {{(re_cot_pat_ins) | amountformat}}
             </div>
         </div>
+
+        <div ng-hide="visible_CI == '0'" class="row body-table">
+            <div class="col-xs-1 mobileVew">
+                ATMP
+            </div>
+            <div class="col-xs-6">
+                   Cotisations Accidents du Travail / Maladie Professionnelle
+            </div>
+            <div class="col-xs-1 mobileVew">
+               {{(re_base_sal) | amountformat}}
+            </div>
+            <div class="col-xs-1 yellw-bg mobileVew">
+              
+            </div>
+            <div class="col-xs-1">
+              
+            </div>
+            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_CI">
+                {{re_Rate_CI | rateformat }} %  
+            </div>
+            <div class="col-xs-1  " id="re_cot_pat_CI">
+              {{(re_cot_pat_CI) | amountformat}}
+            </div>
+        </div>
+
         <div  ng-hide="visible_PHI == '0'" class="row body-table">
             <div class="col-xs-1 mobileVew">
                 AM-P
@@ -447,7 +472,7 @@ pageTracker._trackPageview();
                 Assurance maladie financée directement par le salarié (obligatoire)
             </div>
             <div class="col-xs-1 mobileVew" id="re_Base_PHI">
-               {{(re_Base_PHI) | amountformat}}   
+               
             </div>
             <div class="col-xs-1 yellw-bg mobileVew">
                 
@@ -456,10 +481,10 @@ pageTracker._trackPageview();
                 
             </div>
             <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate2_PHI">
-                {{re_Rate2_PHI| rateformat }} %
+                 
             </div>
             <div class="col-xs-1  " id="re_cot_pat_PHI">
-                {{(re_cot_pat_PHI) | amountformat}}
+                 
             </div>
         </div>
         <div  ng-hide="visible_FEP == '0'" class="row body-table">
@@ -584,7 +609,7 @@ pageTracker._trackPageview();
         </div>
         
         
-        <div class="divider-table"></div>
+        <!-- <div class="divider-table"></div>
         <div class="row body-table bold-text">
             <div class="col-xs-1 mobileVew">
                 
@@ -608,31 +633,9 @@ pageTracker._trackPageview();
             <div class="col-xs-1  " id="re_cot_pat_AD">
                 {{(re_cot_pat_AD) | amountformat}}
             </div>
-        </div>
-        <div ng-hide="visible_CI == '0'" class="row body-table">
-            <div class="col-xs-1 mobileVew">
-                ATMP
-            </div>
-            <div class="col-xs-6">
-                   Cotisations Accidents du Travail / Maladie Professionnelle
-            </div>
-            <div class="col-xs-1 mobileVew">
-               {{(re_base_sal) | amountformat}}
-            </div>
-            <div class="col-xs-1 yellw-bg mobileVew">
-              
-            </div>
-            <div class="col-xs-1">
-              
-            </div>
-            <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_CI">
-                {{re_Rate_CI | rateformat }} %  
-            </div>
-            <div class="col-xs-1  " id="re_cot_pat_CI">
-              {{(re_cot_pat_CI) | amountformat}}
-            </div>
-        </div>
-        <div ng-hide="visible_PP == '0'" class="row body-table">
+        </div> -->
+        
+        <!-- <div ng-hide="visible_PP == '0'" class="row body-table">
             <div class="col-xs-1 mobileVew">
                 ATMP-P
             </div>
@@ -654,7 +657,7 @@ pageTracker._trackPageview();
             <div class="col-xs-1  " id="re_cot_pat_PP">
                {{(re_cot_pat_PP) | amountformat}}
             </div>
-        </div>
+        </div> -->
         <div class="divider-table"></div>
         <div class="row body-table bold-text">
             <div class="col-xs-1 mobileVew">
@@ -1060,7 +1063,7 @@ pageTracker._trackPageview();
                 {{re_Rate_OSSC | rateformat }} %
             </div>
             <div class="col-xs-1  ">
-               {{(re_OSSC) | amountformat}}
+               {{(re_cot_pat_OSSC) | amountformat}}
             </div>
         </div>
         <div ng-hide="visible_FAC == '0'" class="row body-table">
@@ -1508,11 +1511,11 @@ EveryOneSec();
   var scope_re_cot_pat_CI = angular.element(document.getElementById("re_cot_pat_CI")).scope();
   re_cot_pat_CI = scope_re_cot_pat_CI.re_cot_pat_CI;
 
-  var scope_re_Rate_PP = angular.element(document.getElementById("re_Rate_PP")).scope();
-  re_Rate_PP = scope_re_Rate_PP.re_Rate_PP;
+//  var scope_re_Rate_PP = angular.element(document.getElementById("re_Rate_PP")).scope();
+  re_Rate_PP = ''//scope_re_Rate_PP.re_Rate_PP;
 
-  var scope_re_cot_pat_PP = angular.element(document.getElementById("re_cot_pat_PP")).scope();
-  re_cot_pat_PP = scope_re_cot_pat_PP.re_cot_pat_PP;
+  //var scope_re_cot_pat_PP = angular.element(document.getElementById("re_cot_pat_PP")).scope();
+  re_cot_pat_PP = ''//scope_re_cot_pat_PP.re_cot_pat_PP;
 
   var scope_re_amount_PE = angular.element(document.getElementById("re_amount_PE")).scope();
   re_amount_PE = scope_re_amount_PE.re_amount_PE;
@@ -1718,8 +1721,8 @@ EveryOneSec();
   var scope_re_cot_pat_PT = angular.element(document.getElementById("re_cot_pat_PT")).scope();
   re_cot_pat_PT = scope_re_cot_pat_PT.re_cot_pat_PT;
 
-  var scope_re_cot_pat_AD = angular.element(document.getElementById("re_cot_pat_AD")).scope();
-  re_cot_pat_AD = scope_re_cot_pat_AD.re_cot_pat_AD;
+  //var scope_re_cot_pat_AD = angular.element(document.getElementById("re_cot_pat_AD")).scope();
+  re_cot_pat_AD = ''//scope_re_cot_pat_AD.re_cot_pat_AD;
 
   var scope_re_wages_costs = angular.element(document.getElementById("re_wages_costs")).scope();
   re_wages_costs = scope_re_wages_costs.re_wages_costs;
@@ -1854,7 +1857,7 @@ EveryOneSec();
                 // keepWithHeaderRows: 1,
                 // dontBreakRows: true,
                 body: [
-                    [{ text: '', style: 'col_rub_lower' }, { text: '*** Assurance santé *** '+re_base_HIns, style: 'cal_name_bold' }, { text: '', style: 'col_base_lower_bold' }, { text: re_tax_HI+' %', style: 'col_tax_lower_bold' }, { text: re_amount_HIns+'', style: 'col_amnt_lower_bold' }, { text: re_Rate2_HIns+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_HI+'', style: 'col_cot_pat_lower_bold' }],
+                    [{ text: '', style: 'col_rub_lower' }, { text: '*** Assurance santé et Prévoyance *** '+re_base_HIns, style: 'cal_name_bold' }, { text: '', style: 'col_base_lower_bold' }, { text: re_tax_HI+' %', style: 'col_tax_lower_bold' }, { text: re_amount_HIns+'', style: 'col_amnt_lower_bold' }, { text: re_Rate2_HIns+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_HI+'', style: 'col_cot_pat_lower_bold' }],
 
                     [{ text: 'AM-RG', style: 'col_rub_lower' }, { text: 'Assurance Maladie', style: 'cal_name_bold' }, { text: base_sal+'', style: 'col_base_lower_bold' }, { text: re_Rate_Ins+' %', style: 'col_tax_lower_bold' }, { text: re_amount_ins+'', style: 'col_amnt_lower_bold' }, { text: re_Rate2_Ins+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_ins+'', style: 'col_cot_pat_lower_bold' }],
 

@@ -549,12 +549,12 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
     $scope.$watch('oldage_ins', resetRoundMode);  
 
     $scope.re_base_sal = 3789.00;
-    $scope.re_Rate2_HIns = parseFloat((17.850).toFixed(3));
+    $scope.re_Rate2_HIns = parseFloat((23.700).toFixed(3));
     $scope.re_tax_HI = 8.610;
-    $scope.re_cot_pat_HI = 676.34;
+    $scope.re_cot_pat_HI = 897.99;
     $scope.re_amount_ins = 28.42;
     $scope.re_cot_pat_ins = 496.36;
-    $scope.re_base_HIns = 1002.57;
+    $scope.re_base_HIns = 1224.23;
     $scope.re_amount_HIns = 326.23;
     $scope.re_Rate2_Ins = parseFloat((13.001).toFixed(3));
     $scope.re_Rate_Ins = parseFloat((0.750).toFixed(3));
@@ -569,7 +569,7 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
     $scope.re_cot_pat_MC = 179.98;
     $scope.re_Rate_CI = parseFloat((1.000).toFixed(3));
     $scope.re_Rate2_SS = parseFloat((4.750).toFixed(3));
-    $scope.re_cot_pat_SS = parseFloat((213.75).toFixed(2));
+    $scope.re_cot_pat_SS = parseFloat((179.98).toFixed(2));
     $scope.re_cot_pat_CI = 41.68;
     $scope.re_Rate_PP = parseFloat((1.100).toFixed(3)); 
     $scope.re_cot_pat_PP = 37.89;
@@ -633,9 +633,9 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
     $scope.re_base_NHAF = 3170.00;
     $scope.re_Rate_NHAF = parseFloat((0.001).toFixed(3));
     $scope.re_cot_pat_NHAF = 3.17;
-    $scope.re_base_SP = 179.98;
+    $scope.re_base_SP = 359.96;
     $scope.re_Rate_SP = parseFloat((20.000).toFixed(3));
-    $scope.re_cot_pat_SP = 36.00;
+    $scope.re_cot_pat_SP = 71.99;
     $scope.re_cot_pat_OTAE = 0.00;
     $scope.re_Rate_OTAE = parseFloat((0.000).toFixed(3));
     $scope.re_OTAE = parseFloat((0.00).toFixed(2));
@@ -643,9 +643,9 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
     $scope.re_cot_pat_PT = 64.41;
     $scope.re_cot_pat_AD = 41.68;
     $scope.re_wages_costs = 738.06;
-    $scope.re_OSSC = 249.46;
-    $scope.re_Rate_OSSC = parseFloat((6.548).toFixed(3));
-    $scope.re_cot_pat_OSSC = 249.46;
+    $scope.re_OSSC = 285.45;
+    $scope.re_Rate_OSSC = parseFloat((7.534).toFixed(3));
+    $scope.re_cot_pat_OSSC = 285.45;
     $scope.re_Patron_Charges = 1587.24;
     $scope.re_Payment_URSAFF = 1679.89;
     $scope.re_Payment_AGIRC_ARRCO = 465.43;
@@ -654,11 +654,11 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
     $scope.re_Net_taxable = 3197.80;
     $scope.re_Total_wages = 5235.16;
     $scope.re_oldage_ins_base = 1029.32;
-    $scope.re_cot_pat_UI = 1.36;
-    $scope.re_amount_UI = 0.91;
-    $scope.re_Rate_UI = parseFloat((0.024).toFixed(3));
-    $scope.re_Rate2_UI = parseFloat((0.036).toFixed(3));
-    $scope.re_base_UI = 2.27;
+    $scope.re_cot_pat_UI = 164.29;
+    $scope.re_amount_UI = 91.85;
+    $scope.re_Rate_UI = parseFloat((2.424).toFixed(3));
+    $scope.re_Rate2_UI = parseFloat((4.336).toFixed(3));
+    $scope.re_base_UI = 256.14;
 
     //hide
 $scope.visible_Ins=1
@@ -670,8 +670,8 @@ $scope.visible_MC = 1;
 $scope.visible_CI = 1;
 $scope.visible_SS = 1;
 $scope.visible_PP = 0;
-$scope.visible_PE =0;
-$scope.visible_AREG = 0;
+$scope.visible_PE =1;
+$scope.visible_AREG = 1;
 $scope.visible_AEE = 1;
 $scope.visible_AV_P = 1;
 $scope.visible_AV_DP = 1;
@@ -802,8 +802,9 @@ $scope.visible_AV_P2 = 0;
             $scope.re_cot_pat_PT = response.cot_pat_PT;
             $scope.re_cot_pat_AD = response.cot_pat_AD;
             $scope.re_wages_costs = response.wages_costs;
-            $scope.re_OSSC = response.OSSC;
+            $scope.re_OSSC = response.cot_pat_OSSC;
             $scope.re_Rate_OSSC = response.Rate_OSSC;
+            $scope.re_cot_pat_OSSC = response.cot_pat_OSSC;
             $scope.re_Patron_Charges = response.Patron_Charges;
             $scope.re_Payment_URSAFF = response.Payment_URSAFF;
             $scope.re_Payment_AGIRC_ARRCO = response.Payment_AGIRC_ARRCO;

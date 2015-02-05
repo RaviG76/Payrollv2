@@ -98,7 +98,7 @@ router.post('/calculate', function(req, res, next) {
 
         var visible_PE    = (category != 'Mandataire social' && disability_ins != 'Privée') ? 1 : 0;
         var visible_AREG  = (category != 'Mandataire social' && disability_ins != 'Privée') ? 1 : 0;
-        var visible_AEE   = (category != 'Cadre' && disability_ins != 'Privée') ? 1 : 0;
+        var visible_AEE   = (category == 'Cadre' && disability_ins != 'Privée') ? 1 : 0;
 
         var visible_FAC   = 1;
         var visible_SP    = (health_ins == 'Rég. Gén.') ? 1 : 0;
@@ -114,23 +114,32 @@ router.post('/calculate', function(req, res, next) {
         var visible_SS = (health_ins == 'Rég. Gén.') ? 1 : 0;
         var visible_MC = (health_ins == 'Rég. Gén.') ? 1 : 0;
         var visible_CI = (health_ins == 'Rég. Gén.') ? 1 : 0;
-        var visible_FEP = (health_ins == 'Rég. Gén.') ? 1 : 0;
+        var visible_FEP = (health_ins != 'Rég. Gén.') ? 1 : 0;
         var visible_ARRCO_TB = (oldage_ins == 'Rég. Gén.' && category != 'Non cadre') ? 1 : 0; 
-        var visible_ARRCO_TC = (oldage_ins == 'Rég. Gén.' && category != 'Non cadre' && (Amount_ARRCO_TC + Cot_Pat_ARRCO_TC) != 0) ? 1 : 0; 
+
         var visible_ASC      = (health_ins == 'Rég. Gén.') ? 1 : 0;
         var visible_AC_P = (category == 'Mandataire social' || disability_ins == 'Privée' ) ? 1 : 0;
         var visible_AV_P2 = (oldage_ins != 'Rég. Gén.') ? 1 : 0;
 
         var visible_NHAF     = (health_ins == 'Rég. Gén.') ? 1 : 0;
+        var settings = settingsObj.SettingsC9;
         var visible_PT       = (settings > 9) ? 1 : 0;
-   
+        
+         /////////////////////////
+        var cot_pat_CI = (parseFloat(base_sal)*parseFloat(Rate_CI)/100).toFixed(2);
+        var cot_pat_PP = (parseFloat(base_sal)*parseFloat(Rate_PP)/100).toFixed(2);
+        var amount_PE  = (parseFloat(base_sal)*parseFloat(Rate_PE)/100).toFixed(2);
+        var amount_AEE = (parseFloat(base_sal)*parseFloat(Rate_AEE)/100).toFixed(2);
+        var cot_pat_PE = (parseFloat(base_sal)*parseFloat(Rate2_PE)/100).toFixed(2);
+        var cot_pat_AEE = (parseFloat(base_sal)*parseFloat(Rate_AEE2)/100).toFixed(2);
+
         var base_mutual_com = Math.min(base_sal,4*PMSS).toFixed(2);
         var cot_pat_MC = (base_mutual_com*Rate2_MC/100).toFixed(2);
         var cot_pat_ins = (base_sal*Rate2_Ins/100).toFixed(2);
+        var cot_pat_SS = parseFloat(base_sal)*parseFloat(Rate2_SS)/100;
+        var cot_pat_HI = (parseFloat(cot_pat_ins)*visible_Ins+parseFloat(cot_pat_CI)*visible_Ins1+(parseFloat(cot_pat_MC)*visible_MC)+(parseFloat(cot_pat_SS)*visible_SS)).toFixed(2);
 
-        var cot_pat_HI = (cot_pat_ins*visible_Ins+(Base_PHI*Rate2_PHI/100).toFixed(2))*visible_Ins1+(cot_pat_MC*visible_MC)+(cot_pat_SS*visible_SS).toFixed(2);
-
-// console.log(cot_pat_ins,visible_Ins,(Base_PHI*Rate2_PHI/100),visible_Ins1,cot_pat_MC,visible_MC,cot_pat_SS,visible_SS);
+        // console.log('#### ', cot_pat_ins,visible_Ins,(Base_PHI*Rate2_PHI/100),visible_Ins1,cot_pat_MC,visible_MC,cot_pat_SS,visible_SS, cot_pat_HI);
 
         var amount_ins = (base_sal*Rate_Ins/100).toFixed(2);
         var amount_GSC = (Math.min(base_sal,4*PMSS)*Amount_GSC*Rate_GSC/100+((base_sal>4*PMSS) ? (base_sal-4*PMSS)*1*Rate_GSC : 0)).toFixed(2);
@@ -169,7 +178,8 @@ router.post('/calculate', function(req, res, next) {
            Amount_AGFF_T2 = base_Complementary_Pensions_eT2/100*Rate_AGFF_T2;
 
         var visible_CET = (oldage_ins == 'Rég. Gén.' && category != 'Non cadre' && (Amount_AV_DP + Cot_Pat_AV_DP) != 0) ? 1 : 0; 
-
+        var visible_ARRCO_TC = (oldage_ins == 'Rég. Gén.' && category != 'Non cadre' && (Amount_ARRCO_TC + Cot_Pat_ARRCO_TC) != 0) ? 1 : 0; 
+       
         var Cot_Pat_Old_Age_Ins = ( Cot_Pat_AV_P *  visible_AV_P +  Cot_Pat_AV_DP * visible_AV_DP + Cot_Pat_ARRCO_T1 * visible_ARRCO_T1 + Cot_Pat_ARRCO_T2 * visible_ARRCO_T2 + Cot_Pat_ARRCO_TB * visible_ARRCO_TB + Cot_Pat_ARRCO_TC * visible_ARRCO_TC + Cot_Pat_CET * visible_CET + Cot_Pat_AGFF_T1 * visible_AGFF_T1 + Cot_Pat_AGFF_T2 * visible_AGFF_T2);
 
         var Amount_Old_Age_Ins = ( Amount_AV_P *  visible_AV_P +  Amount_AV_DP * visible_AV_DP + Amount_ARRCO_T1 * visible_ARRCO_T1 + Amount_ARRCO_T2 * visible_ARRCO_T2 + Amount_ARRCO_TB * visible_ARRCO_TB + Amount_ARRCO_TC * visible_ARRCO_TC + Amount_CET * visible_CET + Amount_AGFF_T1 * visible_AGFF_T1 + Amount_AGFF_T2 * visible_AGFF_T2);
@@ -177,34 +187,26 @@ router.post('/calculate', function(req, res, next) {
         var Rate2_Old_Age_Ins = (Cot_Pat_Old_Age_Ins * 100 / base_sal).toFixed(3);
         var Rate_Old_Age_Ins = (Amount_Old_Age_Ins * 100 / base_sal).toFixed(3);     
 
-        /////////////////////////
-        var cot_pat_CI = (parseFloat(base_sal)*parseFloat(Rate_CI)/100).toFixed(2);
-        var cot_pat_PP = (parseFloat(base_sal)*parseFloat(Rate_PP)/100).toFixed(2);
-        var amount_PE  = (parseFloat(base_sal)*parseFloat(Rate_PE)/100).toFixed(2);
-        var amount_AEE = (parseFloat(base_sal)*parseFloat(Rate_AEE)/100).toFixed(2);
-        var cot_pat_PE = (parseFloat(base_sal)*parseFloat(Rate2_PE)/100).toFixed(2);
-        var cot_pat_AEE = (parseFloat(base_sal)*parseFloat(Rate_AEE2)/100).toFixed(2);
-
-
         
         var Rate_FAC = ((base_sal <= 1.6*1457.52 ? 0.0345 : 0.0525)).toFixed(4); 
         var base_NHAF = (Math.min(base_sal,PMSS)).toFixed(2);
         var Rate_SP = ((1 >= 10 ? 0.080 : 0.200)*100).toFixed(3);
         var cot_pat_FAC = (base_sal*Rate_FAC).toFixed(2);
-        var cot_pat_SP = (cot_pat_MC*Rate_SP/100).toFixed(2);
+        var base_SP = (parseFloat(cot_pat_MC)+parseFloat(cot_pat_SS)).toFixed(2);
+        var cot_pat_SP = (parseFloat(base_SP)*Rate_SP/100).toFixed(2);
         var cot_pat_ASC = (base_sal*Rate2_ASC/100).toFixed(2);
         var cot_pat_NHAF = (base_NHAF*Rate2_NHAF/100).toFixed(2);
         var cot_pat_AD =  (cot_pat_CI * visible_CI + cot_pat_PP* visible_PP).toFixed(2);
 
         var cot_pat_OSSC = (cot_pat_FAC*1+cot_pat_NHAF*1+cot_pat_ASC*visible_ASC+cot_pat_SP*visible_SP).toFixed(2);
-        console.log('Here 2', cot_pat_FAC);
+        //console.log('@@@ ',cot_pat_FAC*1, cot_pat_NHAF*visible_NHAF, cot_pat_ASC*visible_ASC, cot_pat_SP*visible_SP, cot_pat_OSSC);
         var cot_pat_OTAE = ((base_sal*Rate_PT/100)*0).toFixed(2);
         var cot_pat_PHI  = (Base_PHI*Rate2_PHI/100).toFixed(2);
         var cot_pat_AREG = (parseFloat(base_sal)*parseFloat(Rate2_AREG)/100).toFixed(2);
 
         var cot_pat_UI = (cot_pat_PE * visible_PE + cot_pat_AEE * visible_AEE + cot_pat_AREG * visible_AREG).toFixed(2);
 
-        // console.log("@@ ",cot_pat_PE , visible_PE , cot_pat_AEE , visible_AEE , cot_pat_AREG , visible_AREG);
+         // console.log("@@ ",cot_pat_PE , visible_PE , cot_pat_AEE , visible_AEE , cot_pat_AREG , visible_AREG);
 
         var amount_UI  = (amount_PE * visible_PE + amount_AEE * visible_AEE);
 
@@ -248,7 +250,6 @@ router.post('/calculate', function(req, res, next) {
 
         //=+L22+ L32+ L38+ L50+ L56
         var Patron_Charges = (parseFloat(cot_pat_HI)+parseFloat(cot_pat_UI)+parseFloat(Cot_Pat_Old_Age_Ins)+parseFloat(cot_pat_FAC)+parseFloat(cot_pat_OTAE)).toFixed(2);
-console.log('Here ',parseFloat(cot_pat_HI) ,parseFloat(cot_pat_UI),parseFloat(Cot_Pat_Old_Age_Ins),parseFloat(cot_pat_FAC),parseFloat(cot_pat_OTAE) );
         
         var payment_AGIRC_ARRCO = ((parseFloat(amount_AEE)*visible_AEE*1)+(parseFloat(Amount_ARRCO_T1)*visible_ARRCO_T1*1)+(parseFloat(Amount_ARRCO_TB)*visible_ARRCO_TB*1)+(parseFloat(Amount_ARRCO_TC)*visible_ARRCO_TC*1)+(parseFloat(Amount_CET)*visible_CET*1)+(parseFloat(Amount_AGFF_T1)*visible_AGFF_T1*1)+(parseFloat(Amount_AGFF_T2)*visible_AGFF_T2*1)
                 +
@@ -257,9 +258,7 @@ console.log('Here ',parseFloat(cot_pat_HI) ,parseFloat(cot_pat_UI),parseFloat(Co
 
       
          var Net_taxable_val = (parseFloat(amount_ins) + parseFloat(amount_GSC) + parseFloat(amount_PE) + parseFloat(amount_AEE) + parseFloat(Amount_AV_P) + parseFloat(Amount_AV_DP) + parseFloat(Amount_ARRCO_T1) + parseFloat(Amount_ARRCO_T2)+ parseFloat(Amount_ARRCO_TB)+parseFloat(Amount_ARRCO_TC)+parseFloat(Amount_CET)+parseFloat(Amount_AGFF_T1)+parseFloat(Amount_AGFF_T2)  );
-         var cot_pat_SS = (parseFloat(base_sal)*parseFloat(Rate2_SS)/100).toFixed(2);
-
-
+        
         var cc = (health_ins == 'Rég. Gén.') ? cot_pat_MC : 0;
         var cc1 = base_sal - Net_taxable_val; 
         var Net_taxable = cc1+parseFloat(cc);
@@ -341,7 +340,7 @@ console.log('Here ',parseFloat(cot_pat_HI) ,parseFloat(cot_pat_UI),parseFloat(Co
             'Rate_ARRCO_T2':Rate_ARRCO_T2,
             'Rate2_ARRCO_T2':Rate2_ARRCO_T2,
             'Rate_ARRCO_TB':Rate_ARRCO_TB,
-            'Rate2_ARRCO_TB':Rate_ARRCO_TB,
+            'Rate2_ARRCO_TB':Rate2_ARRCO_TB,
             'Rate_ARRCO_TC':Rate_ARRCO_TC,
             'Rate2_ARRCO_TC':Rate2_ARRCO_TC,
             'Rate_CET':Rate_CET,
@@ -391,11 +390,10 @@ console.log('Here ',parseFloat(cot_pat_HI) ,parseFloat(cot_pat_UI),parseFloat(Co
             'base_NHAF':base_NHAF,
             'Rate_NHAF':Rate2_NHAF,
             'cot_pat_NHAF':cot_pat_NHAF,
-            'base_SP':parseFloat(cot_pat_MC)+parseFloat(cot_pat_SS),
+            'base_SP':base_SP,
             'Rate_SP':((1 >= 10 ? 0.080 : 0.200)*100).toFixed(3),
-            'cot_pat_SP':(cot_pat_MC*Rate_SP/100).toFixed(2),
-            'OSSC':(cot_pat_FAC*1+cot_pat_NHAF*1+cot_pat_ASC*visible_ASC+cot_pat_SP*visible_SP).toFixed(2),
-            'Rate_OSSC':((cot_pat_FAC*1+cot_pat_NHAF*1+cot_pat_ASC*1+cot_pat_SP*1)*100/base_sal).toFixed(3),
+            'cot_pat_SP':cot_pat_SP,
+            'Rate_OSSC':((cot_pat_FAC*1+cot_pat_ASC*visible_ASC+cot_pat_NHAF*visible_NHAF+cot_pat_SP*visible_SP)*100/base_sal).toFixed(3),
             'cot_pat_OSSC':cot_pat_OSSC,
             'cot_pat_OTAE':((base_sal*Rate_PT/100)*0).toFixed(2),
             'cot_pat_PT':cot_pat_PT,
@@ -408,8 +406,13 @@ console.log('Here ',parseFloat(cot_pat_HI) ,parseFloat(cot_pat_UI),parseFloat(Co
             (parseFloat(cot_pat_ins)*visible_Ins*1) + (parseFloat(cot_pat_CI)*visible_CI*1) + (parseFloat(cot_pat_PE)* visible_PE * 1) + ( parseFloat(cot_pat_AREG)*visible_AREG*1 )+(parseFloat(Cot_Pat_AV_P)*visible_AV_P*1)+(parseFloat(Cot_Pat_AV_DP)*visible_AV_DP*1) + (parseFloat(cot_pat_FAC)*visible_FAC) + (parseFloat(cot_pat_ASC)*visible_ASC*1) + (parseFloat(cot_pat_NHAF)*visible_NHAF*1) + (parseFloat(cot_pat_SP)*visible_SP*1) + ( parseFloat(cot_pat_PT)*visible_PT*1 ) ).toFixed(2),
             'Payment_AGIRC_ARRCO': payment_AGIRC_ARRCO,
 
-            'Private_Mutual_Pay':(( parseFloat(cot_pat_PHI) * visible_PHI * 1) + (parseFloat(cot_pat_MC) *visible_MC * 1 ) + (parseFloat(cot_pat_PP) * visible_PP* 1)).toFixed(2
+            'Private_Mutual_Pay':(( parseFloat(cot_pat_MC) * visible_MC * 1) + (parseFloat(cot_pat_CI) *visible_CI * 1 ) ).toFixed(2
                 ) ,
+            // 'Private_Mutual_Pay':(( parseFloat(cot_pat_MC) * visible_MC * 1) + (parseFloat(cot_pat_CI) *visible_CI * 1 ) + (parseFloat(cot_pat_PE) * visible_PE* 1) + (parseFloat(cot_pat_AREG * visible_AREG * 1) + (parseFloat(Cot_Pat_AV_P) * visible_AV_P * 1) + (parseFloat(Cot_Pat_AV_DP) * visible_AV_DP) * 1 )).toFixed(2
+            //     ) ,
+
+            //'Private_Mutual_Pay':(( parseFloat(cot_pat_PHI) * visible_PHI * 1) + (parseFloat(cot_pat_MC) *visible_MC * 1 ) + (parseFloat(cot_pat_PP) * visible_PP* 1)).toFixed(2
+                //) ,
             
             'Net_taxable':((parseFloat(base_sal)) - (parseFloat(amount_GSC)+parseFloat(amount_ins)+parseFloat(amount_PE)+parseFloat(amount_AEE)+parseFloat(Amount_AV_P)+parseFloat(Amount_AV_DP)+parseFloat(Amount_ARRCO_T1)+parseFloat(Amount_ARRCO_T2)+parseFloat(Amount_ARRCO_TB)+parseFloat(Amount_ARRCO_TC)+parseFloat(Amount_CET)+parseFloat(Amount_AGFF_T1)+parseFloat(Amount_AGFF_T2)) + (parseFloat(Net_taxable_third_val))).toFixed(2),
             'Net_Cash': Net_Cash,
