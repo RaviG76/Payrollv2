@@ -198,7 +198,7 @@ router.post('/calculate', function(req, res, next) {
         var cot_pat_NHAF = (base_NHAF*Rate2_NHAF/100).toFixed(2);
         var cot_pat_AD =  (cot_pat_CI * visible_CI + cot_pat_PP* visible_PP).toFixed(2);
 
-        var cot_pat_OSSC = (cot_pat_FAC*1+cot_pat_NHAF*1+cot_pat_ASC*visible_ASC+cot_pat_SP*visible_SP).toFixed(2);
+        var cot_pat_OSSC = (cot_pat_FAC*1+cot_pat_NHAF*visible_NHAF+cot_pat_ASC*visible_ASC+cot_pat_SP*visible_SP).toFixed(2);
         //console.log('@@@ ',cot_pat_FAC*1, cot_pat_NHAF*visible_NHAF, cot_pat_ASC*visible_ASC, cot_pat_SP*visible_SP, cot_pat_OSSC);
         var cot_pat_OTAE = ((base_sal*Rate_PT/100)*0).toFixed(2);
         var cot_pat_PHI  = (Base_PHI*Rate2_PHI/100).toFixed(2);
