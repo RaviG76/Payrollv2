@@ -37,21 +37,6 @@ payApp.filter('employIdFormat', function() {
     }
 });
 
-
-//change employee ID format 
-// payApp.filter('employIdFormat', function() {
-//     return function(input){
-//         return accounting.formatNumber(input, 0, " ", 2," ");
-//     }
-// });
-
-//change company ID format 
-// payApp.filter('customCurrency', function() {
-//     return function(input){
-//         return accounting.formatNumber(input, 0, " ", "", ",");
-//     }
-// });
-
 payApp.directive('currency', ['$filter', function ($filter) {
     return {
         require: 'ngModel',
@@ -85,6 +70,7 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
     $scope.payroll_period = new Date("January 31, 2015").toISOString();
     $scope.payroll_start = new Date("January 01, 2015").toISOString();
     $scope.payroll_end = new Date("January 31, 2015").toISOString();
+    //console.log('Date is ',$scope.payroll_end);
     $scope.employ_ID = "999999999999999";
     $scope.employ_name = " M. John Doe";
     $scope.employ_address1 = "Parc Chauchard";
