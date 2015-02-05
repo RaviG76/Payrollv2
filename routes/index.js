@@ -249,8 +249,8 @@ router.post('/calculate', function(req, res, next) {
         var wages_costs = (parseFloat(amount_HIns)+parseFloat(amount_UI)+parseFloat(Amount_Old_Age_Ins)).toFixed(2);
 
         //=+L22+ L32+ L38+ L50+ L56
-        var Patron_Charges = (parseFloat(cot_pat_HI)+parseFloat(cot_pat_UI)+parseFloat(Cot_Pat_Old_Age_Ins)+parseFloat(cot_pat_FAC)+parseFloat(cot_pat_OTAE)).toFixed(2);
-        
+        var Patron_Charges = (parseFloat(cot_pat_HI)+parseFloat(cot_pat_UI)+parseFloat(Cot_Pat_Old_Age_Ins)+parseFloat(cot_pat_OSSC)+parseFloat(cot_pat_OTAE)).toFixed(2);
+
         var payment_AGIRC_ARRCO = ((parseFloat(amount_AEE)*visible_AEE*1)+(parseFloat(Amount_ARRCO_T1)*visible_ARRCO_T1*1)+(parseFloat(Amount_ARRCO_TB)*visible_ARRCO_TB*1)+(parseFloat(Amount_ARRCO_TC)*visible_ARRCO_TC*1)+(parseFloat(Amount_CET)*visible_CET*1)+(parseFloat(Amount_AGFF_T1)*visible_AGFF_T1*1)+(parseFloat(Amount_AGFF_T2)*visible_AGFF_T2*1)
                 +
                 (parseFloat(cot_pat_AEE)*visible_AEE*1)+(parseFloat(Cot_Pat_ARRCO_T1)*visible_ARRCO_T1*1)+(parseFloat(Cot_Pat_ARRCO_TB)*visible_ARRCO_TB*1)+(parseFloat(Cot_Pat_ARRCO_TC)*visible_ARRCO_TC*1)+(parseFloat(Cot_Pat_CET)*visible_CET*1)+(parseFloat(Cot_Pat_AGFF_T1)*visible_AGFF_T1)+(parseFloat(Cot_Pat_AGFF_T2)*visible_AGFF_T2)).toFixed(2)
@@ -406,7 +406,7 @@ router.post('/calculate', function(req, res, next) {
             (parseFloat(cot_pat_ins)*visible_Ins*1) + (parseFloat(cot_pat_CI)*visible_CI*1) + (parseFloat(cot_pat_PE)* visible_PE * 1) + ( parseFloat(cot_pat_AREG)*visible_AREG*1 )+(parseFloat(Cot_Pat_AV_P)*visible_AV_P*1)+(parseFloat(Cot_Pat_AV_DP)*visible_AV_DP*1) + (parseFloat(cot_pat_FAC)*visible_FAC) + (parseFloat(cot_pat_ASC)*visible_ASC*1) + (parseFloat(cot_pat_NHAF)*visible_NHAF*1) + (parseFloat(cot_pat_SP)*visible_SP*1) + ( parseFloat(cot_pat_PT)*visible_PT*1 ) ).toFixed(2),
             'Payment_AGIRC_ARRCO': payment_AGIRC_ARRCO,
 
-            'Private_Mutual_Pay':(( parseFloat(cot_pat_MC) * visible_MC * 1) + (parseFloat(cot_pat_CI) *visible_CI * 1 ) ).toFixed(2
+            'Private_Mutual_Pay':(( parseFloat(cot_pat_MC) * visible_MC * 1) + (parseFloat(cot_pat_SS) *visible_SS * 1 ) ).toFixed(2
                 ) ,
             // 'Private_Mutual_Pay':(( parseFloat(cot_pat_MC) * visible_MC * 1) + (parseFloat(cot_pat_CI) *visible_CI * 1 ) + (parseFloat(cot_pat_PE) * visible_PE* 1) + (parseFloat(cot_pat_AREG * visible_AREG * 1) + (parseFloat(Cot_Pat_AV_P) * visible_AV_P * 1) + (parseFloat(Cot_Pat_AV_DP) * visible_AV_DP) * 1 )).toFixed(2
             //     ) ,

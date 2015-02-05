@@ -117,6 +117,7 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
                 console.log("Error", error)
         });
 
+         resetRoundMode('base_sal', 3789.00);
     }
 
     $scope.checkString = function(data) { 
@@ -540,6 +541,9 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
     $scope.base_activity = 100.00;
     $scope.base_dur = 151.67;
     
+    // $scope.fillData = function(){
+
+    // };
     $scope.$watch('base_sal', resetRoundMode);
     $scope.$watch('base_activity', resetRoundMode);
     $scope.$watch('base_dur', resetRoundMode);
@@ -642,17 +646,17 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
     $scope.re_Rate_PT = parseFloat((1.007).toFixed(3));
     $scope.re_cot_pat_PT = 64.41;
     $scope.re_cot_pat_AD = 41.68;
-    $scope.re_wages_costs = 738.06;
+    $scope.re_wages_costs = 829.00;
     $scope.re_OSSC = 285.45;
     $scope.re_Rate_OSSC = parseFloat((7.534).toFixed(3));
     $scope.re_cot_pat_OSSC = 285.45;
-    $scope.re_Patron_Charges = 1587.24;
-    $scope.re_Payment_URSAFF = 1679.89;
+    $scope.re_Patron_Charges = 1966.14;
+    $scope.re_Payment_URSAFF = 1969.75;
     $scope.re_Payment_AGIRC_ARRCO = 465.43;
-    $scope.re_Private_Mutual_Pay = 179.98;
+    $scope.re_Private_Mutual_Pay = 359.96;
     $scope.re_Net_Cash = 2909.86;
-    $scope.re_Net_taxable = 3197.80;
-    $scope.re_Total_wages = 5235.16;
+    $scope.re_Net_taxable = 3377.78;
+    $scope.re_Total_wages = 5705.00;
     $scope.re_oldage_ins_base = 1029.32;
     $scope.re_cot_pat_UI = 164.29;
     $scope.re_amount_UI = 91.85;
