@@ -121,9 +121,9 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
     };
 
     $scope.checkEmployId = function(data) { 
-        if(data.length < 15) {
+        if(data.length < 15 || data.length > 15) {
             $scope.employ_ID = "999999999999999";
-            return "Please enter atleast 15 digits";
+            return "Veuillez saisir 15 chiffres";
         }
     }
 
@@ -137,7 +137,7 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
     $scope.validateCompanyId = function(data) { 
         if(data.length > 9 || data.length < 9) {
             $scope.company_ID = "999999999";
-            return "Please enter atleast 9 digits";
+            return "Veuillez saisir 9 chiffres";
         }
     };
 
