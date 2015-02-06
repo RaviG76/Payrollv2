@@ -1014,40 +1014,21 @@ EveryOneSec();
 // var scope = angular.element(document.getElementById("base_dur")).scope();
 
 
- $(".toggler").click(function(){
-        $(".theme-options").toggle();
-    });
 
- $(".toggler-close").click(function(){
-    $( ".theme-options" ).hide();
-    });
- 
 gethyt(); 
 });
 
-function gethyt() {
-
-if ($(window).width() < 767) {   
-    //alert('call');
+function gethyt() {    //alert('call');
 $(".body-table").each(function() {
     var h = $(this).height(); 
     $(this).children().css("min-height", h);
-
-
 });
-
-}
 
 }
 $(window).resize(function() {
-  if ($(window).width() < 767) {  
 $(".body-table").each(function() {
     $(".body-table").children().css("min-height", "5px");
 });
-}
 gethyt(); 
 });
 
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip()
-})

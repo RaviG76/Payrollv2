@@ -899,15 +899,14 @@ div.content-calculator{
 @media (min-width: 1200px){
 
  .col-md-4.emplytble {
-    width: 32%;
+    width: 34%;
 }  
 .emplytble-lrg{
-    padding: 0 0%;
-    width: 35%;
+    padding: 0 3%;
+    width: 32%;
 }    
 .emplytble-lrg .voilet-grid{
-    width: 56%;
-    padding: 0px !important;
+    width: 55%;
 }
 .emplytble-lrg .grey-grid{
     width: 44%;
@@ -926,7 +925,7 @@ div.content-calculator{
     padding-left: 120px;
 }
 .mrg-row .col-md-3{
-    padding-right: 60px;
+    padding-right: 0px;
 }
 .align-grid-chrg .dl-horizontal dt{
     width:160px;
@@ -1162,7 +1161,6 @@ div.repeat-list .voilet-grid{
 }
 .body-table.bold-text div{
     padding-top: 20px;
-    min-height: 42px;
 }
 /*.form-control.code-naf {
     width: 58%;
@@ -1207,7 +1205,6 @@ div.repeat-list .voilet-grid{
     -webkit-box-shadow: none;
     -ms-box-shadow: none;
     border: 1px solid #a4c1ce;
-    margin-top: 1px;
 }
 .form-control:focus, .form-control:active{
     box-shadow: none;
@@ -1516,164 +1513,3 @@ div.repeat-list .col-xs-7, div.repeat-list .col-xs-5{
 .dropdown-menu li a:active{
     outline: none;
 }
-
-.main-toggler {
-    bottom: 20px;
-    position: relative;
-    right: 0;
-    width: 100%;
-    padding-left: 23px;
-}
-
-.toggler {
-    background: none repeat scroll 0 0 #d2e7f0;
-    border-radius: 34px;
-    height: 42px;
-    text-align: center;
-    width: 45px;
-    cursor: pointer;
-}
-
-.toggler:hover{
-    background: #acb5c3;
-    color: #fff;
-}
-
-.toggler > i {
-    color: #aed7e9;
-    font-size: 20px;
-    position: relative;
-    top: 12px;
-}
-
-
-.theme-options {
-    background: none repeat scroll 0 0 #3f4d56;
-    border: 1px solid #39454d;
-    border-radius: 4px;
-    position: absolute;
-    right: 104px;
-    z-index: 100;
-    top: 90px;
-}
-
-.toggler-close {
-    cursor: pointer;
-    display: block !important;
-    float: right;
-}
-
-
-.theme-options > .theme-option.theme-colors {
-    border-top: 0 none;
-}
-.theme-options > .theme-option {
-    color: #eee;
-    margin-bottom: 0;
-    margin-top: 0;
-    padding: 11px;
-}
-
-.theme-options > .theme-option.theme-colors > ul {
-    display: block;
-    list-style: outside none none;
-    margin-bottom: 10px !important;
-    margin-top: 15px;
-    padding: 0;
-}
-
-.theme-options > .theme-option.theme-colors > ul > li.color-default {
-    background: none repeat scroll 0 0 #2b3643;
-}
-
-.theme-options > .theme-option.theme-colors > ul > li:hover, .theme-panel > .theme-options > .theme-option.theme-colors > ul > li.current {
-    border: 2px solid #d64635;
-}
-
-.theme-options > .theme-option.theme-colors > ul > li:first-child {
-    margin-left: 0;
-}
-
-.theme-options > .theme-option.theme-colors > ul > li.color-grey {
-    background: none repeat scroll 0 0 #4d5b69;
-}
-
-.theme-options > .theme-option.theme-colors > ul > li {
-    border: 1px solid #707070;
-    cursor: pointer;
-    float: left;
-    height: 45px;
-    list-style: outside none none;
-    margin: 0 4px;
-    width: 46px;
-}
-
-.theme-options > .theme-option.theme-colors > ul > li.color-blue {
-    background: none repeat scroll 0 0 #26344b;
-}
-
-.theme-options > .theme-option.theme-colors > ul > li.color-dark {
-    background: none repeat scroll 0 0 #333438;
-}
-
-.theme-options > .theme-option.theme-colors > ul > li.color-light {
-    background: none repeat scroll 0 0 #f5f5f5;
-}
-
-.theme-clear label {
-    color: #fff;
-    font-size: 13px;
-    font-weight: normal;
-    width: 33%;
-}
-
-
-.layout-style-option {
-    display: inline-block;
-    width: 100%;
-}
-
-
-.theme-options > .theme-option {
-    border-top: 1px solid #46545f;
-    color: #eee;
-    margin-bottom: 0;
-    margin-top: 0;
-    padding: 11px;
-}
-
-.theme-options > .theme-option > span {
-    display: inline-block;
-    font-size: 12px;
-    font-weight: 300;
-    text-transform: uppercase;
-    width: 115px;
-}
-
-.theme-options > .theme-option > select.form-control {
-    display: inline;
-    padding: 2px;
-    text-transform: lowercase;
-    width: 100px;
-}
-
-.input-small {
-    width: 145px !important;
-    border-radius: 0;
-}
-
-.toggler > i:hover{
-    color: #fff;
-}
-
-
-.extra-height .col-xs-6 {
-    font-style: italic;
-}
-
-.demotic .col-xs-6 {
-    font-style: italic;
-}
-
-
-

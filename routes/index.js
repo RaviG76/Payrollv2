@@ -269,20 +269,39 @@ router.post('/calculate', function(req, res, next) {
                 parseFloat(Net_taxable_sixth_val) -
                 parseFloat(Net_taxable_seven_val)
                  );
-
-        // console.log('Net tax ',parseFloat(base_sal) ,
-        //         parseFloat(Net_Cash_second_val) ,
-        //         parseFloat(Net_taxable_third_val),
-        //         parseFloat(amount_PE) ,
-        //         parseFloat(Net_taxable_fifth_val) ,  
-        //         parseFloat(Net_taxable_sixth_val) ,
-        //         parseFloat(Net_taxable_seven_val),
-        //         Net_taxable);
-
+        var Total_wages = (parseFloat(Net_Cash) + parseFloat(wages_costs) + parseFloat(Patron_Charges)).toFixed(2);
         var cc = (health_ins == 'Rég. Gén.') ? cot_pat_MC : 0;
         var cc1 = base_sal - Net_taxable; 
         var NDF = 1400.00;
+        var Employee_payment = (parseFloat(Net_Cash)+parseFloat(NDF)).toFixed(2);
         // var Net_taxable = cc1+parseFloat(cc);
+
+        //floating form values
+        var social_charges = parseFloat(wages_costs)+parseFloat(Patron_Charges);
+        var taxable_net_salery = parseFloat(Total_wages);
+        var net_salery = parseFloat(Net_Cash);
+        var costs_benefits = parseFloat(NDF);
+        //var Employee_payment = Employee_payment
+        var pay_charges = parseFloat(Employee_payment)+parseFloat(Patron_Charges);
+        var private_health_ins_amnt = 270.00;
+        var private_pension_amnt = 100;
+        var unemployment_ins_amnt = 50;
+        
+        //=IF(G14<>"Rég. Gén.",SUM(J23,J27,J28,L23,L24,L52:L54)-W20-W21,0)+
+        //=IF(AND(G15<>"Rég. Gén.",B15<>"Mandataire social"),SUM(J33,L33,L34,IF(B15="Cadre",J35+L35))-W23)+
+        
+        var spared_retirement_first_val = (health_ins != 'Rég. Gén.') ? parseFloat(amount_ins)+parseFloat(Amount_GSC)+parseFloat(amount_CRTSD)+parseFloat(cot_pat_ins)+parseFloat(cot_pat_CI)+parseFloat(cot_pat_ASC)+parseFloat(cot_pat_NHAF)+parseFloat(cot_pat_SP)-parseFloat(private_health_ins_amnt)-parseFloat(private_pension_amnt) : 0;
+        
+        var spared_retirement_second_val_if = (category == 'Cadre') ? parseFloat(amount_AEE)+parseFloat(cot_pat_AEE) : 0;
+        
+        var spared_retirement_second_val = (disability_ins != 'Rég. Gén.' && category != 'Mandataire social') ? parseFloat(amount_PE)+parseFloat(cot_pat_PE)+parseFloat(cot_pat_AREG)+ parseFloat(spared_retirement_second_val_if) - parseFloat(unemployment_ins_amnt) : 0;
+
+        // =IF(G16<>"Rég. Gén.",SUM(J39:J41,L39:L41,J46:J47,L46:L47,IF(B15="Non cadre",J42+L42,SUM(J43:J45, L43:L45))))
+        var spared_retirement_third_val_if = (category == 'Non cadre' ) ? parseFloat(Amount_ARRCO_T2)+parseFloat(Cot_Pat_ARRCO_T2) : parseFloat(Amount_ARRCO_TB)+parseFloat(Amount_ARRCO_TC)+parseFloat(Amount_CET)+parseFloat(Cot_Pat_ARRCO_TB)+parseFloat(Cot_Pat_ARRCO_TC)+parseFloat(Cot_Pat_CET);
+
+        var spared_retirement_third_val = (oldage_ins != 'Rég. Gén.') ? parseFloat(Amount_AV_P)+parseFloat(Amount_AV_DP)+parseFloat(Amount_ARRCO_T1)+parseFloat(Cot_Pat_AV_P)+parseFloat(Cot_Pat_AV_DP)+parseFloat(Cot_Pat_ARRCO_T1)+parseFloat(Amount_AGFF_T1)+parseFloat(Amount_AGFF_T2)+parseFloat(Cot_Pat_AGFF_T1)+parseFloat(Cot_Pat_AGFF_T2) + parseFloat(spared_retirement_third_val_if) : 0;
+        // var spared_retirement = 
+
 
 
         var visible_hide = {        
@@ -432,9 +451,9 @@ router.post('/calculate', function(req, res, next) {
                 ) ,           
             'Net_Cash': Net_Cash,
             'Net_taxable':Net_taxable.toFixed(2),
-            'Total_wages':(parseFloat(Net_Cash) + parseFloat(wages_costs) + parseFloat(Patron_Charges)).toFixed(2),
+            'Total_wages':Total_wages,
             'NDF':NDF,
-            'Employee_payment':(parseFloat(Net_Cash)+parseFloat(NDF)).toFixed(2),
+            'Employee_payment':Employee_payment,
             'visible_hide': visible_hide,
            };
             
