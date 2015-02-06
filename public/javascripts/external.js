@@ -143,6 +143,7 @@ EveryOneSec();
 
   function EveryOneSec() {
   
+  //gethyt();
   setTimeout(EveryOneSec, 1000);
 
   var scope_company_name = angular.element(document.getElementById("company_name")).scope();
@@ -1017,26 +1018,12 @@ EveryOneSec();
 gethyt(); 
 });
 
-function gethyt() {   
+function gethyt() {    //alert('call');
 $(".body-table").each(function() {
     var h = $(this).height(); 
     $(this).children().css("min-height", h);
 });
-  // $(function () {
 
-  //     var specialElementHandlers = {
-  //         '#editor': function (element,renderer) {
-  //             return true;
-  //         }
-  //     };
-  //  $('#exportPdf').click(function () { 
-  //         var doc = new jsPDF();
-  //         doc.fromHTML($('#payrollPDF').html(), 10, 10, {
-  //             'width': 200,'elementHandlers': specialElementHandlers
-  //         });
-  //         doc.save('payroolPDF.pdf');
-  //     });  
-  // });
 }
 $(window).resize(function() {
 $(".body-table").each(function() {
