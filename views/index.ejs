@@ -690,7 +690,7 @@ pageTracker._trackPageview();
                   Pole Emploi
             </div>
             <div class="col-xs-1 mobileVew">
-               {{(re_base_sal) | amountformat}}
+               {{(re_base_mutual_com) | amountformat}}
             </div>
             <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_PE">
               {{re_Rate_PE | rateformat }} %
@@ -713,7 +713,7 @@ pageTracker._trackPageview();
                    Assoc. pour la gest. du rég. de Garantie des créances des Salariés
             </div>
             <div class="col-xs-1 mobileVew">
-              {{(re_base_sal) | amountformat}}
+              {{(re_base_mutual_com) | amountformat}}
             </div>
             <div class="col-xs-1 yellw-bg mobileVew">
               
@@ -737,7 +737,7 @@ pageTracker._trackPageview();
                     Association Pour l’Emploi des Cadres
             </div>
             <div class="col-xs-1 mobileVew">
-               {{(re_base_sal) | amountformat}}
+               {{(re_base_mutual_com) | amountformat}}
             </div>
             <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_AEE">
              {{re_Rate_AEE | rateformat }} %
@@ -761,7 +761,7 @@ pageTracker._trackPageview();
                     Assurance chômage financée directement par le salarié (optionnel)
             </div>
             <div class="col-xs-1 mobileVew">
-               
+               {{re_base_mutual_com}}
             </div>
             <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_AEE">
              
@@ -929,8 +929,8 @@ pageTracker._trackPageview();
             <div class="col-xs-6">
                   Association Générale des Institutions de Retraite des Cadres (TC)
             </div>
-            <div class="col-xs-1 mobileVew">
-              0,00
+            <div class="col-xs-1 mobileVew" id="re_base_ARRCO_TC">
+              {{re_base_ARRCO_TC | amountformat}}
             </div>
             <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_ARRCO_TC">
              {{re_Rate_ARRCO_TC | rateformat }} %
@@ -1219,15 +1219,19 @@ pageTracker._trackPageview();
                 <dl class="dl-horizontal">
                     <dt>Net à payer <em>:</em></dt>
                     
-                    <dd id="re_Net_Cash">  {{(re_Net_Cash) | amountformat}}</dd>
+                    <dd id="re_Net_Cash">{{(re_Net_Cash) | amountformat}}</dd>
                  </dl>   
                  <dl class="dl-horizontal">
                     <dt>Net imposable <em>:</em></dt>
-                    <dd id="re_Net_taxable">    {{(re_Net_taxable) | amountformat}}</dd>
+                    <dd id="re_Net_taxable">{{(re_Net_taxable) | amountformat}}</dd>
                   </dl>
                   <dl class="dl-horizontal">  
                     <dt>Salaire total <em>:</em></dt>
                     <dd id="re_Total_wages">{{(re_Total_wages) | amountformat}}</dd>
+                  </dl>
+                  <dl class="dl-horizontal">  
+                    <dt>Frais (NDF) <em>:</em></dt>
+                    <dd id="re_NDF">{{(re_NDF) | amountformat}}</dd>
                   </dl>  
             </div>  
         </div>
@@ -1246,6 +1250,10 @@ pageTracker._trackPageview();
                   <dl class="dl-horizontal">  
                     <dt>Versement mutuelles privées :</dt>
                     <dd id="re_Private_Mutual_Pay">{{(re_Private_Mutual_Pay) | amountformat}}</dd>
+                  </dl>
+                  <dl class="dl-horizontal">  
+                    <dt>Versement salarié :</dt>
+                    <dd id="re_Private_Mutual_Pay">{{(re_Employee_payment) | amountformat}}</dd>
                   </dl>  
             </div>  
         </div>

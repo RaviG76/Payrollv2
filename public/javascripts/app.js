@@ -546,6 +546,7 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
     $scope.$watch('oldage_ins', resetRoundMode);  
 
     $scope.re_base_sal = 3789.00;
+    $scope.re_base_mutual_com = 12680.00;
     $scope.re_Rate2_HIns = parseFloat((23.700).toFixed(3));
     $scope.re_tax_HI = 8.610;
     $scope.re_cot_pat_HI = 897.99;
@@ -656,6 +657,7 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
     $scope.re_Rate_UI = parseFloat((2.424).toFixed(3));
     $scope.re_Rate2_UI = parseFloat((4.336).toFixed(3));
     $scope.re_base_UI = 256.14;
+    $scope.re_base_ARRCO_TC = 2320.00;
 
     //hide
 $scope.visible_Ins=1
@@ -686,6 +688,8 @@ $scope.visible_SP = 1
 $scope.visible_PT = 0;
 $scope.visible_AC_P = 0;
 $scope.visible_AV_P2 = 0;
+$scope.re_NDF = 1400.00;
+$scope.re_Employee_payment = 13585.42;
 
 
     function resetRoundMode(newValue, oldValue) {
@@ -702,9 +706,10 @@ $scope.visible_AV_P2 = 0;
           'category':$scope.category,
         };
         $http.post('/calculate', data)
-          .success(function(response) { //console.log('@@@@@2 ',response.cot_pat_PHI);
+          .success(function(response) { console.log('@@@@@2 ',response.base_mutual_com);
             console.log('response', response);
             $scope.re_base_sal = response.base_salary;
+            $scope.re_base_mutual_com = response.base_mutual_com;
             $scope.re_Rate2_HIns = response.Rate2_HIns;
             $scope.re_tax_HI = response.tax_HI;
             $scope.re_cot_pat_HI = response.cot_pat_HI;
@@ -815,6 +820,8 @@ $scope.visible_AV_P2 = 0;
             $scope.re_Rate2_UI = response.Rate2_UI;
             $scope.re_base_UI = response.base_UI;
             $scope.re_Net_taxable = response.Net_taxable;
+            $scope.re_NDF = response.NDF;
+            $scope.re_Employee_payment = response.Employee_payment;
 
             console.log('response.visible_hide', response.visible_hide);
             $scope.visible_Ins= response.visible_hide.visible_Ins;
@@ -856,10 +863,12 @@ $scope.visible_AV_P2 = 0;
     var payerId = getParameterByName('PayerID');
     $scope.pdfButton = "GENERER UN BULLETIN DE PAIE";
     
-    if(paymentToken && payerId)
+    if(paymentToken && payerId) {
         $scope.paymentStatus = true;
-    else
+        $scope.pdfButton = "Exporter en PDF";
+    } else {
         $scope.paymentStatus = false;
+    }
 
 
     $scope.payment = function() {
@@ -868,7 +877,7 @@ $scope.visible_AV_P2 = 0;
             $scope.pdfButton = "Veuillez patienter..";
             $http.get('/payment')
                 .success(function(response) {
-                    console.log('success ', response);
+                    //console.log('success ', response);
                     $scope.paymentStatus = true;
                     $scope.disablePdf = true;
                     $window.location.href = response.url ;//'http://google.com';
