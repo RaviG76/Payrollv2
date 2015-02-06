@@ -174,8 +174,7 @@ pageTracker._trackPageview();
             
                 <dl class="dl-horizontal ">
                     <dt>Mois/année de paie :</dt>
-                    
-                     <dd><span editable-bsdate="payroll_period" id="payroll_period" e-datepicker-popup="dd.MM.yyyy">  {{(payroll_period |  date:"MM/yyyy" ) || "01/2015"}}
+                     <dd><span editable-bsdate="payroll_period" id="payroll_period" e-datepicker-popup="dd.MM.yyyy">  {{(payroll_period | date:"dd.MM/yyyy" | customDateFilter)}}
                         </span>
                      </dd> 
                  </dl>   

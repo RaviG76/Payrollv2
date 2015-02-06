@@ -37,6 +37,13 @@ payApp.filter('employIdFormat', function() {
     }
 });
 
+//change date format 
+payApp.filter('customDateFilter', function(){
+    return function(input){
+        return input.slice(3,10);
+    }
+});
+
 payApp.directive('currency', ['$filter', function ($filter) {
     return {
         require: 'ngModel',
