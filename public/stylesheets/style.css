@@ -1,5 +1,7 @@
 body{font-family: sans-serif; font-size: 14px; background:#f4f4f4; }
-
+.container.content-calculator {
+    position: relative;
+}
 .content-calculator{
     margin-top: 110px;
 }
@@ -394,6 +396,24 @@ a.navbar-brand:hover {
     width: 50%;
     margin-bottom: 10px;
 }
+
+.toggler{
+    float: right;
+}
+
+.theme-options{
+    width: 62% !important;
+}
+
+.theme-options{
+    right: 20px !important;
+}
+
+
+
+
+
+
 .mrg-row > .col-md-5{
     padding-right: 0px;
 }
@@ -455,6 +475,18 @@ div.mrg-row .dl-horizontal dd{
     max-width: 100%;
     text-align: right;
 }  
+
+.toggler {
+    float: right;
+    margin-top: 19px;
+}
+
+.theme-options {
+    right: 15px !important;
+    width: 95% !important;
+}
+
+
 div.mrg-row .col-md-5{
     padding-right: 0px;
 } 
@@ -521,6 +553,17 @@ div.content-calculator{
 .padding-max div.hrzntl-algin .dl-horizontal dd {
     margin-left: 160PX;
 }  
+
+.theme-options {
+    right: 10px !important;
+    width: 94% !important;
+}
+
+.theme-options > .theme-option > span {
+    font-size: 12px !important;
+    width: 94% !important;
+}
+
 .padding-max div.hrzntl-algin .dl-horizontal dt {
     width: 160px;
 } 
@@ -889,11 +932,11 @@ div.content-calculator{
 }
 .align-grid-first .dl-horizontal dd{
     text-align: right;	
-    max-width: 80px;
+    max-width: 110px;
 }
 
 .align-grid-chrg .dl-horizontal dd{
-    max-width: 80px;
+    max-width: 100px;
     text-align: right;
 }
 
@@ -906,8 +949,6 @@ div.content-calculator{
     height: 42px !important;
     padding-top: 20px;
 }
-
-
 
 
 }
@@ -943,14 +984,14 @@ div.content-calculator{
     width: 67%;
 }
 .mrg-row .col-md-5{
-    padding-left: 95px;
-    padding-right: 45px;
+    padding-left: 100px;
+    padding-right: 0px;
 }    
 .mrg-row .col-md-4{
-    padding-left: 120px;
+    padding-left: 89px;
 }
 .mrg-row .col-md-3{
-    padding-right: 60px;
+    padding-right: 15px;
 }
 .align-grid-chrg .dl-horizontal dt{
     width:160px;
@@ -985,7 +1026,18 @@ padding: 6px 10px;
 @media (min-width:991px) and (max-width:1199px){
 .emplytble .voilet-grid{
     width: 38%;
-}    
+}   
+
+.theme-options{
+    width: 42% !important;
+    right: 48px !important;
+}
+
+.main-toggler{
+    padding-left: 5px !important;
+}
+
+
 .emplytble .grey-grid{
     width: 62%;
 }
@@ -1576,9 +1628,10 @@ div.repeat-list .col-xs-7, div.repeat-list .col-xs-5{
     border: 1px solid #39454d;
     border-radius: 4px;
     position: absolute;
-    right: 104px;
+    right: 15px;
+    top: -20px;
+    width: 41%;
     z-index: 100;
-    top: 90px;
 }
 
 .toggler-close {
@@ -1659,19 +1712,18 @@ div.repeat-list .col-xs-7, div.repeat-list .col-xs-5{
 
 
 .theme-options > .theme-option {
-    border-top: 1px solid #46545f;
     color: #eee;
     margin-bottom: 0;
     margin-top: 0;
-    padding: 11px;
+    padding: 12px 11px 0;
 }
 
 .theme-options > .theme-option > span {
     display: inline-block;
-    font-size: 12px;
-    font-weight: 300;
+    font-size: 14px;
+    font-weight: bold;
     text-transform: uppercase;
-    width: 115px;
+    width: 90%;
 }
 
 .theme-options > .theme-option > select.form-control {
@@ -1700,4 +1752,28 @@ div.repeat-list .col-xs-7, div.repeat-list .col-xs-5{
 }
 
 
+.theme-option table {
+    width: 100%;
+}
 
+.left-content {
+    width: 62%;
+}
+
+.right-content {
+    width: 38%;
+    text-align: right;
+}
+
+.theme-option tr {
+    line-height: 23px;
+}
+
+.theme-option td {
+    border: 1px solid #5d6b76;
+    padding: 4px 12px;
+}
+
+.evr-clear {
+    padding: 10px;
+}

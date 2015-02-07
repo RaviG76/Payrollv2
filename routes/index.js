@@ -290,8 +290,8 @@ router.post('/calculate', function(req, res, next) {
         //=IF(G14<>"Rég. Gén.",SUM(J23,J27,J28,L23,L24,L52:L54)-W20-W21,0)+
         //=IF(AND(G15<>"Rég. Gén.",B15<>"Mandataire social"),SUM(J33,L33,L34,IF(B15="Cadre",J35+L35))-W23)+
         
-        var spared_retirement_first_val = (health_ins != 'Rég. Gén.') ? parseFloat(amount_ins)+parseFloat(Amount_GSC)+parseFloat(amount_CRTSD)+parseFloat(cot_pat_ins)+parseFloat(cot_pat_CI)+parseFloat(cot_pat_ASC)+parseFloat(cot_pat_NHAF)+parseFloat(cot_pat_SP)-parseFloat(private_health_ins_amnt)-parseFloat(private_pension_amnt) : 0;
-        
+        var spared_retirement_first_val = (health_ins != 'Rég. Gén.') ? parseFloat(amount_ins)+parseFloat(amount_GSC)+parseFloat(amount_CRTSD)+parseFloat(cot_pat_ins)+parseFloat(cot_pat_CI)+parseFloat(cot_pat_ASC)+parseFloat(cot_pat_NHAF)+parseFloat(cot_pat_SP)-parseFloat(private_health_ins_amnt)-parseFloat(private_pension_amnt) : 0; 
+
         var spared_retirement_second_val_if = (category == 'Cadre') ? parseFloat(amount_AEE)+parseFloat(cot_pat_AEE) : 0;
         
         var spared_retirement_second_val = (disability_ins != 'Rég. Gén.' && category != 'Mandataire social') ? parseFloat(amount_PE)+parseFloat(cot_pat_PE)+parseFloat(cot_pat_AREG)+ parseFloat(spared_retirement_second_val_if) - parseFloat(unemployment_ins_amnt) : 0;
@@ -300,9 +300,63 @@ router.post('/calculate', function(req, res, next) {
         var spared_retirement_third_val_if = (category == 'Non cadre' ) ? parseFloat(Amount_ARRCO_T2)+parseFloat(Cot_Pat_ARRCO_T2) : parseFloat(Amount_ARRCO_TB)+parseFloat(Amount_ARRCO_TC)+parseFloat(Amount_CET)+parseFloat(Cot_Pat_ARRCO_TB)+parseFloat(Cot_Pat_ARRCO_TC)+parseFloat(Cot_Pat_CET);
 
         var spared_retirement_third_val = (oldage_ins != 'Rég. Gén.') ? parseFloat(Amount_AV_P)+parseFloat(Amount_AV_DP)+parseFloat(Amount_ARRCO_T1)+parseFloat(Cot_Pat_AV_P)+parseFloat(Cot_Pat_AV_DP)+parseFloat(Cot_Pat_ARRCO_T1)+parseFloat(Amount_AGFF_T1)+parseFloat(Amount_AGFF_T2)+parseFloat(Cot_Pat_AGFF_T1)+parseFloat(Cot_Pat_AGFF_T2) + parseFloat(spared_retirement_third_val_if) : 0;
-        // var spared_retirement = 
 
+        var spared_retirement = parseFloat(spared_retirement_first_val) + parseFloat(spared_retirement_second_val) + parseFloat(spared_retirement_third_val);
 
+        var Voluntary_payment_retirement = 3000;
+
+        //=IF(C60<9691/12,"0,00%",IF(C60<26765/12,"14,00%",IF(C60<71755/12,"30,00%",IF(C60<151956/12,"41,00%","45,00%"))))
+        var Marginal_Tax_bracket = (Net_taxable < 9691/12) ? 0.00 : (Net_taxable < 26765/12) ? 14.00 : (Net_taxable < 71755/12) ? 30.00 : (Net_taxable < 151956/12) ? 41.00 : 45.00;
+
+        //=IF(C60>=9691/12,(MIN(C60,26764/12)-(9691/12))*0.14)+
+        var Estimated_Monthly_IR_first_val = (Net_taxable >= 9691/12) ? (Math.min(Net_taxable,parseFloat(26764/12)) - parseFloat(9691/12))*0.14 : 0;
+        //=IF(C60>=26765/12,(MIN(C60,71754/12)-(26765/12))*0.3,0)
+        var Estimated_Monthly_IR_second_val  = (Net_taxable >= 26765/12) ? (Math.min(Net_taxable,parseFloat(71754/12)) - parseFloat(26765/12))*0.3 : 0;
+        //=IF(C60>=71755/12,(MIN(C60,151956/12)-(71755/12))*0.41,0)
+        var Estimated_Monthly_IR_third_val = (Net_taxable >= 71755/12) ? (Math.min(Net_taxable,parseFloat(151956/12)) - parseFloat(71755/12))*0.41 : 0;
+        //=IF(C60>=151956/12,(C60-151956/12)*0.45,0)
+        var Estimated_Monthly_IR_fourth_val = (Net_taxable >= 151956/12) ? (Net_taxable-151956/12)*0.45 : 0;
+
+        var Estimated_Monthly_IR = parseFloat(Estimated_Monthly_IR_first_val) + parseFloat(Estimated_Monthly_IR_second_val) + parseFloat(Estimated_Monthly_IR_third_val) + parseFloat(Estimated_Monthly_IR_fourth_val);
+
+        var Estimated_annual_IR = parseFloat(Estimated_Monthly_IR) * 12;
+        var Effective_tax_rate = parseFloat(Estimated_Monthly_IR) / parseFloat(Employee_payment);
+
+        var After_income_tax = parseFloat(Net_Cash) + parseFloat(NDF) - (parseFloat(private_health_ins_amnt) + parseFloat(private_pension_amnt) + parseFloat(unemployment_ins_amnt)+parseFloat(spared_retirement)+parseFloat(Voluntary_payment_retirement)+parseFloat(Estimated_Monthly_IR));
+
+        var Saving_time_years = 15;
+        var annual_return = 3; // %
+        //=-FV(W39/12,12*W38,W25+W26)
+        var fv_first_parm = parseFloat(annual_return) / 12;
+        var fv_second_parm = 12*parseFloat(Saving_time_years);
+        var fv_third_parm = parseFloat(spared_retirement) + parseFloat(Voluntary_payment_retirement);
+        var Savings_at_end_period = FVcalc(fv_first_parm, fv_second_parm, fv_third_parm);
+       // console.log('Future val is ', Savings_at_end_period);
+        var Benefit_Period_years = 30;
+        var monthly_pension = parseFloat(Savings_at_end_period) / parseFloat(Benefit_Period_years) / 12;
+
+function FVcalc(InterestRate,NumberOfYears,PresentAmount) {
+     var vFV = PresentAmount * (Math.pow(1 + InterestRate, NumberOfYears) - 1) / InterestRate;
+    console.log('Future ',InterestRate,NumberOfYears,PresentAmount,vFV);
+    return vFV
+}
+//         function fv(monthlyRate, months, investment)
+// {
+//     var futureValue = investment * (Math.pow(1 + monthlyRate, months) - 1) / monthlyRate;
+
+//     // for ( i = 1; i <= months; i++ ) {
+//     //     futureValue = (futureValue + investment) * (1 + monthlyRate);
+//     // }
+//     console.log('Values ', monthlyRate, months, investment, futureValue);
+
+//     return parseFloat(futureValue);
+// }
+  // console.log('After_income_tax ',  After_income_tax)
+// console.log('Spread val', 
+//             parseFloat(Estimated_Monthly_IR_first_val),
+//             parseFloat(Estimated_Monthly_IR_second_val),
+//             parseFloat(Estimated_Monthly_IR_third_val),
+//             parseFloat(Estimated_Monthly_IR_fourth_val));
 
         var visible_hide = {        
             'visible_Ins':visible_Ins,
@@ -454,6 +508,28 @@ router.post('/calculate', function(req, res, next) {
             'Total_wages':Total_wages,
             'NDF':NDF,
             'Employee_payment':Employee_payment,
+
+            //popup modal values
+            'social_charges':social_charges,
+            'taxable_net_salery':taxable_net_salery,
+            'net_salery':net_salery,
+            'costs_benefits':costs_benefits,
+            'pay_charges':pay_charges,
+            'private_health_ins_amnt':private_health_ins_amnt,
+            'private_pension_amnt':private_pension_amnt,
+            'unemployment_ins_amnt':unemployment_ins_amnt,            
+            'spared_retirement':spared_retirement,
+            'Voluntary_payment_retirement':Voluntary_payment_retirement,
+            'Marginal_Tax_bracket':Marginal_Tax_bracket,
+            'Estimated_Monthly_IR':Estimated_Monthly_IR,
+            'Estimated_annual_IR':Estimated_annual_IR,
+            'Effective_tax_rate':Effective_tax_rate,
+            'After_income_tax':After_income_tax,
+            'Saving_time_years':Saving_time_years,
+            'annual_return':annual_return,
+            'Savings_at_end_period':Savings_at_end_period,
+            'Benefit_Period_years':Benefit_Period_years,
+            'monthly_pension':monthly_pension,
             'visible_hide': visible_hide,
            };
             

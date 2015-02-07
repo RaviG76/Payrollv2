@@ -121,30 +121,35 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
     };
 
     $scope.checkEmployId = function(data) { 
-        if(data.length < 15 || data.length > 15) {
+        //check for numeric
+        var numbers = /^[0-9]+$/;
+        if(!data.match(numbers)) {
+            $scope.employ_ID = "999999999999999";
+            return "Veuillez saisir 15 chiffres";
+        //check length
+        }else if(data.length < 15 || data.length > 15) {
             $scope.employ_ID = "999999999999999";
             return "Veuillez saisir 15 chiffres";
         }
-    }
-
-    $scope.checkNumeric = function(data) {
-        var data = data.match(/\d+/g);
-        if (data != null) {
-            return "Please enter valid string";
-        }
     };
+
+    // $scope.checkNumeric = function(data) {
+    //     var data = data.match(/\d+/g);
+    //     if (data != null) {
+    //         return "Please enter only digits";
+    //     }
+    // };
 
     $scope.validateCompanyId = function(data) { 
-        if(data.length > 9 || data.length < 9) {
+        //check for numerics
+        var numbers = /^[0-9]+$/;  
+        if(!data.match(numbers))  {
             $scope.company_ID = "999999999";
             return "Veuillez saisir 9 chiffres";
-        }
-    };
-
-    $scope.validateEmployId = function(data) {
-        if(data.length > 15) {
-            $scope.employ_ID = "999999999999999";
-            return "Please enter less than 15 digits";
+        //check length
+        }else if(data.length > 9 || data.length < 9) {
+            $scope.company_ID = "999999999";
+            return "Veuillez saisir 9 chiffres";
         }
     };
 
@@ -706,7 +711,7 @@ $scope.re_Employee_payment = 13585.42;
           'category':$scope.category,
         };
         $http.post('/calculate', data)
-          .success(function(response) { console.log('@@@@@2 ',response.base_mutual_com);
+          .success(function(response) { //console.log('@@@@@2 ',response.base_mutual_com);
             console.log('response', response);
             $scope.re_base_sal = response.base_salary;
             $scope.re_base_mutual_com = response.base_mutual_com;
@@ -852,6 +857,29 @@ $scope.re_Employee_payment = 13585.42;
             $scope.visible_SP= response.visible_hide.visible_SP;
             $scope.visible_PT= response.visible_hide.visible_PT;
             $scope.visible_AV_P2 = response.visible_hide.visible_AV_P2;
+
+
+            $scope.re_social_charges = response.social_charges;
+            $scope.re_taxable_net_salery = response.taxable_net_salery;
+            $scope.re_costs_benefits = response.costs_benefits;
+            $scope.re_net_salery = response.net_salery;
+            $scope.re_pay_charges = response.pay_charges;
+            $scope.re_private_health_ins_amnt = response.private_health_ins_amnt;
+            $scope.re_private_pension_amnt = response.private_pension_amnt;
+            $scope.re_unemployment_ins_amnt = response.unemployment_ins_amnt;
+            $scope.re_spared_retirement = response.spared_retirement;
+            $scope.re_Voluntary_payment_retirement = response.Voluntary_payment_retirement;
+            $scope.re_Marginal_Tax_bracket = response.Marginal_Tax_bracket;
+            $scope.re_Effective_tax_rate = response.Effective_tax_rate;
+            $scope.re_Estimated_annual_IR = response.Estimated_annual_IR;
+            $scope.re_Estimated_Monthly_IR = response.Estimated_Monthly_IR;
+            $scope.re_After_income_tax = response.After_income_tax;
+            $scope.re_Saving_time_years = response.Saving_time_years;
+            $scope.re_annual_return = response.annual_return;
+            $scope.re_Savings_at_end_period = response.Savings_at_end_period;
+            $scope.re_Benefit_Period_years = response.Benefit_Period_years;
+            $scope.re_monthly_pension = response.monthly_pension;
+
           })
           .error(function(error) {
             console.log('error', error)
