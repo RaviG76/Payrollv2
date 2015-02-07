@@ -330,15 +330,17 @@ router.post('/calculate', function(req, res, next) {
         var fv_first_parm = parseFloat(annual_return) / 12;
         var fv_second_parm = 12*parseFloat(Saving_time_years);
         var fv_third_parm = parseFloat(spared_retirement) + parseFloat(Voluntary_payment_retirement);
-        var Savings_at_end_period = FVcalc(fv_first_parm, fv_second_parm, fv_third_parm);
-       // console.log('Future val is ', Savings_at_end_period);
+        
         var Benefit_Period_years = 30;
         var monthly_pension = parseFloat(Savings_at_end_period) / parseFloat(Benefit_Period_years) / 12;
+        var Savings_at_end_period = FVcalc(fv_first_parm, fv_second_parm, fv_third_parm);
 
 function FVcalc(InterestRate,NumberOfYears,PresentAmount) {
-     var vFV = PresentAmount * (Math.pow(1 + InterestRate, NumberOfYears) - 1) / InterestRate;
-    console.log('Future ',InterestRate,NumberOfYears,PresentAmount,vFV);
-    return vFV
+
+    var newAmount = PresentAmount*(1+InterestRate/12)^(NumberOfYears)
+     // var vFV = PresentAmount * (Math.pow(1 + InterestRate, NumberOfYears) - 1) / InterestRate;
+    console.log('Future ',InterestRate,NumberOfYears,PresentAmount, newAmount);
+    // return vFV
 }
 //         function fv(monthlyRate, months, investment)
 // {
@@ -529,7 +531,7 @@ function FVcalc(InterestRate,NumberOfYears,PresentAmount) {
             'annual_return':annual_return,
             'Savings_at_end_period':Savings_at_end_period,
             'Benefit_Period_years':Benefit_Period_years,
-            'monthly_pension':monthly_pension,
+            'monthly_pension':parseFloat(monthly_pension),
             'visible_hide': visible_hide,
            };
             
