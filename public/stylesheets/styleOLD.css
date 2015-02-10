@@ -1430,11 +1430,14 @@ div.repeat-list .col-xs-7, div.repeat-list .col-xs-5{
 }
 .repeat-list-hldr .emplytble .editable-buttons{
     position: absolute;
+    right: 0px;
 }
 .repeat-list-hldr .emplytble .editable-controls{
     padding-right: 80px;
 }
-
+.repeat-list-hldr .emplytble .editable-controls .form-control{
+    width: 100%;
+}
 
 
 
@@ -1471,7 +1474,9 @@ div.repeat-list .col-xs-7, div.repeat-list .col-xs-5{
 .cal-main .padding-max .list-group-item .editable-wrap{
     margin-top: -8px;
 }
-
+.editable-wrap{
+    position: absolute;
+}
 .repeat-list-hldr .emplytble .paddng-ers .editable-controls{
     padding-right: 0px;
 }
@@ -1625,7 +1630,7 @@ div.repeat-list .col-xs-7, div.repeat-list .col-xs-5{
     position: absolute;
     right: 15px;
     top: -20px;
-    width: 50%;
+    width: 41%;
     z-index: 100;
 }
 
@@ -1752,11 +1757,11 @@ div.repeat-list .col-xs-7, div.repeat-list .col-xs-5{
 }
 
 .left-content {
-    width: 50%;
+    width: 62%;
 }
 
 .right-content {
-    width: 50%;
+    width: 38%;
     text-align: right;
 }
 
@@ -1772,33 +1777,3 @@ div.repeat-list .col-xs-7, div.repeat-list .col-xs-5{
 .evr-clear {
     padding: 10px;
 }
-
-.editable-buttons .btn.btn-primary {
-background: none repeat scroll 0 0 #ed652e;
-border: medium none #ed652e;
-padding: 6px 10px;
-border-radius: 4px;
-}
-
-
-.form-inline.editable-wrap.editable-text .editable-input.editable-has-buttons{
-width: 70%;
-}
-
-
-.editable-buttons .btn-default{
-padding: 5px 9px !important;
-}
-
-.theme-options .editable-wrap .editable-controls, .editable-wrap .editable-error {
-margin-bottom: 0;
-margin-left: 10px;
-}
-
-.editable-wrap {
-display: inline-block;
-white-space: nowrap;
-margin: 0;
-width: 100%;
-}
-

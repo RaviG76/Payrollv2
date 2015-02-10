@@ -548,7 +548,13 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
     $scope.$watch('health_ins', resetRoundMode);
     $scope.$watch('category', resetRoundMode);
     $scope.$watch('disability_ins', resetRoundMode);
-    $scope.$watch('oldage_ins', resetRoundMode);  
+    $scope.$watch('oldage_ins', resetRoundMode);
+    $scope.$watch('re_private_health_ins_amnt', resetRoundMode);
+    $scope.$watch('re_private_pension_amnt', resetRoundMode);  
+    $scope.$watch('re_costs_benefits' ,resetRoundMode);
+    $scope.$watch('re_Saving_time_years', resetRoundMode);
+    $scope.$watch('re_annual_return', resetRoundMode);
+    $scope.$watch('re_unemployment_ins_amnt', resetRoundMode);
 
     $scope.re_base_sal = 3789.00;
     $scope.re_base_mutual_com = 12680.00;
@@ -709,6 +715,13 @@ $scope.re_Employee_payment = 13585.42;
           'disability_ins':$scope.disability_ins,
           'oldage_ins':$scope.oldage_ins,
           'category':$scope.category,
+          're_private_health_ins_amnt':$scope.re_private_health_ins_amnt,
+          're_private_pension_amnt':$scope.re_private_pension_amnt,
+          're_costs_benefits':$scope.re_costs_benefits,
+          're_Saving_time_years':$scope.re_Saving_time_years,
+          're_annual_return': $scope.re_annual_return,
+          're_Benefit_Period_years': $scope.re_Benefit_Period_years,
+          're_unemployment_ins_amnt': $scope.re_unemployment_ins_amnt
         };
         $http.post('/calculate', data)
           .success(function(response) { //console.log('@@@@@2 ',response.base_mutual_com);
@@ -804,7 +817,7 @@ $scope.re_Employee_payment = 13585.42;
             $scope.re_cot_pat_NHAF = response.cot_pat_NHAF;
             $scope.re_cot_pat_OTAE = response.cot_pat_OTAE;
             $scope.re_Rate_OTAE = response.Rate_OTAE;
-            $scope.re_OTAE = response.re_OTAE;
+            $scope.re_OTAE = response.OTAE;
             $scope.re_Rate_PT = response.Rate_PT;
             $scope.re_cot_pat_PT = response.cot_pat_PT;
             $scope.re_cot_pat_AD = response.cot_pat_AD;
@@ -898,6 +911,7 @@ $scope.re_Employee_payment = 13585.42;
         $scope.paymentStatus = false;
     }
 
+    //$scope.paymentStatus = true;
 
     $scope.payment = function() {
         if (!paymentToken || !payerId) {
