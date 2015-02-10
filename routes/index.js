@@ -13,7 +13,7 @@ router.get('/', function(req, res) {
   var browserVersion = fullBrowserVersion.split(".",1).toString();
   var browserVersionNumber = Number(browserVersion);
 
-  if (browserName == 'IE' && browserVersion <= 9)
+  if (browserName == 'IE' && browserVersion < 9)
     res.redirect('http://www.typeform.com/update-your-browser');
   else if (browserName == 'Firefox' && browserVersion <= 24)
     res.redirect('http://www.typeform.com/update-your-browser');
