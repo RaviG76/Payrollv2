@@ -59,7 +59,7 @@ payApp.directive('currency', ['$filter', function ($filter) {
 }]);
 
 
-payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter) {
+payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter, LS) {
     
     $scope.Zip_City_options = [];
     //x-editable values
@@ -91,6 +91,13 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
     $scope.oldage_ins = 'Rég. Gén.';
     $scope.Code_NAF = "58.29C EDITION DE LOGICIELS APPLICATIFS";
 
+    //popup values
+    $scope.re_costs_benefits = 1400;
+    $scope.re_private_health_ins_amnt = 270;
+    $scope.re_private_pension_amnt = 100;
+    $scope.re_unemployment_ins_amnt = 50;
+    $scope.re_annual_return = 0.00;
+
    $scope.loadJson = function() {
 
         $http.get('/zip_city.json')
@@ -110,7 +117,7 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
                 console.log("Error", error)
         });
 
-         resetRoundMode('base_sal', 3789.00);
+         //resetRoundMode('base_sal', 3789.00);
     }
 
     $scope.checkString = function(data) { 
@@ -701,12 +708,81 @@ $scope.visible_AC_P = 0;
 $scope.visible_AV_P2 = 0;
 $scope.re_NDF = 1400.00;
 $scope.re_Employee_payment = 13585.42;
+    
+    $scope.$watch('company_name', setLocalStorage);
+    $scope.$watch('address1', setLocalStorage);
+    $scope.$watch('address2', setLocalStorage);
+    $scope.$watch('zip_code', setLocalStorage);
+    $scope.$watch('zip_city', setLocalStorage);
+    $scope.$watch('company_estab', setLocalStorage);
+    $scope.$watch('company_ID', setLocalStorage);
+    $scope.$watch('comany_insurance', setLocalStorage);
+    $scope.$watch('Convention_collective', setLocalStorage);
+    $scope.$watch('payroll_date', setLocalStorage);
+    $scope.$watch('payroll_period', setLocalStorage);
+    $scope.$watch('payroll_start', setLocalStorage);
+    $scope.$watch('payroll_end', setLocalStorage);
+    $scope.$watch('employ_ID', setLocalStorage);
+    $scope.$watch('employ_name', setLocalStorage);
+    $scope.$watch('employ_address1', setLocalStorage);
+    $scope.$watch('employ_address2', setLocalStorage);
+    $scope.$watch('employ_zip', setLocalStorage);
+    $scope.$watch('employ_city', setLocalStorage);
+    $scope.$watch('employ_role', setLocalStorage);
 
+
+    function setLocalStorage() {
+        $window.localStorage['pdfValues'] = '';
+            var pdfValues = {
+                  base_sal:$scope.base_sal,
+                  base_activity:$scope.base_activity,
+                  base_dur:$scope.base_dur,
+                  health_ins:$scope.health_ins,
+                  disability_ins:$scope.disability_ins,
+                  oldage_ins:$scope.oldage_ins,
+                  category:$scope.category,
+                  re_private_health_ins_amnt:$scope.re_private_health_ins_amnt,
+                  re_private_pension_amnt:$scope.re_private_pension_amnt,
+                  re_costs_benefits:$scope.re_costs_benefits,
+                  re_Saving_time_years:$scope.re_Saving_time_years,
+                  re_annual_return: $scope.re_annual_return,
+                  re_Benefit_Period_years: $scope.re_Benefit_Period_years,
+                  re_unemployment_ins_amnt: $scope.re_unemployment_ins_amnt,
+                 company_name: $scope.company_name,
+                  address1:$scope.address1,
+                    address2:$scope.address2,
+                   zip_code :$scope.zip_code,
+                   zip_city :$scope.zip_city ,
+                   company_estab: $scope.company_estab,
+                   company_ID :$scope.company_ID ,
+                  comany_insurance:  $scope.comany_insurance,
+                  Convention_collective:  $scope.Convention_collective ,
+                    //var dateObject = new Date("January 31, 2015");//"31.01.2015";
+                  payroll_date : $scope.payroll_date ,
+                  payroll_period:  $scope.payroll_period ,
+                   payroll_start: $scope.payroll_start ,
+                   payroll_end :$scope.payroll_end ,
+                    //console.log('Date is ',$scope.payroll_end);
+                  employ_ID  :$scope.employ_ID ,
+                  employ_name : $scope.employ_name,
+                  employ_address1:  $scope.employ_address1,
+                  employ_address2 : $scope.employ_address2,
+                 employ_zip :  $scope.employ_zip,
+                  employ_city:  $scope.employ_city,
+                  employ_role : $scope.employ_role,
+                  re_Rate_CI:$scope.re_Rate_CI,
+                    re_Rate_MC:$scope.re_Rate_MC,
+          re_Rate2_SS:$scope.re_Rate2_SS,
+          re_NDF:$scope.re_NDF
+            };
+        //set local storage
+        LS.setData(pdfValues); 
+    }
 
     function resetRoundMode(newValue, oldValue) {
 
       if(newValue != oldValue) {
-
+                     setLocalStorage();  
         var data = {
           'base_sal':$scope.base_sal,
           'base_activity':$scope.base_activity,
@@ -721,7 +797,11 @@ $scope.re_Employee_payment = 13585.42;
           're_Saving_time_years':$scope.re_Saving_time_years,
           're_annual_return': $scope.re_annual_return,
           're_Benefit_Period_years': $scope.re_Benefit_Period_years,
-          're_unemployment_ins_amnt': $scope.re_unemployment_ins_amnt
+          're_unemployment_ins_amnt': $scope.re_unemployment_ins_amnt,
+          're_Rate_CI':$scope.re_Rate_CI,
+          're_Rate_MC':$scope.re_Rate_MC,
+          're_Rate2_SS':$scope.re_Rate2_SS,
+          're_NDF':$scope.re_NDF
         };
         $http.post('/calculate', data)
           .success(function(response) { //console.log('@@@@@2 ',response.base_mutual_com);
@@ -905,16 +985,54 @@ $scope.re_Employee_payment = 13585.42;
     $scope.pdfButton = "GENERER UN BULLETIN DE PAIE";
     
     if(paymentToken && payerId) {
+        var afterPayValue = JSON.parse(LS.getData());
+        // console.log('Here ',afterPayValue.base_sal);
         $scope.paymentStatus = true;
         $scope.pdfButton = "Exporter en PDF";
+        $scope.base_sal = afterPayValue.base_sal;
+         $scope.base_activity = afterPayValue.base_activity,
+          $scope.base_dur = afterPayValue.base_dur,
+          $scope.health_ins = afterPayValue.health_ins,
+          $scope.disability_ins = afterPayValue.disability_ins,
+          $scope.oldage_ins = afterPayValue.oldage_ins,
+          $scope.category = afterPayValue.category,
+          $scope.re_private_health_ins_amnt = afterPayValue.re_private_health_ins_amnt,
+          $scope.re_private_pension_amnt = afterPayValue.re_private_pension_amnt,
+          $scope.re_costs_benefits = afterPayValue.re_costs_benefits,
+          $scope.re_Saving_time_years = afterPayValue.re_Saving_time_years,
+          $scope.re_annual_return = afterPayValue.re_annual_return,
+          $scope.re_Benefit_Period_years = afterPayValue.re_Benefit_Period_years,
+          $scope.re_unemployment_ins_amnt = afterPayValue.re_unemployment_ins_amnt,
+          $scope.company_name = afterPayValue.company_name,
+          $scope.address1 = afterPayValue.address1,
+          $scope.address2 = afterPayValue.address2,
+          $scope.zip_code = afterPayValue.zip_code,
+          $scope.zip_city = afterPayValue.zip_city ,
+          $scope.company_estab = afterPayValue.company_estab,
+          $scope.company_ID = afterPayValue.company_ID ,
+          $scope.comany_insurance = afterPayValue.comany_insurance,
+          $scope.Convention_collective = afterPayValue.Convention_collective ,
+                                //var dateObject = new Date("January 31, 2015");//"31.01.2015";
+          $scope.payroll_date = afterPayValue.payroll_date ,
+          $scope.payroll_period = afterPayValue.payroll_period ,
+          $scope.payroll_start = afterPayValue.payroll_start ,
+          $scope.payroll_end = afterPayValue.payroll_end ,
+                                //console.log('Date is ',$scope.payroll_end);
+          $scope.employ_ID = afterPayValue.employ_ID ,
+          $scope.employ_name = afterPayValue.employ_name,
+          $scope.employ_address1 = afterPayValue.employ_address1,
+          $scope.employ_address2 = afterPayValue.employ_address2,
+          $scope.employ_zip = afterPayValue.employ_zip,
+          $scope.employ_city = afterPayValue.employ_city,
+          $scope.employ_role = afterPayValue.employ_role
     } else {
         $scope.paymentStatus = false;
     }
 
     //$scope.paymentStatus = true;
-
     $scope.payment = function() {
         if (!paymentToken || !payerId) {
+
             $scope.disablePdf = true;
             $scope.pdfButton = "Veuillez patienter..";
             $http.get('/payment')
@@ -922,6 +1040,7 @@ $scope.re_Employee_payment = 13585.42;
                     //console.log('success ', response);
                     $scope.paymentStatus = true;
                     $scope.disablePdf = true;
+                    
                     $window.location.href = response.url ;//'http://google.com';
                 }).error(function(message) {
                     console.log('error ', message);
@@ -935,4 +1054,21 @@ $scope.re_Employee_payment = 13585.42;
             results = regex.exec(location.search);
         return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
     }
+});
+
+payApp.factory("LS", function($window, $rootScope) {
+  angular.element($window).on('storage', function(event) {
+    if (event.key === 'pdfValues') {
+      $rootScope.$apply();
+    }
+  });
+  return {
+    setData: function(val) {
+      $window.localStorage && $window.localStorage.setItem('pdfValues', JSON.stringify(val));
+      return this;
+    },
+    getData: function() {
+      return $window.localStorage && $window.localStorage.getItem('pdfValues');
+    }
+  };
 });

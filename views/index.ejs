@@ -384,7 +384,7 @@
                            Sal. Tp plein <em>:</em>
                         </div>
                         <div class="col-xs-5 grey-grid">
-                           <span id="base_sal" ng-model="base_sal" editable-text="base_sal" > {{base_sal }} </span>
+                           <span id="base_sal" ng-model="base_sal" editable-text="base_sal" > {{base_sal | amountformat }} </span>
                         </div>
                      </div>
                   </div>
@@ -416,7 +416,7 @@
                            % d'activité <em>:</em>
                         </div>
                         <div class="col-xs-5 grey-grid">
-                          <span id="base_activity" ng-model="base_activity" editable-text="base_activity"> {{base_activity }} </span>
+                          <span id="base_activity" ng-model="base_activity" editable-text="base_activity"> {{base_activity | amountformat }} </span>
                         </div>
                      </div>
                   </div>
@@ -448,7 +448,7 @@
                            Heures /Mois <em>:</em>
                         </div>
                         <div class="col-xs-5 grey-grid">
-                           <span id="base_dur" ng-model="base_dur" editable-text="base_dur"> {{base_dur}} </span>
+                           <span id="base_dur" ng-model="base_dur" editable-text="base_dur"> {{base_dur | amountformat}} </span>
                         </div>
                      </div>
                   </div>
@@ -559,8 +559,9 @@
                   </div>
                   <div class="col-xs-1">
                   </div>
-                  <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_CI">
-                     {{re_Rate_CI | rateformat }} %  
+                  <div class="col-xs-1 yellw-bg mobileVew" >
+                  <span id="re_Rate_CI" ng-model="re_Rate_CI" editable-text="re_Rate_CI">
+                     {{re_Rate_CI | rateformat }} %  </span>
                   </div>
                   <div class="col-xs-1  " id="re_cot_pat_CI">
                      {{(re_cot_pat_CI) | amountformat}}
@@ -658,8 +659,10 @@
                   </div>
                   <div class="col-xs-1">
                   </div>
-                  <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate_MC">
+                  <div class="col-xs-1 yellw-bg mobileVew" >
+                   <span id="re_Rate_MC" ng-model="re_Rate_MC" editable-text="re_Rate_MC">
                      {{re_Rate_MC| rateformat }} %
+                     </span>
                   </div>
                   <div class="col-xs-1  " id="re_cot_pat_MC">
                      {{(re_cot_pat_MC) | amountformat}}
@@ -679,8 +682,10 @@
                   </div>
                   <div class="col-xs-1">
                   </div>
-                  <div class="col-xs-1 yellw-bg mobileVew" id="re_Rate2_SS">
+                  <div class="col-xs-1 yellw-bg mobileVew" >
+                    <span id="re_Rate2_SS" ng-model="re_Rate2_SS" editable-text="re_Rate2_SS">
                      {{re_Rate2_SS| rateformat }} %
+                     </span>
                   </div>
                   <div class="col-xs-1  " id="re_cot_pat_SS">
                      {{(re_cot_pat_SS) | amountformat}}
@@ -1209,7 +1214,7 @@
                      </dl>
                      <dl class="dl-horizontal">
                         <dt>Frais (NDF) <em>:</em></dt>
-                        <dd id="re_NDF">{{(re_NDF) | amountformat}}</dd>
+                        <dd ><span id="re_NDF" ng-model="re_NDF" editable-text="re_NDF">{{(re_NDF) | amountformat}}</dd>
                      </dl>
                   </div>
                </div>
