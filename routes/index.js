@@ -1,14 +1,77 @@
 var express = require('express');
 var settingsObj = require('../bin/settings.json');
+var UAParser = require('ua-parser-js');
 var router = express.Router();
 var paypal = require('paypal-express-checkout').init('mss.naveensharma-facilitator_api1.gmail.com', '1403521583', 'AFcWxV21C7fd0v3bYYYRCpSSRl31AGjelgIYjdIGjGvf2IUyW1bBDw3T', 'https://payroll-calculator.herokuapp.com/', 'https://payroll-calculator.herokuapp.com/', true);
 
 router.get('/', function(req, res) {
+    // var ua = req.headers['user-agent'];
+    // var browser = detectBrowser(ua);
+//console.log('Here ', browser);
+
+  var parser = new UAParser();
+  var ua = req.headers['user-agent'];
+  var browserName = parser.setUA(ua).getBrowser().name;
+  var fullBrowserVersion = parser.setUA(ua).getBrowser().version;
+  var browserVersion = fullBrowserVersion.split(".",1).toString();
+  var browserVersionNumber = Number(browserVersion);
+console.log('Browser is ',browserName, ' Version is ',browserVersion );
+  if (browserName == 'IE' && browserVersion <= 9)
+    res.redirect('http://www.typeform.com/update-your-browser');
+  else if (browserName == 'Firefox' && browserVersion <= 24)
+    res.redirect('http://www.typeform.com/update-your-browser');
+  else if (browserName == 'Chrome' && browserVersion <= 29)
+    res.redirect('http://www.typeform.com/update-your-browser');
+  else if (browserName == 'Canary' && browserVersion <= 32)
+    res.redirect('http://www.typeform.com/update-your-browser');
+  else if (browserName == 'Safari' && browserVersion <= 5)
+    res.redirect('http://www.typeform.com/update-your-browser');
+  else if (browserName == 'Opera' && browserVersion <= 16)
+    res.redirect('http://www.typeform.com/update-your-browser');
+  else
+   // return next();
+
     res.render('index', {
         title: 'Mon Bulletin de Paie'
     });
 });
 
+function detectBrowser(headers){
+
+if( /firefox/i.test(headers) )
+  browser = 'firefox';
+else if( /chrome/i.test(headers) )
+  browser = 'chrome';
+else if( /safari/i.test(headers) )
+  browser = 'safari';
+else if( /msie/i.test(headers) )
+  browser = 'msie';
+else
+  browser = 'unknown';
+
+return browser;
+}
+// var browser=get_browser_info();
+// console.log('Browser info ',browser.name, browser.version);
+// // browser.name = 'Chrome'
+// // browser.version = '40'
+// function get_browser_info(){
+//     var ua=navigator.userAgent,tem,M=ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || []; 
+//     if(/trident/i.test(M[1])){
+//         tem=/\brv[ :]+(\d+)/g.exec(ua) || []; 
+//         return 'IE '+(tem[1]||'');
+//         }   
+//     if(M[1]==='Chrome'){
+//         tem=ua.match(/\bOPR\/(\d+)/)
+//         if(tem!=null)   {return 'Opera '+tem[1];}
+//         }   
+//     M=M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+//     if((tem=ua.match(/version\/(\d+)/i))!=null) {M.splice(1,1,tem[1]);}
+//     return {
+//       name: M[0],
+//       version: M[1]
+//     };
+//  }
 /*paypal payment*/
 router.get('/payment', function(req, res) {
     // checkout
