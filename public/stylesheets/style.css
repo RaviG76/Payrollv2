@@ -1506,7 +1506,6 @@ div.repeat-list .col-xs-7, div.repeat-list .col-xs-5{
 .list-group-item .editable-buttons,
 .padding-max .editable-buttons{
     position: absolute;
-    /*right: 0px;*/
     top: 0px;
 }
 .padding-max .padding_zero .editable-controls{
