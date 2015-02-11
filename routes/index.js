@@ -5,7 +5,6 @@ var router = express.Router();
 var paypal = require('paypal-express-checkout').init('mss.naveensharma-facilitator_api1.gmail.com', '1403521583', 'AFcWxV21C7fd0v3bYYYRCpSSRl31AGjelgIYjdIGjGvf2IUyW1bBDw3T', 'https://payroll-calculator.herokuapp.com/', 'https://payroll-calculator.herokuapp.com/', true);
 
 router.get('/', function(req, res) {
-
   var parser = new UAParser();
   var ua = req.headers['user-agent'];
   var browserName = parser.setUA(ua).getBrowser().name;
@@ -14,17 +13,17 @@ router.get('/', function(req, res) {
   var browserVersionNumber = Number(browserVersion);
 
   if (browserName == 'IE' && browserVersion < 9)
-    res.redirect('http://www.typeform.com/update-your-browser');
-  else if (browserName == 'Firefox' && browserVersion <= 24)
-    res.redirect('http://www.typeform.com/update-your-browser');
-  else if (browserName == 'Chrome' && browserVersion <= 29)
-    res.redirect('http://www.typeform.com/update-your-browser');
-  else if (browserName == 'Canary' && browserVersion <= 32)
-    res.redirect('http://www.typeform.com/update-your-browser');
-  else if (browserName == 'Safari' && browserVersion <= 5)
-    res.redirect('http://www.typeform.com/update-your-browser');
-  else if (browserName == 'Opera' && browserVersion <= 16)
-    res.redirect('http://www.typeform.com/update-your-browser');
+    res.render('update-your-browser');
+  else if (browserName == 'Firefox' && browserVersion < 24)
+    res.render('update-your-browser');
+  else if (browserName == 'Chrome' && browserVersion < 29)
+    res.render('update-your-browser');
+  else if (browserName == 'Canary' && browserVersion < 32)
+    res.render('update-your-browser');
+  else if (browserName == 'Safari' && browserVersion < 5)
+    res.render('update-your-browser');
+  else if (browserName == 'Opera' && browserVersion < 16)
+    res.render('update-your-browser');
   else
    // return next();
 
@@ -61,7 +60,7 @@ router.post('/calculate', function(req, res, next) {
         health_ins = req.body.health_ins,
         disability_ins = req.body.disability_ins,
         category = req.body.category;
- console.log('Base ',parseFloat(req.body.base_sal) , parseFloat(req.body.base_activity) , 100, base_sal);
+
     if (category == "1") {
         category = "Non cadre"
     } else if (category == "2") {
@@ -81,9 +80,9 @@ router.post('/calculate', function(req, res, next) {
             Rate2_Ins = (parseFloat(settingsObj.Rate2_Insurance)).toFixed(3), //Rate2_Insurance
             Rate2_PHI = (parseFloat(settingsObj.Rate2_Private_health_insurance)).toFixed(3), //Rate2_Private_health_insurance
             Base_PHI = (parseFloat(settingsObj.Base_Private_health_insurance)).toFixed(3), //Base_Private_health_insurance
-            Rate2_MC = (parseFloat(settingsObj.Rate2_Mutual_complementary)).toFixed(3), //Rate2_Mutual_complementary
-            Rate_CI = (parseFloat(settingsObj.Rate_Contributions_Injuries)).toFixed(3), //Rate_Contributions_Injuries
-            Rate2_SS = (parseFloat(settingsObj.Rate2_Supplementary_System)).toFixed(3), //Supplementary_System
+            Rate2_MC = req.body.re_Rate_MC || (parseFloat(settingsObj.Rate2_Mutual_complementary)).toFixed(3), //Rate2_Mutual_complementary
+            Rate_CI = req.body.re_Rate_CI || (parseFloat(settingsObj.Rate_Contributions_Injuries)).toFixed(3), //Rate_Contributions_Injuries
+            Rate2_SS = req.body.re_Rate2_SS || (parseFloat(settingsObj.Rate2_Supplementary_System)).toFixed(3), //Supplementary_System
             Rate_PP = (parseFloat(settingsObj.Rate_Private_pensions)).toFixed(3), //Rate_Private_pensions
             Rate_PE = (parseFloat(settingsObj.Rate_Pole_Emploi)).toFixed(3), //Rate_Pole_Emploi
             Rate2_PE = (parseFloat(settingsObj.Rate2_Pole_Emploi)).toFixed(3), //Rate2_Pole_Emploi
@@ -276,7 +275,7 @@ router.post('/calculate', function(req, res, next) {
         var Total_wages = (parseFloat(Net_Cash) + parseFloat(wages_costs) + parseFloat(Patron_Charges)).toFixed(2);
         var cc = (health_ins == 'Rég. Gén.') ? cot_pat_MC : 0;
         var cc1 = base_sal - Net_taxable;
-        var NDF = 1400.00;
+        var NDF = req.body.re_NDF || 1400.00;
         var Employee_payment = (parseFloat(Net_Cash) + parseFloat(NDF)).toFixed(2);
         // var Net_taxable = cc1+parseFloat(cc);
 
@@ -286,7 +285,7 @@ router.post('/calculate', function(req, res, next) {
         var net_salery = parseFloat(Net_Cash);
         var costs_benefits = req.body.re_costs_benefits || parseFloat(NDF);
         //var Employee_payment = Employee_payment
-        var pay_charges = parseFloat(Employee_payment) + parseFloat(Patron_Charges);
+        var pay_charges = parseFloat(Employee_payment) + parseFloat(Patron_Charges) + parseFloat(wages_costs);
         var private_health_ins_amnt = req.body.re_private_health_ins_amnt || 270.00;
         var private_pension_amnt = req.body.re_private_pension_amnt || 100;
         var unemployment_ins_amnt = (disability_ins == 'Rég. Gén.') ? 0 : req.body.re_unemployment_ins_amnt;
@@ -307,7 +306,7 @@ router.post('/calculate', function(req, res, next) {
 
         var spared_retirement = parseFloat(spared_retirement_first_val) + parseFloat(spared_retirement_second_val) + parseFloat(spared_retirement_third_val);
 
-        var Voluntary_payment_retirement = 3000;
+        var Voluntary_payment_retirement = req.body.re_Voluntary_payment_retirement || 3000;
 
         //=IF(C60<9691/12,"0,00%",IF(C60<26765/12,"14,00%",IF(C60<71755/12,"30,00%",IF(C60<151956/12,"41,00%","45,00%"))))
         var Marginal_Tax_bracket = (Net_taxable < 9691 / 12) ? 0.00 : (Net_taxable < 26765 / 12) ? 14.00 : (Net_taxable < 71755 / 12) ? 30.00 : (Net_taxable < 151956 / 12) ? 41.00 : 45.00;

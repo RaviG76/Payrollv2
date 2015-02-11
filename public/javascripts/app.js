@@ -1,10 +1,12 @@
 'use strict';
 
-var payApp = angular.module('payRoll', ["xeditable", "ui.bootstrap"]);
+var payApp = angular.module('payRoll', ["xeditable", "ui.bootstrap", "ngRoute"]);
 
 payApp.run(function(editableOptions) {
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 });
+
+
 
 // Change format
 payApp.filter('amountformat', function() {
@@ -93,8 +95,8 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
 
     //popup values
     $scope.re_costs_benefits = 1400;
-    $scope.re_private_health_ins_amnt = 270;
-    $scope.re_private_pension_amnt = 100;
+    $scope.re_private_health_ins_amnt = 0.00;
+    $scope.re_private_pension_amnt = 0.00;
     $scope.re_unemployment_ins_amnt = 50;
     $scope.re_annual_return = 0.00;
 
@@ -562,6 +564,11 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
     $scope.$watch('re_Saving_time_years', resetRoundMode);
     $scope.$watch('re_annual_return', resetRoundMode);
     $scope.$watch('re_unemployment_ins_amnt', resetRoundMode);
+    $scope.$watch('re_Voluntary_payment_retirement', resetRoundMode);
+    $scope.$watch('re_NDF', resetRoundMode);
+    $scope.$watch('re_Rate_CI', resetRoundMode);
+    $scope.$watch('re_Rate2_SS', resetRoundMode);
+    $scope.$watch('re_Rate_MC', resetRoundMode);
 
     $scope.re_base_sal = 3789.00;
     $scope.re_base_mutual_com = 12680.00;
@@ -583,7 +590,7 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
     $scope.re_amount_CRTSD = 107.69;
     $scope.re_Rate_MC = parseFloat((4.750).toFixed(3));
     $scope.re_cot_pat_MC = 179.98;
-    $scope.re_Rate_CI = parseFloat((1.000).toFixed(3));
+    $scope.re_Rate_CI = parseFloat((1.1).toFixed(3));
     $scope.re_Rate2_SS = parseFloat((4.750).toFixed(3));
     $scope.re_cot_pat_SS = parseFloat((179.98).toFixed(2));
     $scope.re_cot_pat_CI = 41.68;
@@ -744,6 +751,8 @@ $scope.re_monthly_pension = 1891.44;
     $scope.$watch('employ_zip', setLocalStorage);
     $scope.$watch('employ_city', setLocalStorage);
     $scope.$watch('employ_role', setLocalStorage);
+    $scope.$watch('re_Voluntary_payment_retirement', setLocalStorage);
+    $scope.$watch('re_NDF', setLocalStorage);
 
 
     function setLocalStorage() {
@@ -788,7 +797,8 @@ $scope.re_monthly_pension = 1891.44;
                   re_Rate_CI:$scope.re_Rate_CI,
                     re_Rate_MC:$scope.re_Rate_MC,
           re_Rate2_SS:$scope.re_Rate2_SS,
-          re_NDF:$scope.re_NDF
+          re_NDF:$scope.re_NDF,
+          re_Voluntary_payment_retirement:$scope.re_Voluntary_payment_retirement
             };
         //set local storage
         LS.setData(pdfValues); 
@@ -797,7 +807,7 @@ $scope.re_monthly_pension = 1891.44;
     function resetRoundMode(newValue, oldValue) {
 
       if(newValue != oldValue) {
-                     setLocalStorage();  
+                   //  setLocalStorage();  
         var data = {
           'base_sal':$scope.base_sal,
           'base_activity':$scope.base_activity,
@@ -816,7 +826,8 @@ $scope.re_monthly_pension = 1891.44;
           're_Rate_CI':$scope.re_Rate_CI,
           're_Rate_MC':$scope.re_Rate_MC,
           're_Rate2_SS':$scope.re_Rate2_SS,
-          're_NDF':$scope.re_NDF
+          're_NDF':$scope.re_NDF,
+          're_Voluntary_payment_retirement':$scope.re_Voluntary_payment_retirement
         };
         $http.post('/calculate', data)
           .success(function(response) { //console.log('@@@@@2 ',response.base_mutual_com);
@@ -1039,7 +1050,9 @@ $scope.re_monthly_pension = 1891.44;
           $scope.employ_address2 = afterPayValue.employ_address2,
           $scope.employ_zip = afterPayValue.employ_zip,
           $scope.employ_city = afterPayValue.employ_city,
-          $scope.employ_role = afterPayValue.employ_role
+          $scope.employ_role = afterPayValue.employ_role,
+          $scope.re_Voluntary_payment_retirement = afterPayValue.re_Voluntary_payment_retirement,
+          $scope.re_NDF = afterPayValue.re_NDF
     } else {
         $scope.paymentStatus = false;
     }
@@ -1087,3 +1100,18 @@ payApp.factory("LS", function($window, $rootScope) {
     }
   };
 });
+
+// //routes
+// payApp.config(['$routeProvider',
+//   function($routeProvider) {
+//     $routeProvider.
+//       when('/update-your-browser', {
+//         templateUrl: 'view/update-your-browser.ejs',
+//         controller: 'mainCtrl'
+//       }).
+//       when('/', {
+//         templateUrl: 'view/update-your-browser.ejs',
+//         //controller: 'mainCtrl'
+//       })
+//       .otherwise({ redirectTo: '/' });
+//   }]);
