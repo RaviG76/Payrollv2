@@ -107,11 +107,11 @@
                <table>
                   <tr>
                      <td class="left-content">Salaire Temps plein :</td>
-                     <td class="right-content" ng-bind="base_sal" editable-text="base_sal">{{base_sal | amountformat}}</td>
+                     <td class="right-content" ng-bind="base_sal | amountformat" editable-text="base_sal"></td>
                   </tr>
                   <tr>
                      <td class="left-content">% d'activité :</td>
-                     <td class="right-content" ng-bind="base_activity" editable-text="base_activity">{{base_activity | amountformat}}</td>
+                     <td class="right-content" ng-bind="base_activity  | amountformat" editable-text="base_activity">{{base_activity | amountformat}}</td>
                   </tr>
                   <tr>
                      <td class="left-content">Charges sociales :</td>
@@ -127,7 +127,7 @@
                   </tr>
                   <tr>
                      <td class="left-content">Frais &amp; avantages en nature :</td>
-                     <td class="right-content" editable-text="re_NDF" ng-bind="re_NDF">{{re_NDF | amountformat}}</td>
+                     <td class="right-content" editable-text="re_NDF" ng-bind="re_ND | amountformatF">{{re_NDF | amountformat}}</td>
                   </tr>
                   <tr>
                      <td class="left-content">Versement salarié :</td>
