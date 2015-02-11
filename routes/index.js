@@ -286,8 +286,8 @@ router.post('/calculate', function(req, res, next) {
         var costs_benefits = req.body.re_costs_benefits || parseFloat(NDF);
         //var Employee_payment = Employee_payment
         var pay_charges = parseFloat(Employee_payment) + parseFloat(Patron_Charges) + parseFloat(wages_costs);
-        var private_health_ins_amnt = req.body.re_private_health_ins_amnt || 270.00;
-        var private_pension_amnt = req.body.re_private_pension_amnt || 100;
+        var private_health_ins_amnt = (health_ins == 'Rég. Gén.') ? 0 : req.body.re_private_health_ins_amnt || 0.00;
+        var private_pension_amnt = (health_ins == 'Rég. Gén.') ? 0 : req.body.re_private_pension_amnt || 0.00 ;
         var unemployment_ins_amnt = (disability_ins == 'Rég. Gén.') ? 0 : req.body.re_unemployment_ins_amnt;
 
         //=IF(G14<>"Rég. Gén.",SUM(J23,J27,J28,L23,L24,L52:L54)-W20-W21,0)+
@@ -306,7 +306,7 @@ router.post('/calculate', function(req, res, next) {
 
         var spared_retirement = parseFloat(spared_retirement_first_val) + parseFloat(spared_retirement_second_val) + parseFloat(spared_retirement_third_val);
 
-        var Voluntary_payment_retirement = req.body.re_Voluntary_payment_retirement || 3000;
+        var Voluntary_payment_retirement = (oldage_ins == 'Rég. Gén.') ? 0 : req.body.re_Voluntary_payment_retirement || 0.00;
 
         //=IF(C60<9691/12,"0,00%",IF(C60<26765/12,"14,00%",IF(C60<71755/12,"30,00%",IF(C60<151956/12,"41,00%","45,00%"))))
         var Marginal_Tax_bracket = (Net_taxable < 9691 / 12) ? 0.00 : (Net_taxable < 26765 / 12) ? 14.00 : (Net_taxable < 71755 / 12) ? 30.00 : (Net_taxable < 151956 / 12) ? 41.00 : 45.00;
