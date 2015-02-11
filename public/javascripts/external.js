@@ -1,6 +1,13 @@
-$(window).load(function() { 
-   $('.downloadPdf').click(function(){ console.log('here');
-    pdfMake.createPdf(dd).download('optionalName.pdf');
+
+// $(document).ready(function(){
+// $('body').on('change','.form-control',function(){
+//      alert('call', $(this));
+//     });
+// });
+
+$(window).load(function() {  //alert('call' );
+   $('.downloadPdf').click(function(){ //console.log('here');
+    pdfMake.createPdf(dd).download('payroll.pdf');
  });
 
 var dd,
@@ -137,7 +144,9 @@ re_cot_pat_UI ,
 re_amount_UI,
 re_Rate_UI,
 re_Rate2_UI ,
-re_base_UI;
+re_base_UI,
+re_NDF,
+re_Employee_payment;
 
 EveryOneSec();
 
@@ -563,8 +572,11 @@ EveryOneSec();
   var scope_re_base_UI = angular.element(document.getElementById("re_base_UI")).scope();
   re_base_UI = scope_re_base_UI.re_base_UI;
 
+  var scope_re_NDF = angular.element(document.getElementById("re_NDF")).scope();
+  re_NDF = scope_re_NDF.re_NDF;
 
-
+  var scope_re_Employee_payment = angular.element(document.getElementById("re_Employee_payment")).scope();
+  re_Employee_payment = scope_re_Employee_payment.re_Employee_payment;
 
  dd = {
   style:'page_style',
@@ -774,56 +786,16 @@ EveryOneSec();
       columns: [
         {
           width: 110,
-          text: 'Net à payer : '+re_Net_Cash+ ' \nNet imposable : '+re_Net_taxable+' \nSalaire total : '+re_Total_wages
+          text: 'Net à payer : '+re_Net_Cash+ ' \nNet imposable : '+re_Net_taxable+' \nSalaire total : '+re_Total_wages+'\nFrais (NDF):'+re_NDF
         },
         {
-          text: 'Versement URSAFF : '+re_Payment_URSAFF+' \nVersement AGIRC-ARRCO : '+re_Payment_AGIRC_ARRCO+' \nVersement mutuelles privées : '+re_Private_Mutual_Pay
+          text: 'Versement URSAFF : '+re_Payment_URSAFF+' \nVersement AGIRC-ARRCO : '+re_Payment_AGIRC_ARRCO+' \nVersement mutuelles privées : '+re_Private_Mutual_Pay+'\nVersement salarié :'+re_Employee_payment
         },
         {
           text: 'Charges Salariales : '+re_wages_costs+'\nCharges Patronales'+re_Patron_Charges
-        }
+        }       
       ]
     },
-
-        // {
-        //     style: 'footer_cal_first',
-        //     table: {
-        //         headerRows: 1,
-        //         // keepWithHeaderRows: 1,
-        //         // dontBreakRows: true,
-        //         body: [
-        //             [{ text: 'Net à payer', style: 'col_rub_lower' }, { text:  re_Net_Cash+'', style: 'cal_name_bold' }],
-        //             [{ text: 'Net imposable', style: 'col_rub_lower' }, { text: re_Net_taxable+'', style: 'cal_name_bold' }],
-        //             [{ text: 'Salaire total', style: 'col_rub_lower' }, { text: re_Total_wages+'', style: 'cal_name_bold' }], 
-        //         ]
-        //     }
-        // },
-
-        // {
-        //     style: 'footer_cal_second',
-        //     table: {
-        //         headerRows: 1,
-        //         // keepWithHeaderRows: 1,
-        //         // dontBreakRows: true,
-        //         body: [
-        //             [{ text: 'Versement URSAFF :', style: 'col_rub_lower' }, { text: re_Payment_URSAFF+'', style: 'cal_name_bold' }],
-        //             [{ text: 'Versement AGIRC-ARRCO :', style: 'col_rub_lower' }, { text: re_Payment_AGIRC_ARRCO+'', style: 'cal_name_bold' }],
-        //             [{ text: 'Versement mutuelles privées :', style: 'col_rub_lower' }, { text: re_Private_Mutual_Pay+'', style: 'cal_name_bold' }], 
-        //         ]
-        //     }
-        // },
-        // {
-        //     style: 'footer_cal_third',
-        //     table: {
-        //         headerRows: 1,
-        //         // keepWithHeaderRows: 1,
-        //         // dontBreakRows: true,
-        //         body: [
-        //             [{ text: 'Charges Salariales', style: 'col_rub_lower' }, { text:  re_wages_costs+'', style: 'cal_name_bold' }],
-        //             [{ text: 'Charges Patronales', style: 'col_rub_lower' }, { text: re_Patron_Charges+'', style: 'cal_name_bold' }],
-        //         ]
-        //     }
-        // },    
   ],
   styles: {
     page_style:{
@@ -1025,6 +997,7 @@ $(".toggler").click(function(){
 })
 
 gethyt(); 
+
 });
 
 function gethyt() {    //alert('call');
