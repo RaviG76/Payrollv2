@@ -1,12 +1,10 @@
 'use strict';
 
-var payApp = angular.module('payRoll', ["xeditable", "ui.bootstrap", "ngRoute"]);
+var payApp = angular.module('payRoll', ["xeditable", "ui.bootstrap"]);
 
 payApp.run(function(editableOptions) {
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 });
-
-
 
 // Change format
 payApp.filter('amountformat', function() {
@@ -1100,18 +1098,3 @@ payApp.factory("LS", function($window, $rootScope) {
     }
   };
 });
-
-// //routes
-// payApp.config(['$routeProvider',
-//   function($routeProvider) {
-//     $routeProvider.
-//       when('/update-your-browser', {
-//         templateUrl: 'view/update-your-browser.ejs',
-//         controller: 'mainCtrl'
-//       }).
-//       when('/', {
-//         templateUrl: 'view/update-your-browser.ejs',
-//         //controller: 'mainCtrl'
-//       })
-//       .otherwise({ redirectTo: '/' });
-//   }]);
