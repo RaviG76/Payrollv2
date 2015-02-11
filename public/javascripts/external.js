@@ -1013,7 +1013,16 @@ EveryOneSec();
 
 // var scope = angular.element(document.getElementById("base_dur")).scope();
 
+$(".toggler").click(function(){
+        $(".theme-options").toggle();
+    });
 
+ $(".toggler-close").click(function(){
+    $( ".theme-options" ).hide();
+    });
+ $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
 
 gethyt(); 
 });
@@ -1031,4 +1040,3 @@ $(".body-table").each(function() {
 });
 gethyt(); 
 });
-
