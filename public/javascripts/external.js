@@ -1,6 +1,6 @@
 $(window).load(function() {  
    $('.downloadPdf').click(function(){ 
-    pdfMake.createPdf(dd).download('payroll.pdf');
+    pdfMake.createPdf(dd).open('payroll.pdf');
  });
 
 var dd,
@@ -651,7 +651,6 @@ EveryOneSec();
                 // keepWithHeaderRows: 1,
                 // dontBreakRows: true,
                 body: [
-//                    showHide,
                     [{ text: '', style: 'col_rub_lower' }, { text: '*** Assurance santé et Prévoyance *** '+re_base_HIns, style: 'cal_name_bold' }, { text: '', style: 'col_base_lower_bold' }, { text: re_tax_HI+' %', style: 'col_tax_lower_bold' }, { text: re_amount_HIns+'', style: 'col_amnt_lower_bold' }, { text: re_Rate2_HIns+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_HI+'', style: 'col_cot_pat_lower_bold' }],
 
                     [{ text: 'AM-RG', style: 'col_rub_lower' }, { text: 'Assurance Maladie', style: 'cal_name_bold' }, { text: base_sal+'', style: 'col_base_lower_bold' }, { text: re_Rate_Ins+' %', style: 'col_tax_lower_bold' }, { text: re_amount_ins+'', style: 'col_amnt_lower_bold' }, { text: re_Rate2_Ins+' %', style: 'col_tax2_lower_bold' }, { text: re_cot_pat_ins+'', style: 'col_cot_pat_lower_bold' }],
