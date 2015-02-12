@@ -1032,3 +1032,16 @@ $(".body-table").each(function() {
 gethyt(); 
 });
 
+
+ $(".toggler").click(function(){
+        $(".theme-options").toggle();
+    });
+
+ $(".toggler-close").click(function(){
+    $( ".theme-options" ).hide();
+    });
+ $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+re_NDF
+ re_Employee_payment
