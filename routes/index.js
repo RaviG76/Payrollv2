@@ -41,19 +41,29 @@ router.get('/', function(req, res) {
 });
 
 // generate pdf here
-router.get('/generatepdf', function(req, res) {
+// router.get('/generatepdf', function(req, res) {
+
+// // var path = require('path');
+//     // res.render('pdf', {
+//     //         title: 'Generating Pdf',
+//     //         company_name: 'FABRIKAM'
+//     // });
+// // var pdfFile = require('../bin/settings.json');
+// // var fs = require('fs');
+// //      var mailBody = fs.readFileSync('/var/www/Payrollv2/views/pdf.ejs').toString();
+// //     mailBody = mailBody.replace("{company_name}",'FABRIKAM');
+// //      console.log(mailBody);
+
+// // var pdf = require('pdfcrowd');
+
+// // // create an API client instance
+// // var client = new pdf.Pdfcrowd("RandhirSingh", "be939afc25f3937c564e0cae129b2d94");
+
+// // // convert an HTML string and send the generated PDF in a HTTP response
+// // client.convertURI('http://payroll-calculator.herokuapp.com/', pdf.sendHttpResponse(res));
 
 
-var pdf = require('pdfcrowd');
-
-// create an API client instance
-var client = new pdf.Pdfcrowd("RandhirSingh", "be939afc25f3937c564e0cae129b2d94");
-
-// convert an HTML string and send the generated PDF in a HTTP response
-client.convertURI('http://payroll-calculator.herokuapp.com/', pdf.sendHttpResponse(res));
-
-
-});
+// });
 
 /*paypal payment*/
 router.get('/payment', function(req, res) {
@@ -358,6 +368,7 @@ router.post('/calculate', function(req, res, next) {
 
         var Benefit_Period_years = req.body.re_Benefit_Period_years || 30;
         var Savings_at_end_period = calculateFutureValue(fv_first_parm, fv_second_parm, -fv_third_parm,0,0);
+
         var monthly_pension = parseFloat(Savings_at_end_period) / parseFloat(Benefit_Period_years) / 12;
 
         function calculateFutureValue(rate, nper, pmt, pv, type) {

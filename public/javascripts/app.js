@@ -227,6 +227,7 @@ payApp.controller('mainCtrl', function($scope, $http, $window,$location, $filter
     $scope.$watch('re_Rate_CI', resetRoundMode);
     $scope.$watch('re_Rate2_SS', resetRoundMode);
     $scope.$watch('re_Rate_MC', resetRoundMode);
+    $scope.$watch('re_Benefit_Period_years', resetRoundMode);
 
     $scope.re_base_sal = 3789.00;
     $scope.re_base_mutual_com = 12680.00;
@@ -410,6 +411,7 @@ $scope.re_monthly_pension = 1891.44;
     $scope.$watch('employ_city', setLocalStorage);
     $scope.$watch('employ_role', setLocalStorage);
     $scope.$watch('re_Voluntary_payment_retirement', setLocalStorage);
+    $scope.$watch('re_Benefit_Period_years', setLocalStorage);
     $scope.$watch('re_NDF', setLocalStorage);
 
 
