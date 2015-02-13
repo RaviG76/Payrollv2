@@ -286,8 +286,8 @@ router.post('/calculate', function(req, res, next) {
         var costs_benefits = req.body.re_costs_benefits || parseFloat(NDF);
         //var Employee_payment = Employee_payment
         var pay_charges = parseFloat(Employee_payment) + parseFloat(Patron_Charges) + parseFloat(wages_costs);
-        var private_health_ins_amnt = (health_ins == 'Rég. Gén.') ? 0 : req.body.re_private_health_ins_amnt || 0.00;
-        var private_pension_amnt = (health_ins == 'Rég. Gén.') ? 0 : req.body.re_private_pension_amnt || 0.00 ;
+        var private_health_ins_amnt = (health_ins == 'Rég. Gén.') ? 0 : req.body.re_private_health_ins_amnt || 270.00;
+        var private_pension_amnt = (health_ins == 'Rég. Gén.') ? 0 : req.body.re_private_pension_amnt || 100.00 ;
         var unemployment_ins_amnt = (disability_ins == 'Rég. Gén.') ? 0 : req.body.re_unemployment_ins_amnt;
 
         //=IF(G14<>"Rég. Gén.",SUM(J23,J27,J28,L23,L24,L52:L54)-W20-W21,0)+
@@ -306,8 +306,8 @@ router.post('/calculate', function(req, res, next) {
 
         var spared_retirement = parseFloat(spared_retirement_first_val) + parseFloat(spared_retirement_second_val) + parseFloat(spared_retirement_third_val);
 
-        var Voluntary_payment_retirement = (oldage_ins == 'Rég. Gén.') ? 0 : req.body.re_Voluntary_payment_retirement || 0.00;
-
+        var Voluntary_payment_retirement = (oldage_ins == 'Rég. Gén.') ? 0 : req.body.re_Voluntary_payment_retirement || 3000.00;
+// console.log('Hello ', req.body.re_Voluntary_payment_retirement, spared_retirement);
         //=IF(C60<9691/12,"0,00%",IF(C60<26765/12,"14,00%",IF(C60<71755/12,"30,00%",IF(C60<151956/12,"41,00%","45,00%"))))
         var Marginal_Tax_bracket = (Net_taxable < 9691 / 12) ? 0.00 : (Net_taxable < 26765 / 12) ? 14.00 : (Net_taxable < 71755 / 12) ? 30.00 : (Net_taxable < 151956 / 12) ? 41.00 : 45.00;
 
@@ -330,38 +330,26 @@ router.post('/calculate', function(req, res, next) {
         var Saving_time_years = req.body.re_Saving_time_years || 15;
         var annual_return = req.body.re_annual_return || 3; // %
         //=-FV(W39/12,12*W38,W25+W26)
-        var fv_first_parm = parseFloat(annual_return) / 12;
+        var fv_first_parm = parseFloat(annual_return) / 12 / 100;
         var fv_second_parm = 12 * parseFloat(Saving_time_years);
         var fv_third_parm = parseFloat(spared_retirement) + parseFloat(Voluntary_payment_retirement);
 
         var Benefit_Period_years = req.body.re_Benefit_Period_years || 30;
+        var Savings_at_end_period = calculateFutureValue(fv_first_parm, fv_second_parm, -fv_third_parm,0,0);
         var monthly_pension = parseFloat(Savings_at_end_period) / parseFloat(Benefit_Period_years) / 12;
-        var Savings_at_end_period = FVcalc(fv_first_parm, fv_second_parm, fv_third_parm);
 
-        function FVcalc(InterestRate, NumberOfYears, PresentAmount) {
-
-                var newAmount = PresentAmount * (1 + InterestRate / 12) ^ (NumberOfYears)
-                    // var vFV = PresentAmount * (Math.pow(1 + InterestRate, NumberOfYears) - 1) / InterestRate;
-                //console.log('Future ', InterestRate, NumberOfYears, PresentAmount, newAmount);
-                // return vFV
-            }
-            //         function fv(monthlyRate, months, investment)
-            // {
-            //     var futureValue = investment * (Math.pow(1 + monthlyRate, months) - 1) / monthlyRate;
-
-        //     // for ( i = 1; i <= months; i++ ) {
-        //     //     futureValue = (futureValue + investment) * (1 + monthlyRate);
-        //     // }
-        //     console.log('Values ', monthlyRate, months, investment, futureValue);
-
-        //     return parseFloat(futureValue);
-        // }
-        // console.log('After_income_tax ',  After_income_tax)
-        // console.log('Spread val', 
-        //             parseFloat(Estimated_Monthly_IR_first_val),
-        //             parseFloat(Estimated_Monthly_IR_second_val),
-        //             parseFloat(Estimated_Monthly_IR_third_val),
-        //             parseFloat(Estimated_Monthly_IR_fourth_val));
+        function calculateFutureValue(rate, nper, pmt, pv, type) {
+              // var rateNew = -rate;
+              // console.log('New rate ', rateNew);
+              var pow = Math.pow(1 + rate, nper),
+                 fv;
+              if (rate) {
+               fv = (pmt*(1+rate*type)*(1-pow)/rate)-pv*pow;
+              } else {
+               fv = -1 * (pv + pmt * nper);
+              }
+              return fv.toFixed(2);
+        }
 
         var visible_hide = {
             'visible_Ins': visible_Ins,
