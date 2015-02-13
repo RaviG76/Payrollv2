@@ -9,7 +9,9 @@ router.get('/', function(req, res) {
   var ua = req.headers['user-agent'];
   var browserName = parser.setUA(ua).getBrowser().name;
   var fullBrowserVersion = parser.setUA(ua).getBrowser().version;
-  var browserVersion = fullBrowserVersion.split(".",1).toString();
+  if(fullBrowserVersion) {
+    var browserVersion = fullBrowserVersion.split(".",1).toString();
+  }
   var browserVersionNumber = Number(browserVersion);
 
   if (browserName == 'IE' && browserVersion < 9)
