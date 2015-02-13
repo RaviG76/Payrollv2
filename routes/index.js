@@ -12,7 +12,8 @@ router.get('/', function(req, res) {
   if(fullBrowserVersion) {
     var browserVersion = fullBrowserVersion.split(".",1).toString();
   }else {
-    browserVersion = 0;
+    browserName = 'IE';
+    browserVersion = 10;
   }
   var browserVersionNumber = Number(browserVersion);
 
