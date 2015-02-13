@@ -11,6 +11,8 @@ router.get('/', function(req, res) {
   var fullBrowserVersion = parser.setUA(ua).getBrowser().version;
   if(fullBrowserVersion) {
     var browserVersion = fullBrowserVersion.split(".",1).toString();
+  }else {
+    browserVersion = 0;
   }
   var browserVersionNumber = Number(browserVersion);
 
