@@ -1,10 +1,13 @@
 var express = require('express');
 var settingsObj = require('../bin/settings.json');
 var UAParser = require('ua-parser-js');
+
 var router = express.Router();
 var paypal = require('paypal-express-checkout').init('mss.naveensharma-facilitator_api1.gmail.com', '1403521583', 'AFcWxV21C7fd0v3bYYYRCpSSRl31AGjelgIYjdIGjGvf2IUyW1bBDw3T', 'https://payroll-calculator.herokuapp.com/', 'https://payroll-calculator.herokuapp.com/', true);
 
+
 router.get('/', function(req, res) {
+
   var parser = new UAParser();
   var ua = req.headers['user-agent'];
   var browserName = parser.setUA(ua).getBrowser().name;
@@ -37,6 +40,20 @@ router.get('/', function(req, res) {
     });
 });
 
+// generate pdf here
+router.get('/generatepdf', function(req, res) {
+
+
+var pdf = require('pdfcrowd');
+
+// create an API client instance
+var client = new pdf.Pdfcrowd("RandhirSingh", "be939afc25f3937c564e0cae129b2d94");
+
+// convert an HTML string and send the generated PDF in a HTTP response
+client.convertURI('http://payroll-calculator.herokuapp.com/', pdf.sendHttpResponse(res));
+
+
+});
 
 /*paypal payment*/
 router.get('/payment', function(req, res) {
