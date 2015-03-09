@@ -1,4 +1,10 @@
-body{font-family: sans-serif; font-size: 14px; background:#f4f4f4; }
+body {
+    color: #5c5947;
+    font-family: "Lato","Helvetica Neue","Helvetica",Arial,sans-serif;
+    font-size: 16px;
+    letter-spacing: 0.015em;
+    line-height: 1.5em;
+}
 .container.content-calculator {
     position: relative;
 }
@@ -42,17 +48,7 @@ body{font-family: sans-serif; font-size: 14px; background:#f4f4f4; }
     min-height: 33px;
     padding: 6px 0;
 }
-.navbar-brand {
-    color: #ffffff;
-    float: left;
-    font-size: 34px;
-    line-height: 20px;
-    padding: 19px 3px;
-}
-.navbar {background: #fff; padding: 2px 0px; }
-a.navbar-brand:hover {
-    color: #ffffff;
-}
+
 .row.row_tab .col.desc-col span {
     float: right;
     font-weight: bold;
@@ -62,20 +58,6 @@ a.navbar-brand:hover {
     border: medium none #ed652e;
     border-radius: 0;
     padding: 9px 36px;
-}
-.navbar-nav > li > a {
-    color: #ffffff;
-    font-size: 16px;
-    margin-top: 9px;
-    padding: 13px 25px;
-    font-family: open sans;
-    border-radius: 6px;    
-    -webkit-border-radius:6px;
-    -ms-border-radius: 6px;
-}
-.navbar-nav > li > a:hover {
-    color: #000;
-  
 }
 .tab_cls{background:#ffffff; margin-top:30px; }
 .desc-col { background: #edf6fc; }
@@ -379,16 +361,6 @@ a.navbar-brand:hover {
 
 
 
-.nav > li > a:hover, .nav > li > a:focus, .nav > li.active > a {
-    background-color:#ed7c03;
-    outline: medium none navy;
-	color:#fff;
-    text-decoration: none;
-    
-}
-.nav > li > a{
-	text-transform: uppercase;
-}
 @media (min-width: 768px) and (max-width: 991px){
 
 .mrg-row > div{
@@ -777,17 +749,17 @@ div.content-calculator{
     text-align: right;
     margin-right: 5px; 
 }
-
+.row.top-block{font-size:14px;}
 .hrzntl-algin .dl-horizontal dt{
 
 	text-align:left;
 
 }
 .list-group-item{
-	margin-bottom:0px;
-	padding:0px;
-    background: none;
-	border:none;
+	margin-bottom:0px !important;
+	padding:0px !important;
+    background: none !important;
+	border:none !important;
 }
 .list-group-item:last-child{
 	border-radius:0px;
@@ -818,7 +790,9 @@ div.content-calculator{
 	-ms-border-radius:0px;
 }
 
-
+.col-md-7.padding-max {
+    width: 52%;
+}
 
 
 
@@ -1256,6 +1230,8 @@ div.repeat-list .voilet-grid{
     background: #d2e7f0;
     border: 1px solid #000;
     border-radius: 8px;
+	font-size:14px;
+	font-family:sans-serif;
 }
 .form-control{
     background: #B9D8E6;
@@ -1268,27 +1244,33 @@ div.repeat-list .voilet-grid{
     border: 1px solid #a4c1ce;
     max-width: 320px;
 }
- .editable-input
-{
-    font-size: 14px;
-    height: 32px;
-    line-height: 1.42857;
-    padding: 5px 5px;
-    border-radius: 4px;
-    -webkit-border-radius: 4px;
-    -ms-border-radius: 4px;
-    background: #B9D8E6;
-    box-shadow: none;
-    color: #000;
+.btn-default {
+    background-color: #fff;
+    border-color: #ccc;
+    color: #333 !important;
+}
+.btn{margin-bottom:0 !important; letter-spacing:0 !important; font-size:14px !important}
+.editable-input.form-control {
+    font-size: 14px !important;
+    height: 32px !important;
+    line-height: 1.42857 !important;
+    padding: 5px 5px !important;
+    border-radius: 4px !important;
+    -webkit-border-radius: 4px !important;
+    -ms-border-radius: 4px !important;
+    background: #B9D8E6 !important;
+    box-shadow: none !important;
+    color: #000 !important;
     -webkit-box-shadow: none;
     -ms-box-shadow: none;
-    border: 1px solid #a4c1ce;
-    margin-top: 1px;
+    border: 1px solid #a4c1ce !important;
+    margin-top: 1px !important;
+	min-height:inherit !important
 }
 .form-control:focus, .form-control:active{
-    box-shadow: none;
-    -webkit-box-shadow: none;
-    -ms-box-shadow: none;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    -ms-box-shadow: none !important;
 }
 .padding-max{
     padding-left: 0px;
@@ -1349,6 +1331,7 @@ div.mrg-row .col-md-4 {
 .mrg-row dt, .mrg-row div{
     font-size: 14px;
 }
+
 div.dt-size.hrzntl-algin .dl-horizontal dt {
     width: 202px;
 }
@@ -1561,12 +1544,12 @@ div.repeat-list .col-xs-7, div.repeat-list .col-xs-5{
 .icon-chevron-left{
     padding: 10px;
     opacity: 0.6;
-    background: url("../images/arrow-left.png") center center no-repeat;
+    background: url("../img/arrow-left.png") center center no-repeat;
 }
 .icon-chevron-right{
     padding: 10px;
     opacity: 0.6;
-    background: url("../images/arrow-right.png") center center no-repeat;
+    background: url("../img/arrow-right.png") center center no-repeat;
 }
 .muted{
     color: #acafb5;

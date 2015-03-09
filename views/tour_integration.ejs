@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+ <head>
+  <% include /layouts/head %> 
+ </head>
+
+<body class="corporate features">
+
+  <% include /layouts/header %>
+
+  <div class="gradient-light-blue" id="tour-employees">
+
+    <section class="browser-screenshot first-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="row feature-content">
+              <div class="col-xs-12">
+
+                <h5>Présentation de ZenPaye</h5>
+                <h1>3. Ajouter de nouveaux employés facilement</h1>
+
+                <p>
+                  L'intégration de nouvaux employés est souvent fastidieuse. Les employés peuvent désormais saisir eux-mêmes leurs données personnelles (état civil, adresse, numéro de sécurité sociale etc...), vous épargnant ainsi du temps de saisie manuelle. De plus, nous procédons automatiquement à la Déclaration Préalable A l'Embauche (DPAE).
+                </p>
+                <div class="dotted-hr-light"></div>
+                <p class="tour-next-link">
+                  <span>Suivant:</span> <a class="paragraph-cta" href="/tour_paiement">Célébrer les jours de paie</a>
+                </p>
+
+              </div>
+            </div>
+
+          </div>
+
+          <div class="col-sm-6 tour-img">
+            <div class="animated-employees">
+              <img src="../img/employee-01.png" class="img-responsive employee-outlined bounce-slow" alt="Employee-outlined-1">
+
+              <img src="../img/employee-02.png" class="img-responsive employee-outlined bounce-slow delay-halfsec" alt="Employee-outlined-2">
+
+              <img src="../img/employee-03.png" class="img-responsive employee-outlined bounce-slow delay-1sec" alt="Employee-outlined-3">
+
+              <img src="../img/employee-04.png" class="img-responsive employee-outlined bounce-slow delay-1halfsec" alt="Employee-outlined-4">
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+
+  <section id="bottom-signup-cta" class="gradient-light-gold">
+    <div class="container">
+      <div class="zen-rocks-header">
+        <div class="zen-rocks text-center">
+          <img alt="Icon-zen-rocks" src="../img/icon-zen-rocks-244f5c29ad6fa91f4725d04b27201657.png" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 text-center">
+          <h3>Utilisez ZenPaye aujourd'hui</h3>
+          <p>Vos 2 premiers mois sont gratuits</p>
+          <form id="landing-signup-form" action="/inscription" method="GET">
+            <div class="input-append">
+              <button type="submit" class="btn primary">Commencer maintenant</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <% include /layouts/footer %>
+
+</body>
+
+</html>

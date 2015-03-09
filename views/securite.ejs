@@ -32,29 +32,7 @@
         </button>
       </div>
 
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="corporate-subnav-bar">
-        <ul class="nav navbar-nav">
-          <li>
-            <a href="fonctionnalites.html" class="">Liste complète</a>
-          </li>
-          <li>
-            <a href="employes.html" class="">Employés</a>
-          </li>
-          <li>
-            <a href="automatique.html" class="">Automatique</a>
-          </li>
-          <li>
-            <a href="avance.html" class="">Avancé</a>
-          </li>
-          <li>
-            <a href="support.html" class="">Support</a>
-          </li>
-          <li>
-            <a href="securite.html" class="current">Sécurité</a>
-          </li>
-        </ul>
-      </div>
+<% include /layouts/fun_nav %>
 
     </div>
   </div>
@@ -244,7 +222,7 @@
     <div class="dotted-feature-arrow left"></div>
     <div class="tour-btn-left">
       <div class="tour-nav-border dotted-top"></div>
-      <a href="tarif.html" class="tour-btn zen-grey">
+      <a href="/tarif" class="tour-btn zen-grey">
         <h4>Tarif</h4>
         <h3>Un tarif mensuel unique &raquo;</h3>
 </a>      <div class="tour-nav-border dotted-top"></div>
@@ -264,7 +242,7 @@
 				<div class="col-xs-12 text-center">
 					<h3>Utilisez ZenPaye aujourd'hui</h3>
 					<p>Vos 2 premiers mois sont gratuits</p>
-					<form id="landing-signup-form" action="inscription.html" method="GET">
+					<form id="landing-signup-form" action="/inscription" method="GET">
 						<div class="input-append">
 							<button type="submit" class="btn primary">Commencer maintenant</button>
 						</div>

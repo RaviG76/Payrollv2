@@ -33,29 +33,7 @@
 						</button>
 					</div>
 
-					<!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="corporate-subnav-bar">
-        <ul class="nav navbar-nav">
-          <li>
-            <a href="fonctionnalites.html" class="">Liste complète</a>
-          </li>
-          <li>
-            <a href="employes.html" class="">Employés</a>
-          </li>
-          <li>
-            <a href="automatique.html" class="">Automatique</a>
-          </li>
-          <li>
-            <a href="avance.html" class="current">Avancé</a>
-          </li>
-          <li>
-            <a href="support.html" class="">Support</a>
-          </li>
-          <li>
-            <a href="securite.html" class="">Sécurité</a>
-          </li>
-        </ul>
-      </div>
+		<% include /layouts/fun_nav %>
 
 
 					</div>
@@ -70,7 +48,7 @@
 						<h2>Parfaitement adapté</h2>
 						<p>
 							Vous pouvez nous confier le paiement des salaires et cotisations sociales ou continuer de les payer vous-même. Quelque soit votre choix, tout est inclus dans votre 
-							<a href="tarif.html">tarif mensuel</a>.
+							<a href="/tarif">tarif mensuel</a>.
 						</p>
 						<ul class="col-xs-12 vertical-features">
 							<li class="row">
@@ -162,7 +140,7 @@
 			<div class="dotted-feature-arrow left"></div>
 			<div class="tour-btn-left">
 				<div class="tour-nav-border dotted-top"></div>
-				<a href="support.html" class="tour-btn zen-grey">
+				<a href="/support" class="tour-btn zen-grey">
 					<h4>Suivant</h4>
 					<h3>Support&nbsp;&raquo;</h3>
 					<!--<p>Payroll that plays nicely with others</p>-->
@@ -186,7 +164,7 @@
 				<div class="col-xs-12 text-center">
 					<h3>Utilisez ZenPaye aujourd'hui</h3>
 					<p>Vos 2 premiers mois sont gratuits</p>
-					<form id="landing-signup-form" action="inscription.html" method="GET">
+					<form id="landing-signup-form" action="/inscription" method="GET">
 						<div class="input-append">
 							<button type="submit" class="btn primary">Commencez maintenant</button>
 						</div>

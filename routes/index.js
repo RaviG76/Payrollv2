@@ -51,33 +51,80 @@ router.get('/', function(req, res) {
 
 router.get('/fonctionnalites', function(req,res){
    res.render('fonctionnalites',{
-       title: 'Liste des fonctionnalités | Zenpaye'
+       title: 'Liste des fonctionnalités | Zenpaye',
+       page: 'fonctionnalites'
    });
 });
 
 
 router.get('/employes', function(req,res){
-    res.render('employes',{
-       title: 'Bienvenue à un logiciel de paie simple et moderne | Zenpaye'
+    res.render('employe',{
+       title: 'Bienvenue à un logiciel de paie simple et moderne | Zenpaye',
+       page:'employes'
     });    
 });
 
 
 router.get('/automatique', function(req,res){
     res.render('automatique',{
+       title:'Bienvenue à un logiciel de paie simple et moderne | Zenpaye',
+       page: 'automatique'
+    });
+});
+
+router.get('/tour_automatique', function(req,res){
+    res.render('tour_automatique',{
+       title:'Mode Automatique | ZenPaye'
+    });
+});
+
+router.get('/tour_taxes', function(req,res){
+    res.render('tour_taxes',{
+       title:'Calcul et Paiement des Cotisations et Taxes | ZenPaye'
+    });
+});
+
+router.get('/reset', function(req,res){
+    res.render('reset',{
        title:'Bienvenue à un logiciel de paie simple et moderne | Zenpaye'
+    });
+});
+
+
+router.get('/tour_integration', function(req,res){
+    res.render('tour_integration',{
+       title:'Intégration des employés et DPAE | ZenPaye'
+    });
+});
+
+router.get('/tour_paiement', function(req,res){
+    res.render('tour_paiement',{
+       title:'Jour de paie | ZenPayroll'
+    });
+});
+
+router.get('/tour_support', function(req,res){
+    res.render('tour_support',{
+       title:'Support Client | ZenPaye'
     });
 });
 
 
 router.get('/avance', function(req,res){
     res.render('avance',{
-       title:'Fonctionnalités avancées | ZenPaye'
+       title:'Fonctionnalités avancées | ZenPaye',
+       page: 'avance'
     });
 });
 
 
 router.get('/connexion', function(req,res){
+    res.render('connexion',{
+        title:'Bienvenue à un logiciel de paie simple et moderne | Zenpaye'
+    });
+});
+
+router.post('/connexion', function(req,res){
     res.render('connexion',{
         title:'Bienvenue à un logiciel de paie simple et moderne | Zenpaye'
     });
@@ -97,7 +144,35 @@ router.get('/inscription', function(req,res){
     });
 });
 
+router.post('/inscription', function(req, res) {
+    var email = req.body.email;
+    console.log("Email", email)
+    var csv = require('csv-write-stream');
+    var writer = csv({
+        sendHeaders: false
+    });
+    fs.readFile('file.csv', 'utf8', function(err, data) {
+        if (err) {
+            return console.log(err);
+        }
+        data += email + '\n';
+        var lines = data.toString('utf-8').split("\n");
+        writer.pipe(fs.createWriteStream('file.csv'));
+        for (var i = 0; i < lines.length - 1; i++) {
+            writer.write({
+                Email: lines[i]
+            });
+        }
+        writer.end()
+        res.render('inscription', {
+            title: 'Bienvenue à un logiciel de paie simple et moderne | Zenpaye',
+            message: 'web app is under development and will be available soon'
+        });
 
+    });
+
+
+});
 router.post('/',function(req,res){
 
    var full_name = req.body.full_name;
@@ -106,16 +181,29 @@ router.post('/',function(req,res){
    var number_employees = req.body.number_employees;
     
   
-   fs.appendFile('email.txt',email, function(err) {
-    if (err) throw err;
-    console.log('file saved');
-  });
+   var csv = require('csv-write-stream');
+    var writer = csv({
+        sendHeaders: false
+    });
+    fs.readFile('file.csv', 'utf8', function(err, data) {
+        if (err) {
+            return console.log(err);
+        }
+        data += email + '\n';
+        var lines = data.toString('utf-8').split("\n");
+        writer.pipe(fs.createWriteStream('file.csv'));
+        for (var i = 0; i < lines.length - 1; i++) {
+            writer.write({
+                Email: lines[i]
+            });
+        }
+        writer.end()
+        res.render('index', {
+            title: 'Bienvenue à un logiciel de paie simple et moderne | Zenpaye',
+            message: 'web app is under development and will be available soon'
+        });
 
-
-   res.render('index',{
-    title:'Bienvenue à un logiciel de paie simple et moderne | Zenpaye',
-    message:'web app is under development and will be available soon'
-   });
+    });
 
 });
 
@@ -128,7 +216,8 @@ router.get('/reset-pass', function(req,res){
 
 router.get('/securite', function(req,res){
     res.render('securite',{
-        title:'Sécurité | ZenPaye'
+        title:'Sécurité | ZenPaye',
+        page: 'securite'
     });
 });
 
@@ -142,7 +231,8 @@ router.get('/signup', function(req,res){
 
 router.get('/support', function(req,res){
     res.render('support',{
-        title:'Support Client | ZenPaye'
+        title:'Support Client | ZenPaye',
+        page: 'support'
     });
 });
 

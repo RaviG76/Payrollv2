@@ -1567,12 +1567,12 @@ div.repeat-list .col-xs-7, div.repeat-list .col-xs-5{
 .icon-chevron-left{
     padding: 10px;
     opacity: 0.6;
-    background: url("../images/arrow-left.png") center center no-repeat;
+    background: url("../img/arrow-left.png") center center no-repeat;
 }
 .icon-chevron-right{
     padding: 10px;
     opacity: 0.6;
-    background: url("../images/arrow-right.png") center center no-repeat;
+    background: url("../img/arrow-right.png") center center no-repeat;
 }
 .muted{
     color: #acafb5;

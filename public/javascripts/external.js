@@ -141,7 +141,7 @@ re_base_UI,
 re_NDF,
 re_Employee_payment;
 
-EveryOneSec();
+// EveryOneSec();
 
   function EveryOneSec() {
   
