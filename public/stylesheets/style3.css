@@ -9185,6 +9185,7 @@ span.span-inline-block-lg {
     margin-top: 10px;
     padding-bottom: 10px;
     text-align: center;
+    line-height: 20px;
 }
 @media not all, not all, all and (min--moz-device-pixel-ratio: 1.5), not all {
 .zen-slider .tooltip h3 {
@@ -9313,5 +9314,5 @@ span.span-inline-block-lg {
 
 .tooltip{
     left: -82px !important;
-    top: -155px !important;
+    top: -162px !important;
 	}

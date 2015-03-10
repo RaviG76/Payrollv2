@@ -100,6 +100,1450 @@ Apache License or the GPL Licesnse is distributed on an "AS IS" BASIS, WITHOUT W
 CONDITIONS OF ANY KIND, either express or implied. See the Apache License and the GPL License for
 the specific language governing permissions and limitations under the Apache License and the GPL License.
 */
-function(t){"undefined"==typeof t.fn.each2&&t.fn.extend({each2:function(e){for(var i=t([0]),n=-1,s=this.length;++n<s&&(i.context=i[0]=this[n])&&e.call(i[0],n,i)!==!1;);return this}})}(jQuery),function(t,e){"use strict";function i(t,e){for(var i=0,s=e.length;s>i;i+=1)if(n(t,e[i]))return i;return-1}function n(t,i){return t===i?!0:t===e||i===e?!1:null===t||null===i?!1:t.constructor===String?t+""==i+"":i.constructor===String?i+""==t+"":!1}function s(e,i){var n,s,o;if(null===e||e.length<1)return[];for(n=e.split(i),s=0,o=n.length;o>s;s+=1)n[s]=t.trim(n[s]);return n}function o(t){return t.outerWidth(!1)-t.width()}function a(i){var n="keyup-change-value";i.bind("keydown",function(){t.data(i,n)===e&&t.data(i,n,i.val())}),i.bind("keyup",function(){var s=t.data(i,n);s!==e&&i.val()!==s&&(t.removeData(i,n),i.trigger("keyup-change"))})}function r(i){i.bind("mousemove",function(i){var n=I;(n===e||n.x!==i.pageX||n.y!==i.pageY)&&t(i.target).trigger("mousemove-filtered",i)})}function l(t,i,n){n=n||e;var s;return function(){var e=arguments;window.clearTimeout(s),s=window.setTimeout(function(){i.apply(n,e)},t)}}function c(t){var e,i=!1;return function(){return i===!1&&(e=t(),i=!0),e}}function h(t,e){var n=l(t,function(t){e.trigger("scroll-debounced",t)});e.bind("scroll",function(t){i(t.target,e.get())>=0&&n(t)})}function u(t){t[0]!==document.activeElement&&window.setTimeout(function(){var e,i=t[0],n=t.val().length;t.focus(),t.is(":visible")&&i===document.activeElement&&(i.setSelectionRange?i.setSelectionRange(n,n):i.createTextRange&&(e=i.createTextRange(),e.collapse(!1),e.select()))},0)}function d(t){t.preventDefault(),t.stopPropagation()}function f(t){t.preventDefault(),t.stopImmediatePropagation()}function p(e){if(!N){var i=e[0].currentStyle||window.getComputedStyle(e[0],null);N=t(document.createElement("div")).css({position:"absolute",left:"-10000px",top:"-10000px",display:"none",fontSize:i.fontSize,fontFamily:i.fontFamily,fontStyle:i.fontStyle,fontWeight:i.fontWeight,letterSpacing:i.letterSpacing,textTransform:i.textTransform,whiteSpace:"nowrap"}),N.attr("class","select2-sizer"),t("body").append(N)}return N.text(e.val()),N.width()}function m(e,i,n){var s,o,a=[];s=e.attr("class"),s&&(s=""+s,t(s.split(" ")).each2(function(){0===this.indexOf("select2-")&&a.push(this)})),s=i.attr("class"),s&&(s=""+s,t(s.split(" ")).each2(function(){0!==this.indexOf("select2-")&&(o=n(this),o&&a.push(this))})),e.attr("class",a.join(" "))}function g(t,e,i,n){var s=t.toUpperCase().indexOf(e.toUpperCase()),o=e.length;return 0>s?void i.push(n(t)):(i.push(n(t.substring(0,s))),i.push("<span class='select2-match'>"),i.push(n(t.substring(s,s+o))),i.push("</span>"),void i.push(n(t.substring(s+o,t.length))))}function v(e){var i,n=0,s=null,o=e.quietMillis||100,a=e.url,r=this;return function(l){window.clearTimeout(i),i=window.setTimeout(function(){n+=1;var i=n,o=e.data,c=a,h=e.transport||t.ajax,u=e.type||"GET",d={};o=o?o.call(r,l.term,l.page,l.context):null,c="function"==typeof c?c.call(r,l.term,l.page,l.context):c,null!==s&&s.abort(),e.params&&(t.isFunction(e.params)?t.extend(d,e.params.call(r)):t.extend(d,e.params)),t.extend(d,{url:c,dataType:e.dataType,data:o,type:u,cache:!1,success:function(t){if(!(n>i)){var s=e.results(t,l.page);l.callback(s)}}}),s=h.call(r,d)},o)}}function w(e){var i,n,s=e,o=function(t){return""+t.text};t.isArray(s)&&(n=s,s={results:n}),t.isFunction(s)===!1&&(n=s,s=function(){return n});var a=s();return a.text&&(o=a.text,t.isFunction(o)||(i=s.text,o=function(t){return t[i]})),function(e){var i,n=e.term,a={results:[]};return""===n?void e.callback(s()):(i=function(s,a){var r,l;if(s=s[0],s.children){r={};for(l in s)s.hasOwnProperty(l)&&(r[l]=s[l]);r.children=[],t(s.children).each2(function(t,e){i(e,r.children)}),(r.children.length||e.matcher(n,o(r),s))&&a.push(r)}else e.matcher(n,o(s),s)&&a.push(s)},t(s().results).each2(function(t,e){i(e,a.results)}),void e.callback(a))}}function b(i){var n=t.isFunction(i);return function(s){var o=s.term,a={results:[]};t(n?i():i).each(function(){var t=this.text!==e,i=t?this.text:this;(""===o||s.matcher(o,i))&&a.results.push(t?this:{id:this,text:this})}),s.callback(a)}}function y(e){if(t.isFunction(e))return!0;if(!e)return!1;throw new Error("formatterName must be a function or a falsy value")}function x(e){return t.isFunction(e)?e():e}function _(e){var i=0;return t.each(e,function(t,e){e.children?i+=_(e.children):i++}),i}function C(t,i,s,o){var a,r,l,c,h,u=t,d=!1;if(!o.createSearchChoice||!o.tokenSeparators||o.tokenSeparators.length<1)return e;for(;;){for(r=-1,l=0,c=o.tokenSeparators.length;c>l&&(h=o.tokenSeparators[l],r=t.indexOf(h),!(r>=0));l++);if(0>r)break;if(a=t.substring(0,r),t=t.substring(r+h.length),a.length>0&&(a=o.createSearchChoice(a,i),a!==e&&null!==a&&o.id(a)!==e&&null!==o.id(a))){for(d=!1,l=0,c=i.length;c>l;l++)if(n(o.id(a),o.id(i[l]))){d=!0;break}d||s(a)}}return u!==t?t:void 0}function S(e,i){var n=function(){};return n.prototype=new e,n.prototype.constructor=n,n.prototype.parent=e.prototype,n.prototype=t.extend(n.prototype,i),n}if(window.Select2===e){var k,E,T,D,M,N,I,j;k={TAB:9,ENTER:13,ESC:27,SPACE:32,LEFT:37,UP:38,RIGHT:39,DOWN:40,SHIFT:16,CTRL:17,ALT:18,PAGE_UP:33,PAGE_DOWN:34,HOME:36,END:35,BACKSPACE:8,DELETE:46,isArrow:function(t){switch(t=t.which?t.which:t){case k.LEFT:case k.RIGHT:case k.UP:case k.DOWN:return!0}return!1},isControl:function(t){var e=t.which;switch(e){case k.SHIFT:case k.CTRL:case k.ALT:return!0}return t.metaKey?!0:!1},isFunctionKey:function(t){return t=t.which?t.which:t,t>=112&&123>=t}},j=t(document),M=function(){var t=1;return function(){return t++}}(),j.bind("mousemove",function(t){I={x:t.pageX,y:t.pageY}}),E=S(Object,{bind:function(t){var e=this;return function(){t.apply(e,arguments)}},init:function(i){var n,s,o=".select2-results";this.opts=i=this.prepareOpts(i),this.id=i.id,i.element.data("select2")!==e&&null!==i.element.data("select2")&&this.destroy(),this.enabled=!0,this.container=this.createContainer(),this.containerId="s2id_"+(i.element.attr("id")||"autogen"+M()),this.containerSelector="#"+this.containerId.replace(/([;&,\.\+\*\~':"\!\^#$%@\[\]\(\)=>\|])/g,"\\$1"),this.container.attr("id",this.containerId),this.body=c(function(){return i.element.closest("body")}),m(this.container,this.opts.element,this.opts.adaptContainerCssClass),this.container.css(x(i.containerCss)),this.container.addClass(x(i.containerCssClass)),this.elementTabIndex=this.opts.element.attr("tabIndex"),this.opts.element.data("select2",this).addClass("select2-offscreen").bind("focus.select2",function(){t(this).select2("focus")}).attr("tabIndex","-1").before(this.container),this.container.data("select2",this),this.dropdown=this.container.find(".select2-drop"),this.dropdown.addClass(x(i.dropdownCssClass)),this.dropdown.data("select2",this),this.results=n=this.container.find(o),this.search=s=this.container.find("input.select2-input"),s.attr("tabIndex",this.elementTabIndex),this.resultsPage=0,this.context=null,this.initContainer(),r(this.results),this.dropdown.delegate(o,"mousemove-filtered touchstart touchmove touchend",this.bind(this.highlightUnderEvent)),h(80,this.results),this.dropdown.delegate(o,"scroll-debounced",this.bind(this.loadMoreIfNeeded)),t.fn.mousewheel&&n.mousewheel(function(t,e,i,s){var o=n.scrollTop();s>0&&0>=o-s?(n.scrollTop(0),d(t)):0>s&&n.get(0).scrollHeight-n.scrollTop()+s<=n.height()&&(n.scrollTop(n.get(0).scrollHeight-n.height()),d(t))}),a(s),s.bind("keyup-change input paste",this.bind(this.updateResults)),s.bind("focus",function(){s.addClass("select2-focused")}),s.bind("blur",function(){s.removeClass("select2-focused")}),this.dropdown.delegate(o,"mouseup",this.bind(function(e){t(e.target).closest(".select2-result-selectable").length>0&&(this.highlightUnderEvent(e),this.selectHighlighted(e))})),this.dropdown.bind("click mouseup mousedown",function(t){t.stopPropagation()}),t.isFunction(this.opts.initSelection)&&(this.initSelection(),this.monitorSource()),(i.element.is(":disabled")||i.element.is("[readonly='readonly']"))&&this.disable()},destroy:function(){var t=this.opts.element.data("select2");this.propertyObserver&&(delete this.propertyObserver,this.propertyObserver=null),t!==e&&(t.container.remove(),t.dropdown.remove(),t.opts.element.removeClass("select2-offscreen").removeData("select2").unbind(".select2").attr({tabIndex:this.elementTabIndex}).show())},prepareOpts:function(i){var o,a,r,l;if(o=i.element,"select"===o.get(0).tagName.toLowerCase()&&(this.select=a=i.element),a&&t.each(["id","multiple","ajax","query","createSearchChoice","initSelection","data","tags"],function(){if(this in i)throw new Error("Option '"+this+"' is not allowed for Select2 when attached to a <select> element.")}),i=t.extend({},{populateResults:function(n,s,o){var a,r=this.opts.id,l=this;(a=function(n,s,c){var h,u,d,f,p,m,g,v,w,b;for(n=i.sortResults(n,s,o),h=0,u=n.length;u>h;h+=1)d=n[h],p=d.disabled===!0,f=!p&&r(d)!==e,m=d.children&&d.children.length>0,g=t("<li></li>"),g.addClass("select2-results-dept-"+c),g.addClass("select2-result"),g.addClass(f?"select2-result-selectable":"select2-result-unselectable"),p&&g.addClass("select2-disabled"),m&&g.addClass("select2-result-with-children"),g.addClass(l.opts.formatResultCssClass(d)),v=t(document.createElement("div")),v.addClass("select2-result-label"),b=i.formatResult(d,v,o,l.opts.escapeMarkup),b!==e&&v.html(b),g.append(v),m&&(w=t("<ul></ul>"),w.addClass("select2-result-sub"),a(d.children,w,c+1),g.append(w)),g.data("select2-data",d),s.append(g)})(s,n,0)}},t.fn.select2.defaults,i),"function"!=typeof i.id&&(r=i.id,i.id=function(t){return t[r]}),t.isArray(i.element.data("select2Tags"))){if("tags"in i)throw"tags specified as both an attribute 'data-select2-tags' and in options of Select2 "+i.element.attr("id");i.tags=i.element.data("select2Tags")}if(a?(i.query=this.bind(function(i){var s,a,r,l={results:[],more:!1},c=i.term;r=function(t,e){var s;t.is("option")?i.matcher(c,t.text(),t)&&e.push({id:t.attr("value"),text:t.text(),element:t.get(),css:t.attr("class"),disabled:n(t.attr("disabled"),"disabled")}):t.is("optgroup")&&(s={text:t.attr("label"),children:[],element:t.get(),css:t.attr("class")},t.children().each2(function(t,e){r(e,s.children)}),s.children.length>0&&e.push(s))},s=o.children(),this.getPlaceholder()!==e&&s.length>0&&(a=s[0],""===t(a).text()&&(s=s.not(a))),s.each2(function(t,e){r(e,l.results)}),i.callback(l)}),i.id=function(t){return t.id},i.formatResultCssClass=function(t){return t.css}):"query"in i||("ajax"in i?(l=i.element.data("ajax-url"),l&&l.length>0&&(i.ajax.url=l),i.query=v.call(i.element,i.ajax)):"data"in i?i.query=w(i.data):"tags"in i&&(i.query=b(i.tags),i.createSearchChoice===e&&(i.createSearchChoice=function(t){return{id:t,text:t}}),i.initSelection===e&&(i.initSelection=function(e,o){var a=[];t(s(e.val(),i.separator)).each(function(){var e=this,s=this,o=i.tags;t.isFunction(o)&&(o=o()),t(o).each(function(){return n(this.id,e)?(s=this.text,!1):void 0}),a.push({id:e,text:s})}),o(a)}))),"function"!=typeof i.query)throw"query function not defined for Select2 "+i.element.attr("id");return i},monitorSource:function(){var t,e=this.opts.element;e.bind("change.select2",this.bind(function(){this.opts.element.data("select2-change-triggered")!==!0&&this.initSelection()})),t=this.bind(function(){var t,e;t="disabled"!==this.opts.element.attr("disabled"),e="readonly"===this.opts.element.attr("readonly"),t=t&&!e,this.enabled!==t&&(t?this.enable():this.disable()),m(this.container,this.opts.element,this.opts.adaptContainerCssClass),this.container.addClass(x(this.opts.containerCssClass)),m(this.dropdown,this.opts.element,this.opts.adaptDropdownCssClass),this.dropdown.addClass(x(this.opts.dropdownCssClass))}),e.bind("propertychange.select2 DOMAttrModified.select2",t),"undefined"!=typeof WebKitMutationObserver&&(this.propertyObserver&&(delete this.propertyObserver,this.propertyObserver=null),this.propertyObserver=new WebKitMutationObserver(function(e){e.forEach(t)}),this.propertyObserver.observe(e.get(0),{attributes:!0,subtree:!1}))},triggerChange:function(e){e=e||{},e=t.extend({},e,{type:"change",val:this.val()}),this.opts.element.data("select2-change-triggered",!0),this.opts.element.trigger(e),this.opts.element.data("select2-change-triggered",!1),this.opts.element.click(),this.opts.blurOnChange&&this.opts.element.blur()},enable:function(){this.enabled||(this.enabled=!0,this.container.removeClass("select2-container-disabled"),this.opts.element.removeAttr("disabled"))},disable:function(){this.enabled&&(this.close(),this.enabled=!1,this.container.addClass("select2-container-disabled"),this.opts.element.attr("disabled","disabled"))},opened:function(){return this.container.hasClass("select2-dropdown-open")},positionDropdown:function(){var e,i,n,s=this.container.offset(),o=this.container.outerHeight(!1),a=this.container.outerWidth(!1),r=this.dropdown.outerHeight(!1),l=t(window).scrollLeft()+t(window).width(),c=t(window).scrollTop()+t(window).height(),h=s.top+o,u=s.left,d=c>=h+r,f=s.top-r>=this.body().scrollTop(),p=this.dropdown.outerWidth(!1),m=l>=u+p,g=this.dropdown.hasClass("select2-drop-above");"static"!==this.body().css("position")&&(e=this.body().offset(),h-=e.top,u-=e.left),g?(i=!0,!f&&d&&(i=!1)):(i=!1,!d&&f&&(i=!0)),m||(u=s.left+a-p),i?(h=s.top-r,this.container.addClass("select2-drop-above"),this.dropdown.addClass("select2-drop-above")):(this.container.removeClass("select2-drop-above"),this.dropdown.removeClass("select2-drop-above")),n=t.extend({top:h,left:u,width:a},x(this.opts.dropdownCss)),this.dropdown.css(n)},shouldOpen:function(){var e;return this.opened()?!1:(e=t.Event("opening"),this.opts.element.trigger(e),!e.isDefaultPrevented())},clearDropdownAlignmentPreference:function(){this.container.removeClass("select2-drop-above"),this.dropdown.removeClass("select2-drop-above")},open:function(){return this.shouldOpen()?(window.setTimeout(this.bind(this.opening),1),!0):!1},opening:function(){function e(){return{width:Math.max(document.documentElement.scrollWidth,t(window).width()),height:Math.max(document.documentElement.scrollHeight,t(window).height())}}var i,n=this.containerId,s="scroll."+n,o="resize."+n,a="orientationchange."+n;this.clearDropdownAlignmentPreference(),this.container.addClass("select2-dropdown-open").addClass("select2-container-active"),this.dropdown[0]!==this.body().children().last()[0]&&this.dropdown.detach().appendTo(this.body()),this.updateResults(!0),i=t("#select2-drop-mask"),0==i.length&&(i=t(document.createElement("div")),i.attr("id","select2-drop-mask").attr("class","select2-drop-mask"),i.hide(),i.appendTo(this.body()),i.bind("mousedown touchstart",function(){var e,i=t("#select2-drop");i.length>0&&(e=i.data("select2"),e.opts.selectOnBlur&&e.selectHighlighted({noFocus:!0}),e.close())})),this.dropdown.prev()[0]!==i[0]&&this.dropdown.before(i),t("#select2-drop").removeAttr("id"),this.dropdown.attr("id","select2-drop"),i.css(e()),i.show(),this.dropdown.show(),this.positionDropdown(),this.dropdown.addClass("select2-drop-active"),this.ensureHighlightVisible();var r=this;this.container.parents().add(window).each(function(){t(this).bind(o+" "+s+" "+a,function(){t("#select2-drop-mask").css(e()),r.positionDropdown()})}),this.focusSearch()},close:function(){if(this.opened()){var e=this.containerId,i="scroll."+e,n="resize."+e,s="orientationchange."+e;this.container.parents().add(window).each(function(){t(this).unbind(i).unbind(n).unbind(s)}),this.clearDropdownAlignmentPreference(),t("#select2-drop-mask").hide(),this.dropdown.removeAttr("id"),this.dropdown.hide(),this.container.removeClass("select2-dropdown-open"),this.results.empty(),this.clearSearch(),this.search.removeClass("select2-active"),this.opts.element.trigger(t.Event("close"))}},clearSearch:function(){},getMaximumSelectionSize:function(){return x(this.opts.maximumSelectionSize)},ensureHighlightVisible:function(){var e,i,n,s,o,a,r,l=this.results;if(i=this.highlight(),!(0>i)){if(0==i)return void l.scrollTop(0);e=this.findHighlightableChoices(),n=t(e[i]),s=n.offset().top+n.outerHeight(!0),i===e.length-1&&(r=l.find("li.select2-more-results"),r.length>0&&(s=r.offset().top+r.outerHeight(!0))),o=l.offset().top+l.outerHeight(!0),s>o&&l.scrollTop(l.scrollTop()+(s-o)),a=n.offset().top-l.offset().top,0>a&&"none"!=n.css("display")&&l.scrollTop(l.scrollTop()+a)}},findHighlightableChoices:function(){this.results.find(".select2-result-selectable:not(.select2-selected):not(.select2-disabled)");return this.results.find(".select2-result-selectable:not(.select2-selected):not(.select2-disabled)")},moveHighlight:function(e){for(var i=this.findHighlightableChoices(),n=this.highlight();n>-1&&n<i.length;){n+=e;var s=t(i[n]);if(s.hasClass("select2-result-selectable")&&!s.hasClass("select2-disabled")&&!s.hasClass("select2-selected")){this.highlight(n);break}}},highlight:function(e){var n,s,o=this.findHighlightableChoices();return 0===arguments.length?i(o.filter(".select2-highlighted")[0],o.get()):(e>=o.length&&(e=o.length-1),0>e&&(e=0),this.results.find(".select2-highlighted").removeClass("select2-highlighted"),n=t(o[e]),n.addClass("select2-highlighted"),this.ensureHighlightVisible(),s=n.data("select2-data"),void(s&&this.opts.element.trigger({type:"highlight",val:this.id(s),choice:s})))},countSelectableResults:function(){return this.findHighlightableChoices().length},highlightUnderEvent:function(e){var i=t(e.target).closest(".select2-result-selectable");if(i.length>0&&!i.is(".select2-highlighted")){var n=this.findHighlightableChoices();this.highlight(n.index(i))}else 0==i.length&&this.results.find(".select2-highlighted").removeClass("select2-highlighted")},loadMoreIfNeeded:function(){var t,e=this.results,i=e.find("li.select2-more-results"),n=this.resultsPage+1,s=this,o=this.search.val(),a=this.context;0!==i.length&&(t=i.offset().top-e.offset().top-e.height(),t<=this.opts.loadMorePadding&&(i.addClass("select2-active"),this.opts.query({element:this.opts.element,term:o,page:n,context:a,matcher:this.opts.matcher,callback:this.bind(function(t){s.opened()&&(s.opts.populateResults.call(this,e,t.results,{term:o,page:n,context:a}),s.postprocessResults(t,!1,!1),t.more===!0?(i.detach().appendTo(e).text(s.opts.formatLoadMore(n+1)),window.setTimeout(function(){s.loadMoreIfNeeded()},10)):i.remove(),s.positionDropdown(),s.resultsPage=n,s.context=t.context)})})))},tokenize:function(){},updateResults:function(i){function s(){c.scrollTop(0),l.removeClass("select2-active"),u.positionDropdown()}function o(t){c.html(t),s()}var a,r,l=this.search,c=this.results,h=this.opts,u=this,d=l.val(),f=t.data(this.container,"select2-last-term");if((i===!0||!f||!n(d,f))&&(t.data(this.container,"select2-last-term",d),i===!0||this.showSearchInput!==!1&&this.opened())){var p=this.getMaximumSelectionSize();if(p>=1&&(a=this.data(),t.isArray(a)&&a.length>=p&&y(h.formatSelectionTooBig,"formatSelectionTooBig")))return void o("<li class='select2-selection-limit'>"+h.formatSelectionTooBig(p)+"</li>");if(l.val().length<h.minimumInputLength)return void o(y(h.formatInputTooShort,"formatInputTooShort")?"<li class='select2-no-results'>"+h.formatInputTooShort(l.val(),h.minimumInputLength)+"</li>":"");if(h.maximumInputLength&&l.val().length>h.maximumInputLength)return void o(y(h.formatInputTooLong,"formatInputTooLong")?"<li class='select2-no-results'>"+h.formatInputTooLong(l.val(),h.maximumInputLength)+"</li>":"");h.formatSearching&&0===this.findHighlightableChoices().length&&o("<li class='select2-searching'>"+h.formatSearching()+"</li>"),l.addClass("select2-active"),r=this.tokenize(),r!=e&&null!=r&&l.val(r),this.resultsPage=1,h.query({element:h.element,term:l.val(),page:this.resultsPage,context:null,matcher:h.matcher,callback:this.bind(function(a){var r;return this.opened()?(this.context=a.context===e?null:a.context,this.opts.createSearchChoice&&""!==l.val()&&(r=this.opts.createSearchChoice.call(null,l.val(),a.results),r!==e&&null!==r&&u.id(r)!==e&&null!==u.id(r)&&0===t(a.results).filter(function(){return n(u.id(this),u.id(r))}).length&&a.results.unshift(r)),0===a.results.length&&y(h.formatNoMatches,"formatNoMatches")?void o("<li class='select2-no-results'>"+h.formatNoMatches(l.val())+"</li>"):(c.empty(),u.opts.populateResults.call(this,c,a.results,{term:l.val(),page:this.resultsPage,context:null}),a.more===!0&&y(h.formatLoadMore,"formatLoadMore")&&(c.append("<li class='select2-more-results'>"+u.opts.escapeMarkup(h.formatLoadMore(this.resultsPage))+"</li>"),window.setTimeout(function(){u.loadMoreIfNeeded()},10)),this.postprocessResults(a,i),s(),void this.opts.element.trigger({type:"loaded",data:a}))):void this.search.removeClass("select2-active")})})}},cancel:function(){this.close()},blur:function(){this.opts.selectOnBlur&&this.selectHighlighted({noFocus:!0}),this.close(),this.container.removeClass("select2-container-active"),this.search[0]===document.activeElement&&this.search.blur(),this.clearSearch(),this.selection.find(".select2-search-choice-focus").removeClass("select2-search-choice-focus")},focusSearch:function(){u(this.search)},selectHighlighted:function(t){var e=this.highlight(),i=this.results.find(".select2-highlighted"),n=i.closest(".select2-result").data("select2-data");n&&(this.highlight(e),this.onSelect(n,t))},getPlaceholder:function(){return this.opts.element.attr("placeholder")||this.opts.element.attr("data-placeholder")||this.opts.element.data("placeholder")||this.opts.placeholder},initContainerWidth:function(){function i(){var i,n,s,o,a;if("off"===this.opts.width)return null;if("element"===this.opts.width)return 0===this.opts.element.outerWidth(!1)?"auto":this.opts.element.outerWidth(!1)+"px";if("copy"===this.opts.width||"resolve"===this.opts.width){if(i=this.opts.element.attr("style"),i!==e)for(n=i.split(";"),o=0,a=n.length;a>o;o+=1)if(s=n[o].replace(/\s/g,"").match(/width:(([-+]?([0-9]*\.)?[0-9]+)(px|em|ex|%|in|cm|mm|pt|pc))/),null!==s&&s.length>=1)return s[1];return"resolve"===this.opts.width?(i=this.opts.element.css("width"),i.indexOf("%")>0?i:0===this.opts.element.outerWidth(!1)?"auto":this.opts.element.outerWidth(!1)+"px"):null}return t.isFunction(this.opts.width)?this.opts.width():this.opts.width}var n=i.call(this);null!==n&&this.container.css("width",n)}}),T=S(E,{createContainer:function(){var e=t(document.createElement("div")).attr({"class":"select2-container"}).html(["<a href='javascript:void(0)' onclick='return false;' class='select2-choice' tabindex='-1'>","   <span></span><abbr class='select2-search-choice-close' style='display:none;'></abbr>","   <div><b></b></div>","</a>","<input class='select2-focusser select2-offscreen' type='text'/>","<div class='select2-drop' style='display:none'>","   <div class='select2-search'>","       <input type='text' autocomplete='off' class='select2-input'/>","   </div>","   <ul class='select2-results'>","   </ul>","</div>"].join(""));return e},disable:function(){this.enabled&&(this.parent.disable.apply(this,arguments),this.focusser.attr("disabled","disabled"))},enable:function(){this.enabled||(this.parent.enable.apply(this,arguments),this.focusser.removeAttr("disabled"))},opening:function(){this.parent.opening.apply(this,arguments),this.focusser.attr("disabled","disabled"),this.opts.element.trigger(t.Event("open"))},close:function(){this.opened()&&(this.parent.close.apply(this,arguments),this.focusser.removeAttr("disabled"),u(this.focusser))},focus:function(){this.opened()?this.close():(this.focusser.removeAttr("disabled"),this.focusser.focus())},isFocused:function(){return this.container.hasClass("select2-container-active")},cancel:function(){this.parent.cancel.apply(this,arguments),this.focusser.removeAttr("disabled"),this.focusser.focus()},initContainer:function(){var e,i=this.container,n=this.dropdown,s=!1;this.showSearch(this.opts.minimumResultsForSearch>=0),this.selection=e=i.find(".select2-choice"),this.focusser=i.find(".select2-focusser"),this.focusser.attr("id","s2id_autogen"+M()),t("label[for='"+this.opts.element.attr("id")+"']").attr("for",this.focusser.attr("id")),this.search.bind("keydown",this.bind(function(t){if(this.enabled){if(t.which===k.PAGE_UP||t.which===k.PAGE_DOWN)return void d(t);switch(t.which){case k.UP:case k.DOWN:return this.moveHighlight(t.which===k.UP?-1:1),void d(t);case k.TAB:case k.ENTER:return this.selectHighlighted(),void d(t);case k.ESC:return this.cancel(t),void d(t)}}})),this.search.bind("blur",this.bind(function(){document.activeElement===this.body().get(0)&&window.setTimeout(this.bind(function(){this.search.focus()}),0)})),this.focusser.bind("keydown",this.bind(function(t){return!this.enabled||t.which===k.TAB||k.isControl(t)||k.isFunctionKey(t)||t.which===k.ESC?void 0:this.opts.openOnEnter===!1&&t.which===k.ENTER?void d(t):t.which==k.DOWN||t.which==k.UP||t.which==k.ENTER&&this.opts.openOnEnter?(this.open(),void d(t)):t.which==k.DELETE||t.which==k.BACKSPACE?(this.opts.allowClear&&this.clear(),void d(t)):void 0})),a(this.focusser),this.focusser.bind("keyup-change input",this.bind(function(t){this.opened()||(this.open(),this.showSearchInput!==!1&&this.search.val(this.focusser.val()),this.focusser.val(""),d(t))})),e.delegate("abbr","mousedown",this.bind(function(t){this.enabled&&(this.clear(),f(t),this.close(),this.selection.focus())})),e.bind("mousedown",this.bind(function(t){s=!0,this.opened()?this.close():this.enabled&&this.open(),d(t),s=!1})),n.bind("mousedown",this.bind(function(){this.search.focus()})),e.bind("focus",this.bind(function(t){d(t)})),this.focusser.bind("focus",this.bind(function(){this.container.addClass("select2-container-active")})).bind("blur",this.bind(function(){this.opened()||this.container.removeClass("select2-container-active")})),this.search.bind("focus",this.bind(function(){this.container.addClass("select2-container-active")})),this.initContainerWidth(),this.setPlaceholder()},clear:function(t){var e=this.selection.data("select2-data");e&&(this.opts.element.val(""),this.selection.find("span").empty(),this.selection.removeData("select2-data"),this.setPlaceholder(),t!==!1&&(this.opts.element.trigger({type:"removed",val:this.id(e),choice:e}),this.triggerChange({removed:e})))},initSelection:function(){if(""===this.opts.element.val()&&""===this.opts.element.text())this.close(),this.setPlaceholder();else{var t=this;this.opts.initSelection.call(null,this.opts.element,function(i){i!==e&&null!==i&&(t.updateSelection(i),t.close(),t.setPlaceholder())})}},prepareOpts:function(){var e=this.parent.prepareOpts.apply(this,arguments);return"select"===e.element.get(0).tagName.toLowerCase()?e.initSelection=function(e,i){var n=e.find(":selected");t.isFunction(i)&&i({id:n.attr("value"),text:n.text(),element:n})}:"data"in e&&(e.initSelection=e.initSelection||function(i,s){var o=i.val(),a=null;e.query({matcher:function(t,i,s){var r=n(o,e.id(s));return r&&(a=s),r},callback:t.isFunction(s)?function(){s(a)}:t.noop})}),e},getPlaceholder:function(){return this.select&&""!==this.select.find("option").first().text()?e:this.parent.getPlaceholder.apply(this,arguments)},setPlaceholder:function(){var t=this.getPlaceholder();if(""===this.opts.element.val()&&t!==e){if(this.select&&""!==this.select.find("option:first").text())return;this.selection.find("span").html(this.opts.escapeMarkup(t)),this.selection.addClass("select2-default"),this.selection.find("abbr").hide()}},postprocessResults:function(t,e,i){var s=0,o=this,a=!0;if(this.findHighlightableChoices().each2(function(t,e){return n(o.id(e.data("select2-data")),o.opts.element.val())?(s=t,!1):void 0}),i!==!1&&this.highlight(s),e===!0){var r=this.opts.minimumResultsForSearch;a=0>r?!1:_(t.results)>=r,this.showSearch(a)}},showSearch:function(e){this.showSearchInput=e,this.dropdown.find(".select2-search")[e?"removeClass":"addClass"]("select2-search-hidden"),t(this.dropdown,this.container)[e?"addClass":"removeClass"]("select2-with-searchbox")},onSelect:function(t,e){var i=this.opts.element.val();this.opts.element.val(this.id(t)),this.updateSelection(t),this.opts.element.trigger({type:"selected",val:this.id(t),choice:t}),this.close(),e&&e.noFocus||this.selection.focus(),n(i,this.id(t))||this.triggerChange()},updateSelection:function(t){var i,n=this.selection.find("span");this.selection.data("select2-data",t),n.empty(),i=this.opts.formatSelection(t,n),i!==e&&n.append(this.opts.escapeMarkup(i)),this.selection.removeClass("select2-default"),this.opts.allowClear&&this.getPlaceholder()!==e&&this.selection.find("abbr").show()},val:function(){var t,i=!1,n=null,s=this;if(0===arguments.length)return this.opts.element.val();if(t=arguments[0],arguments.length>1&&(i=arguments[1]),this.select)this.select.val(t).find(":selected").each2(function(t,e){return n={id:e.attr("value"),text:e.text(),element:e.get(0)},!1}),this.updateSelection(n),this.setPlaceholder(),i&&this.triggerChange();else{if(this.opts.initSelection===e)throw new Error("cannot call val() if initSelection() is not defined");if(!t&&0!==t)return this.clear(i),void(i&&this.triggerChange());this.opts.element.val(t),this.opts.initSelection(this.opts.element,function(t){s.opts.element.val(t?s.id(t):""),s.updateSelection(t),s.setPlaceholder(),i&&s.triggerChange()})}},clearSearch:function(){this.search.val(""),this.focusser.val("")},data:function(t){var i;return 0===arguments.length?(i=this.selection.data("select2-data"),i==e&&(i=null),i):void(t&&""!==t?(this.opts.element.val(t?this.id(t):""),this.updateSelection(t)):this.clear())}}),D=S(E,{createContainer:function(){var e=t(document.createElement("div")).attr({"class":"select2-container select2-container-multi"}).html(["    <ul class='select2-choices'>","  <li class='select2-search-field'>","    <input type='text' autocomplete='off' class='select2-input'>","  </li>","</ul>","<div class='select2-drop select2-drop-multi' style='display:none;'>","   <ul class='select2-results'>","   </ul>","</div>"].join(""));return e},prepareOpts:function(){var e=this.parent.prepareOpts.apply(this,arguments);return"select"===e.element.get(0).tagName.toLowerCase()?e.initSelection=function(t,e){var i=[];t.find(":selected").each2(function(t,e){i.push({id:e.attr("value"),text:e.text(),element:e[0]})}),e(i)}:"data"in e&&(e.initSelection=e.initSelection||function(i,o){var a=s(i.val(),e.separator),r=[];e.query({matcher:function(i,s,o){var l=t.grep(a,function(t){return n(t,e.id(o))}).length;return l&&r.push(o),l},callback:t.isFunction(o)?function(){o(r)}:t.noop})}),e},initContainer:function(){var e,i=".select2-choices";this.searchContainer=this.container.find(".select2-search-field"),this.selection=e=this.container.find(i),this.search.attr("id","s2id_autogen"+M()),t("label[for='"+this.opts.element.attr("id")+"']").attr("for",this.search.attr("id")),this.search.bind("input paste",this.bind(function(){this.enabled&&(this.opened()||this.open())})),this.search.bind("keydown",this.bind(function(t){if(this.enabled){if(t.which===k.BACKSPACE&&""===this.search.val()){this.close();var i,n=e.find(".select2-search-choice-focus");if(n.length>0)return this.unselect(n.first()),this.search.width(10),void d(t);i=e.find(".select2-search-choice:not(.select2-locked)"),i.length>0&&i.last().addClass("select2-search-choice-focus")}else e.find(".select2-search-choice-focus").removeClass("select2-search-choice-focus");if(this.opened())switch(t.which){case k.UP:case k.DOWN:return this.moveHighlight(t.which===k.UP?-1:1),void d(t);case k.ENTER:case k.TAB:return this.selectHighlighted(),void d(t);case k.ESC:return this.cancel(t),void d(t)}if(t.which!==k.TAB&&!k.isControl(t)&&!k.isFunctionKey(t)&&t.which!==k.BACKSPACE&&t.which!==k.ESC){if(t.which===k.ENTER){if(this.opts.openOnEnter===!1)return;if(t.altKey||t.ctrlKey||t.shiftKey||t.metaKey)return}this.open(),(t.which===k.PAGE_UP||t.which===k.PAGE_DOWN)&&d(t),t.which===k.ENTER&&d(t)}}})),this.search.bind("keyup",this.bind(this.resizeSearch)),this.search.bind("blur",this.bind(function(t){this.container.removeClass("select2-container-active"),this.search.removeClass("select2-focused"),this.opened()||this.clearSearch(),t.stopImmediatePropagation()})),this.container.delegate(i,"mousedown",this.bind(function(e){this.enabled&&(t(e.target).closest(".select2-search-choice").length>0||(this.clearPlaceholder(),this.open(),this.focusSearch(),e.preventDefault()))})),this.container.delegate(i,"focus",this.bind(function(){this.enabled&&(this.container.addClass("select2-container-active"),this.dropdown.addClass("select2-drop-active"),this.clearPlaceholder())})),this.initContainerWidth(),this.clearSearch()},enable:function(){this.enabled||(this.parent.enable.apply(this,arguments),this.search.removeAttr("disabled"))},disable:function(){this.enabled&&(this.parent.disable.apply(this,arguments),this.search.attr("disabled",!0))},initSelection:function(){if(""===this.opts.element.val()&&""===this.opts.element.text()&&(this.updateSelection([]),this.close(),this.clearSearch()),this.select||""!==this.opts.element.val()){var t=this;
-this.opts.initSelection.call(null,this.opts.element,function(i){i!==e&&null!==i&&(t.updateSelection(i),t.close(),t.clearSearch())})}},clearSearch:function(){var t=this.getPlaceholder();t!==e&&0===this.getVal().length&&this.search.hasClass("select2-focused")===!1?(this.search.val(t).addClass("select2-default"),this.search.width(this.getMaxSearchWidth())):this.search.val("").width(10)},clearPlaceholder:function(){this.search.hasClass("select2-default")&&this.search.val("").removeClass("select2-default")},opening:function(){this.clearPlaceholder(),this.resizeSearch(),this.parent.opening.apply(this,arguments),this.focusSearch(),this.opts.element.trigger(t.Event("open"))},close:function(){this.opened()&&this.parent.close.apply(this,arguments)},focus:function(){this.close(),this.search.focus()},isFocused:function(){return this.search.hasClass("select2-focused")},updateSelection:function(e){var n=[],s=[],o=this;t(e).each(function(){i(o.id(this),n)<0&&(n.push(o.id(this)),s.push(this))}),e=s,this.selection.find(".select2-search-choice").remove(),t(e).each(function(){o.addSelectedChoice(this)}),o.postprocessResults()},tokenize:function(){var t=this.search.val();t=this.opts.tokenizer(t,this.data(),this.bind(this.onSelect),this.opts),null!=t&&t!=e&&(this.search.val(t),t.length>0&&this.open())},onSelect:function(t,e){this.addSelectedChoice(t),this.opts.element.trigger({type:"selected",val:this.id(t),choice:t}),(this.select||!this.opts.closeOnSelect)&&this.postprocessResults(),this.opts.closeOnSelect?(this.close(),this.search.width(10)):this.countSelectableResults()>0?(this.search.width(10),this.resizeSearch(),this.getMaximumSelectionSize()>0&&this.val().length>=this.getMaximumSelectionSize()&&this.updateResults(!0),this.positionDropdown()):(this.close(),this.search.width(10)),this.triggerChange({added:t}),e&&e.noFocus||this.focusSearch()},cancel:function(){this.close(),this.focusSearch()},addSelectedChoice:function(i){var n,s=!i.locked,o=t("<li class='select2-search-choice'>    <div></div>    <a href='#' onclick='return false;' class='select2-search-choice-close' tabindex='-1'></a></li>"),a=t("<li class='select2-search-choice select2-locked'><div></div></li>"),r=s?o:a,l=this.id(i),c=this.getVal();n=this.opts.formatSelection(i,r.find("div")),n!=e&&r.find("div").replaceWith("<div>"+this.opts.escapeMarkup(n)+"</div>"),s&&r.find(".select2-search-choice-close").bind("mousedown",d).bind("click dblclick",this.bind(function(e){this.enabled&&(t(e.target).closest(".select2-search-choice").fadeOut("fast",this.bind(function(){this.unselect(t(e.target)),this.selection.find(".select2-search-choice-focus").removeClass("select2-search-choice-focus"),this.close(),this.focusSearch()})).dequeue(),d(e))})).bind("focus",this.bind(function(){this.enabled&&(this.container.addClass("select2-container-active"),this.dropdown.addClass("select2-drop-active"))})),r.data("select2-data",i),r.insertBefore(this.searchContainer),c.push(l),this.setVal(c)},unselect:function(t){var e,n,s=this.getVal();if(t=t.closest(".select2-search-choice"),0===t.length)throw"Invalid argument: "+t+". Must be .select2-search-choice";e=t.data("select2-data"),e&&(n=i(this.id(e),s),n>=0&&(s.splice(n,1),this.setVal(s),this.select&&this.postprocessResults()),t.remove(),this.opts.element.trigger({type:"removed",val:this.id(e),choice:e}),this.triggerChange({removed:e}))},postprocessResults:function(){var t=this.getVal(),e=this.results.find(".select2-result"),n=this.results.find(".select2-result-with-children"),s=this;e.each2(function(e,n){var o=s.id(n.data("select2-data"));i(o,t)>=0&&(n.addClass("select2-selected"),n.find(".select2-result-selectable").addClass("select2-selected"))}),n.each2(function(t,e){e.is(".select2-result-selectable")||0!==e.find(".select2-result-selectable:not(.select2-selected)").length||e.addClass("select2-selected")}),-1==this.highlight()&&s.highlight(0)},getMaxSearchWidth:function(){return this.selection.width()-o(this.search)},resizeSearch:function(){var t,e,i,n,s,a=o(this.search);t=p(this.search)+10,e=this.search.offset().left,i=this.selection.width(),n=this.selection.offset().left,s=i-(e-n)-a,t>s&&(s=i-a),40>s&&(s=i-a),0>=s&&(s=t),this.search.width(s)},getVal:function(){var t;return this.select?(t=this.select.val(),null===t?[]:t):(t=this.opts.element.val(),s(t,this.opts.separator))},setVal:function(e){var n;this.select?this.select.val(e):(n=[],t(e).each(function(){i(this,n)<0&&n.push(this)}),this.opts.element.val(0===n.length?"":n.join(this.opts.separator)))},val:function(){var i,n=!1,s=this;if(0===arguments.length)return this.getVal();if(i=arguments[0],arguments.length>1&&(n=arguments[1]),!i&&0!==i)return this.opts.element.val(""),this.updateSelection([]),this.clearSearch(),void(n&&this.triggerChange());if(this.setVal(i),this.select)this.opts.initSelection(this.select,this.bind(this.updateSelection)),n&&this.triggerChange();else{if(this.opts.initSelection===e)throw new Error("val() cannot be called if initSelection() is not defined");this.opts.initSelection(this.opts.element,function(e){var i=t(e).map(s.id);s.setVal(i),s.updateSelection(e),s.clearSearch(),n&&s.triggerChange()})}this.clearSearch()},onSortStart:function(){if(this.select)throw new Error("Sorting of elements is not supported when attached to <select>. Attach to <input type='hidden'/> instead.");this.search.width(0),this.searchContainer.hide()},onSortEnd:function(){var e=[],i=this;this.searchContainer.show(),this.searchContainer.appendTo(this.searchContainer.parent()),this.resizeSearch(),this.selection.find(".select2-search-choice").each(function(){e.push(i.opts.id(t(this).data("select2-data")))}),this.setVal(e),this.triggerChange()},data:function(e){var i,n=this;return 0===arguments.length?this.selection.find(".select2-search-choice").map(function(){return t(this).data("select2-data")}).get():(e||(e=[]),i=t.map(e,function(t){return n.opts.id(t)}),this.setVal(i),this.updateSelection(e),this.clearSearch(),void 0)}}),t.fn.select2=function(){var n,s,o,a,r=Array.prototype.slice.call(arguments,0),l=["val","destroy","opened","open","close","focus","isFocused","container","onSortStart","onSortEnd","enable","disable","positionDropdown","data"];return this.each(function(){if(0===r.length||"object"==typeof r[0])n=0===r.length?{}:t.extend({},r[0]),n.element=t(this),"select"===n.element.get(0).tagName.toLowerCase()?a=n.element.attr("multiple"):(a=n.multiple||!1,"tags"in n&&(n.multiple=a=!0)),s=a?new D:new T,s.init(n);else{if("string"!=typeof r[0])throw"Invalid arguments to select2 plugin: "+r;if(i(r[0],l)<0)throw"Unknown method: "+r[0];if(o=e,s=t(this).data("select2"),s===e)return;if(o="container"===r[0]?s.container:s[r[0]].apply(s,r.slice(1)),o!==e)return!1}}),o===e?this:o},t.fn.select2.defaults={width:"copy",loadMorePadding:0,closeOnSelect:!0,openOnEnter:!0,containerCss:{},dropdownCss:{},containerCssClass:"",dropdownCssClass:"",formatResult:function(t,e,i,n){var s=[];return g(t.text,i.term,s,n),s.join("")},formatSelection:function(t){return t?t.text:e},sortResults:function(t){return t},formatResultCssClass:function(){return e},formatNoMatches:function(){return"No matches found"},formatInputTooShort:function(t,e){var i=e-t.length;return"Please enter "+i+" more character"+(1==i?"":"s")},formatInputTooLong:function(t,e){var i=t.length-e;return"Please delete "+i+" character"+(1==i?"":"s")},formatSelectionTooBig:function(t){return"You can only select "+t+" item"+(1==t?"":"s")},formatLoadMore:function(){return"Loading more results..."},formatSearching:function(){return"Searching..."},minimumResultsForSearch:0,minimumInputLength:0,maximumInputLength:null,maximumSelectionSize:0,id:function(t){return t.id},matcher:function(t,e){return(""+e).toUpperCase().indexOf((""+t).toUpperCase())>=0},separator:",",tokenSeparators:[],tokenizer:C,escapeMarkup:function(t){var e={"\\":"&#92;","&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&apos;","/":"&#47;"};return String(t).replace(/[&<>"'\/\\]/g,function(t){return e[t[0]]})},blurOnChange:!1,selectOnBlur:!1,adaptContainerCssClass:function(t){return t},adaptDropdownCssClass:function(){return null}},window.Select2={query:{ajax:v,local:w,tags:b},util:{debounce:l,markMatch:g},"class":{"abstract":E,single:T,multi:D}}}}(jQuery),function(){var t;t={},t.ak="//d1w32dwlo9psx6.cloudfront.net/assets/flags/ak-0700a7be141d3bd8b7ba4bdfa87531f7.png",t.al="//d1w32dwlo9psx6.cloudfront.net/assets/flags/al-71c52862d75dde9e7e45559674d2789d.png",t.ar="//d1w32dwlo9psx6.cloudfront.net/assets/flags/ar-945cc7025c13e8126d24926080aef34e.png",t.az="//d1w32dwlo9psx6.cloudfront.net/assets/flags/az-a76c61e44499a5e362b3e4fa17f29c98.png",t.ca="//d1w32dwlo9psx6.cloudfront.net/assets/flags/ca-e2ca9a342c9e5ea8757578886cbd8baa.png",t.co="//d1w32dwlo9psx6.cloudfront.net/assets/flags/co-dd297e8e2801bb395330cf7a4e6c524e.png",t.ct="//d1w32dwlo9psx6.cloudfront.net/assets/flags/ct-36410ab302010898d5e903dc17b949c0.png",t.dc="//d1w32dwlo9psx6.cloudfront.net/assets/flags/dc-ccc82a8356c462575c6c5ef46d058b16.png",t.de="//d1w32dwlo9psx6.cloudfront.net/assets/flags/de-1b509f7c100547c61692b3bc6799cd6e.png",t.fl="//d1w32dwlo9psx6.cloudfront.net/assets/flags/fl-474259cb963864598eea9fdde29c1545.png",t.ga="//d1w32dwlo9psx6.cloudfront.net/assets/flags/ga-3a3dcd17859b6d561e6710c1b8e73f11.png",t.hi="//d1w32dwlo9psx6.cloudfront.net/assets/flags/hi-a1110c0f128bd7b6fb046265318e95ea.png",t.ia="//d1w32dwlo9psx6.cloudfront.net/assets/flags/ia-7e2428f3b0df9153b453f225cd763902.png",t.id="//d1w32dwlo9psx6.cloudfront.net/assets/flags/id-4457fb268c0537b5c5a88acffc3ae327.png",t.il="//d1w32dwlo9psx6.cloudfront.net/assets/flags/il-2bd83197d3979852a9b279fa4d983e7c.png",t["in"]="//d1w32dwlo9psx6.cloudfront.net/assets/flags/in-9970c4fa98c27df29f22254d95fa4c3d.png",t.ks="//d1w32dwlo9psx6.cloudfront.net/assets/flags/ks-7b9bdacb3a9f9346828579d5f8964847.png",t.ky="//d1w32dwlo9psx6.cloudfront.net/assets/flags/ky-bf7bb1e922041c4d42f8e34f33954937.png",t.la="//d1w32dwlo9psx6.cloudfront.net/assets/flags/la-6a34cc23a2f5a14c286b39225783e8fc.png",t.ma="//d1w32dwlo9psx6.cloudfront.net/assets/flags/ma-9d9b0d976a4de9dfc9d4c605c345603a.png",t.md="//d1w32dwlo9psx6.cloudfront.net/assets/flags/md-d990f7358aa574483029c8f36887a078.png",t.me="//d1w32dwlo9psx6.cloudfront.net/assets/flags/me-4f4a28719cf92bd9accac375287d1478.png",t.mi="//d1w32dwlo9psx6.cloudfront.net/assets/flags/mi-54e8fd7a3d3df9a81d65904e909bc166.png",t.mn="//d1w32dwlo9psx6.cloudfront.net/assets/flags/mn-9671869739c0322077bafe99566ad4e5.png",t.mo="//d1w32dwlo9psx6.cloudfront.net/assets/flags/mo-33194a1b037c49c88c4d122ee1d7c01b.png",t.ms="//d1w32dwlo9psx6.cloudfront.net/assets/flags/ms-8adb35a0f60946a4cda7ec5152d22847.png",t.mt="//d1w32dwlo9psx6.cloudfront.net/assets/flags/mt-8484c9ac341761b983f5bf56a9185c97.png",t.nc="//d1w32dwlo9psx6.cloudfront.net/assets/flags/nc-8508755afe8d1ee4752c2622c98c5e50.png",t.nd="//d1w32dwlo9psx6.cloudfront.net/assets/flags/nd-557faf984c29f84c261d12d505e2e2d6.png",t.ne="//d1w32dwlo9psx6.cloudfront.net/assets/flags/ne-b8e7ba606c16820eb58338bd08fc63c5.png",t.nh="//d1w32dwlo9psx6.cloudfront.net/assets/flags/nh-1311e5fc9ff30b9f41f4be32fa43dd31.png",t.nj="//d1w32dwlo9psx6.cloudfront.net/assets/flags/nj-214abd67c9a02e58bca5015fcf76c9c3.png",t.nm="//d1w32dwlo9psx6.cloudfront.net/assets/flags/nm-089365394f5ae5029b0703645ee133d1.png",t.nv="//d1w32dwlo9psx6.cloudfront.net/assets/flags/nv-891ca70fd55cc755bfb23993acaf32a4.png",t.ny="//d1w32dwlo9psx6.cloudfront.net/assets/flags/ny-26f2c044b87531546cb080e554d3b936.png",t.oh="//d1w32dwlo9psx6.cloudfront.net/assets/flags/oh-98eef1fdcce8c625052c72e2fe6536d8.png",t.ok="//d1w32dwlo9psx6.cloudfront.net/assets/flags/ok-3153f87d998a355c6c81cf4bd93cb4b5.png",t.or="//d1w32dwlo9psx6.cloudfront.net/assets/flags/or-4e1110dece6cf78c1bdd866193c0c665.png",t.pa="//d1w32dwlo9psx6.cloudfront.net/assets/flags/pa-d9398e4572993dfda93d91f119541170.png",t.ri="//d1w32dwlo9psx6.cloudfront.net/assets/flags/ri-110f992a75bd4d8c61a5907f1793ae4b.png",t.sc="//d1w32dwlo9psx6.cloudfront.net/assets/flags/sc-dc433a2ca3bb6cfa6e307f04af472b2e.png",t.sd="//d1w32dwlo9psx6.cloudfront.net/assets/flags/sd-9e7eff8d90a853dab97dc1a06b206c94.png",t.tn="//d1w32dwlo9psx6.cloudfront.net/assets/flags/tn-b976627b44743d10c51706d3570b97eb.png",t.tx="//d1w32dwlo9psx6.cloudfront.net/assets/flags/tx-fef7099a436b9f7da06dd38295db2f91.png",t.ut="//d1w32dwlo9psx6.cloudfront.net/assets/flags/ut-cc3b8256bb15a6c982688555b4531981.png",t.va="//d1w32dwlo9psx6.cloudfront.net/assets/flags/va-7877307559047a0be01a77aa48f34cc5.png",t.vt="//d1w32dwlo9psx6.cloudfront.net/assets/flags/vt-c5a059f7a5668e513d49f4eb912a4b5b.png",t.wa="//d1w32dwlo9psx6.cloudfront.net/assets/flags/wa-98401360279801b00e4f114c02b778b9.png",t.wi="//d1w32dwlo9psx6.cloudfront.net/assets/flags/wi-46c7a6ad20d27121bab350676be91b3c.png",t.wv="//d1w32dwlo9psx6.cloudfront.net/assets/flags/wv-9707f93acd8368cb5c750daff73c4b54.png",t.wy="//d1w32dwlo9psx6.cloudfront.net/assets/flags/wy-224de28af2a4636cc754702459c608e4.png",window.renderSelect2States=function(e){var i,n,s,o,a,r,l;for(s=function(e){return e.id?"<img class='flag' src='"+t[e.id.toLowerCase()]+"'/> "+e.text:e.text},e("select.states").css({width:"100%"}).select2({formatResult:s,formatSelection:s,escapeMarkup:function(t){return t},placeholder:"All Company Locations (states)"}),e(".select2-container input.select2-input").removeAttr("tabindex"),n=function(t){return e("#"+t).change(function(){return e(this).val()<0?e(this).val(""):void 0})},r=["company_lead_number_employees","accountant_lead_number_companies"],l=[],o=0,a=r.length;a>o;o++)i=r[o],l.push(n(i));return l},jQuery(function(t){return renderSelect2States(t)})}.call(this),jQuery(function(t){function e(){if(!t.cookie("so"))if(t.cookie("refcode")){var e=t.cookie("refcode");n("so",e)}else{var a=document.referrer,r=a.split("/")[2];if(n("lp",i()),o("refcode")||o("utm_source")){var l=o("refcode")||o("utm_source");n("so",l),s("ca","utm_campaign"),s("co","utm_content"),s("mt","matchtype"),s("kw","keyword"),s("cr","creative"),s("xu","xuid"),s("gc","gclid"),s("pl","placement");var c=o("network")?o("network"):a;n("ne",c)}else if(a){var h=["www.google.com","www.bing.com","www.ask.com","r.search.yahoo.com","search.aol.com"];t.inArray(r,h)>-1?(n("so","SEO"),n("ne",r)):(n("so","Inbound Referral"),n("ne",a))}else n("so","Direct")}}function i(){return window.location.pathname}function n(e,i){t.cookie(e,i.substring(0,255),{expires:a,path:"/",domain:window.location.hostname})}function s(t,e){var i=o(e);i&&n(t,i)}function o(t){var e="[\\?&]"+t+"=([^&#]*)",i=new RegExp(e),n=i.exec(window.location.search);return null==n?!1:(window.location.search.replace(e,""),decodeURIComponent(n[1].replace(/\+/g," ")))}t(function(){e()});var a=90}),function(){function t(){}function e(t){return o.retinaImageSuffix+t}function i(t,i){if(this.path=t||"","undefined"!=typeof i&&null!==i)this.at_2x_path=i,this.perform_check=!1;else{if(void 0!==document.createElement){var n=document.createElement("a");n.href=this.path,n.pathname=n.pathname.replace(a,e),this.at_2x_path=n.href}else{var s=this.path.split("?");s[0]=s[0].replace(a,e),this.at_2x_path=s.join("?")}this.perform_check=!0}}function n(t){this.el=t,this.path=new i(this.el.getAttribute("src"),this.el.getAttribute("data-at2x"));var e=this;this.path.check_2x_variant(function(t){t&&e.swap()})}var s="undefined"==typeof exports?window:exports,o={retinaImageSuffix:"@2x",check_mime_type:!0,force_original_dimensions:!0};s.Retina=t,t.configure=function(t){null===t&&(t={});for(var e in t)t.hasOwnProperty(e)&&(o[e]=t[e])},t.init=function(t){null===t&&(t=s),t.addEventListener("load",function(){var t,e,i=document.getElementsByTagName("img"),s=i.length,o=[];for(t=0;s>t;t+=1)e=i[t],e.getAttributeNode("data-no-retina")||e.src&&o.push(new n(e))})},t.isRetina=function(){var t="(-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2), (min-resolution: 1.5dppx)";return s.devicePixelRatio>1?!0:s.matchMedia&&s.matchMedia(t).matches?!0:!1};var a=/\.[\w\?=]+$/;s.RetinaImagePath=i,i.confirmed_paths=[],i.prototype.is_external=function(){return!(!this.path.match(/^https?\:/i)||this.path.match("//"+document.domain))},i.prototype.check_2x_variant=function(t){var e,n=this;return this.perform_check||"undefined"==typeof this.at_2x_path||null===this.at_2x_path?this.at_2x_path in i.confirmed_paths?t(!0):this.is_external()?t(!1):(e=new XMLHttpRequest,e.open("HEAD",this.at_2x_path),e.onreadystatechange=function(){if(4!==e.readyState)return t(!1);if(e.status>=200&&e.status<=399){if(o.check_mime_type){var s=e.getResponseHeader("Content-Type");if(null===s||!s.match(/^image/i))return t(!1)}return i.confirmed_paths.push(n.at_2x_path),t(!0)}return t(!1)},e.send(),void 0):t(!0)},s.RetinaImage=n,n.prototype.swap=function(t){function e(){i.el.complete?(o.force_original_dimensions&&(0==i.el.offsetWidth&&0==i.el.offsetHeight?(i.el.setAttribute("width",i.el.naturalWidth),i.el.setAttribute("height",i.el.naturalHeight)):(i.el.setAttribute("width",i.el.offsetWidth),i.el.setAttribute("height",i.el.offsetHeight))),i.el.setAttribute("src",t)):setTimeout(e,5)}"undefined"==typeof t&&(t=this.path.at_2x_path);var i=this;e()},t.isRetina()&&t.init(s)}(),function(){jQuery(function(t){var e,i;return e=function(){return t("#zp-nav-logo .zp-logo-2c").css("opacity",1).css("display","block")},i=function(){return t("#corporate-main-nav").hasClass("nav-dark")?void 0:t("#zp-nav-logo .zp-logo-2c").css("opacity",0).css("display","none")},t("#corporate-main-nav button.navbar-toggle").click(function(){return t("#corporate-nav-bar").hasClass("in")&&!t("nav#corporate-main-nav.navbar-fixed-top").hasClass("scrolled")?i():e()}),t(window).bind({resize:function(){return t(window).width()>=768?t("#corporate-nav-bar.in").removeClass("in"):void 0}}),t(window).bind({"scroll load resize":function(){var e,i,n,s,o,a,r;return i=.95,n=t("section.first-section").height(),r=.1,o=2,a=n*r/o,t(window).scrollTop()>=80?(t("nav#corporate-main-nav.navbar-fixed-top").addClass("scrolled"),t(window).scrollTop()>n?(e=i,s=0):(e=i*((t(window).scrollTop()*o-a)/(n-a)),s=1-e/(1.8*o)),t("nav#corporate-main-nav.navbar-fixed-top").css("background-color","rgba(255,255,255,0.95)"),t("section.first-section .first-section-content").css("opacity",s),t("nav #zp-nav-logo .zp-logo-2c").css("opacity",1).css("display","block")):(t("nav#corporate-main-nav.navbar-fixed-top").removeClass("scrolled"),t("nav#corporate-main-nav.navbar-fixed-top").css("background-color","transparent"),t("section.first-section .first-section-content").css("opacity",1),t("#corporate-nav-bar").hasClass("in")?void 0:t("nav #zp-nav-logo .zp-logo-2c").css("display","none"))}})})}.call(this),function(){jQuery(function(t){return t(document).on("click","a.anchor-scroll[href^='#']",function(e){var i;e.preventDefault(),i=this.hash,t("html, body").animate({scrollTop:t(i).offset().top},500,function(){window.location.hash=i})})})}.call(this),function(){jQuery(function(t){return t("body").hasClass("landing-page")&&t("body.landing-page .landing-intro-resize").length>0&&t(window).width()>768?t(window).bind({"load resize":function(){var e,i;return i=102,e=Math.min(t(window).height()-i,1e3),t("body.landing-page .landing-intro-resize").css("min-height",e)}}):void 0})}.call(this),function(){jQuery(function(t){return t("body").hasClass("landing-page")?t("input#company_lead_company_name").bind("change keyup input",function(){var e;return e=t("input#company_lead_company_name").val(),e.length>1&&(t("#landing-signup-form-full-section-2").slideDown(1e3),window.renderSelect2States(t),window.formatPhoneFields(),t("#corporate-main-nav").hasClass("nav-dark"))?t("#signup-form h4").removeClass("text-shadow-light").removeClass("text-white"):void 0}):void 0})}.call(this),function(){jQuery(function(t){var e,i,n;return i=t("input#company_lead_full_name"),e=t("input#company_lead_company_name"),n=t("button#homepage-submit-button"),i.bind("change keyup input",function(){var t;return t=i.val(),2===t.length?i.trigger("formStarted"):void 0}),e.bind("change keyup input",function(){var t;return t=e.val(),2===t.length?e.trigger("formExpanded"):void 0}),n.bind("click",function(){return i.val().length>2?n.trigger("formSubmitted"):void 0}),i.one("formStarted",function(){return analytics.track("Form Started",{category:"Form",label:"Homepage Company Lead Form"})}),e.one("formExpanded",function(){return analytics.track("Form Expanded",{category:"Form",label:"Homepage Company Lead Form"})}),n.one("formSubmitted",function(){return analytics.track("Form Submitted",{category:"Form",label:"Homepage Company Lead Form"})})})}.call(this),function(){jQuery(function(){return jQuery("body").on("click","[data-event-category]",function(t){var e;return e=jQuery(t.currentTarget),analytics.track(e.data("event-action"),{category:e.data("event-category"),label:e.data("event-label")})})})}.call(this),function(){jQuery(function(t){return t("#faq-secondary .toggle-link").on("click",function(){return t(this).toggleClass("collapsed"),t(".toggle-content").toggle(),t("#pricing.pricing-2col .zen-slider .tooltip").trigger("reposition")})})}.call(this),function(){jQuery(function(t){var e,i,n,s;if(i=90,e="zenpayroll.com",n=t("body").data("lead-tag")){if(s=t.cookie("tags"),!s)return t.cookie("tags",n,{expires:i,path:"/",domain:e});if(s.search(n)<0)return n=s+"-"+n,t.cookie("tags",n,{expires:i,path:"/",domain:e})}})}.call(this),function(t){!function(){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src="//cdn.mouseflow.com/projects/eba6e5dc-6ea7-4812-9044-f54a22ae81a0.js",document.getElementsByTagName("head")[0].appendChild(t)}(),window.windowWidth=t(window).width(),window.mouseflowPath=document.location.pathname,mouseflowPath+=windowWidth<=480?"/xs":windowWidth<=768?"/sm":windowWidth<=992?"/md":"/lg"}(jQuery),function(){jQuery(function(t){var e,i,n,s,o,a,r;return t("body").ajaxSpinner(),n=100,e=25,s=4,i=e+s*n,a=function(t){var i;return i={},t=Math.min(Math.max(t,0),n),i.baseEmployees=t,i.baseEmployeesCost=i.baseEmployees*s,i.totalCost=e+i.baseEmployeesCost,i},r=function(t){var e,i;return e=100===t?"100+":t,i=1===t?"person":"people",e+" "+i},window.isOldIE?t(".zen-slider").css("margin-top",0):(t("#pricing.pricing-standard .zen-slider").zenSlider({range:"min",min:1,value:1,sliderChanged:function(n,s){var o,l,c,h;return c=a(n),isNaN(n)?void 0:(o="<div class='tooltip-header'></div>",o+="<div class='tooltip-content'>",o+="<h3>"+r(n)+"</h3>",o+="<ul>",c.totalCost>=i?(h=t("#zen-slider-contact a").attr("href"),l="Contact us for enterprise pricing",o+="<li>"+l+"</li>",t("#pricing #total .total-text").html("<p class='text-large'>With <span>over 100 people</span> in your company,<br /><span><a href='"+h+"'>contact us</a></span> for enterprise pricing.</p>")):(o+="<li>$"+e+" base price</li>",o+="<li>$4/person x "+r(c.baseEmployees)+"</li>",t("#pricing #total .total-text").html("<p class='text-large'>With <span class='text-color'>"+r(n)+"</span> in your company, <br /><span>$"+c.totalCost+" per month</span> for delightful payroll</p>")),o+="</ul>",o+="</div>",s(o))}}),t("#pricing.pricing-2col .zen-slider").zenSlider({range:"min",min:1,value:1,sliderChanged:function(e,n){var s,o,l,c;return l=a(e),isNaN(e)?void 0:(s="<div class='tooltip-header'></div>",s+="<div class='tooltip-content'>",s+="<h3>"+r(e)+"</h3>",s+="<ul>",l.totalCost>=i?(c=t("#zen-slider-contact a").attr("href"),o="Contact us for enterprise pricing",s+="<li>"+o+"</li>",t("#pricing #total .total-text").html("<div class='row'><div class='col-xs-6'><p>"+r(e)+"</p></div><div class='col-xs-6'><p><a href='"+c+"'>Contact us</a> for enterprise pricing</p></div></div>")):s+="<li class='tooltip-price-total'><span class='total-cost'>$"+l.totalCost+"</span>/ month <span class='tooltip-payroll'>for delightful payroll</span></li>",s+="</ul>",s+="</div>",n(s))}})),o=function(t,e){return 1===e.length?t+" "+e[0]:2===e.length?t+" "+e[0]+" and "+e[1]:o(t+" "+e.pop()+",",e)},formatPhoneFields()})}.call(this);
-//# sourceMappingURL=/assets/maps/corporate_v2-483a1617217389300487c7e4fbeff98e.map
+function(t) {
+    "undefined" == typeof t.fn.each2 && t.fn.extend({
+        each2: function(e) {
+            for (var i = t([0]), n = -1, s = this.length; ++n < s && (i.context = i[0] = this[n]) && e.call(i[0], n, i) !== !1;);
+            return this
+        }
+    })
+}(jQuery),
+function(t, e) {
+    "use strict";
+
+    function i(t, e) {
+        for (var i = 0, s = e.length; s > i; i += 1)
+            if (n(t, e[i])) return i;
+        return -1
+    }
+
+    function n(t, i) {
+        return t === i ? !0 : t === e || i === e ? !1 : null === t || null === i ? !1 : t.constructor === String ? t + "" == i + "" : i.constructor === String ? i + "" == t + "" : !1
+    }
+
+    function s(e, i) {
+        var n, s, o;
+        if (null === e || e.length < 1) return [];
+        for (n = e.split(i), s = 0, o = n.length; o > s; s += 1) n[s] = t.trim(n[s]);
+        return n
+    }
+
+    function o(t) {
+        return t.outerWidth(!1) - t.width()
+    }
+
+    function a(i) {
+        var n = "keyup-change-value";
+        i.bind("keydown", function() {
+            t.data(i, n) === e && t.data(i, n, i.val())
+        }), i.bind("keyup", function() {
+            var s = t.data(i, n);
+            s !== e && i.val() !== s && (t.removeData(i, n), i.trigger("keyup-change"))
+        })
+    }
+
+    function r(i) {
+        i.bind("mousemove", function(i) {
+            var n = I;
+            (n === e || n.x !== i.pageX || n.y !== i.pageY) && t(i.target).trigger("mousemove-filtered", i)
+        })
+    }
+
+    function l(t, i, n) {
+        n = n || e;
+        var s;
+        return function() {
+            var e = arguments;
+            window.clearTimeout(s), s = window.setTimeout(function() {
+                i.apply(n, e)
+            }, t)
+        }
+    }
+
+    function c(t) {
+        var e, i = !1;
+        return function() {
+            return i === !1 && (e = t(), i = !0), e
+        }
+    }
+
+    function h(t, e) {
+        var n = l(t, function(t) {
+            e.trigger("scroll-debounced", t)
+        });
+        e.bind("scroll", function(t) {
+            i(t.target, e.get()) >= 0 && n(t)
+        })
+    }
+
+    function u(t) {
+        t[0] !== document.activeElement && window.setTimeout(function() {
+            var e, i = t[0],
+                n = t.val().length;
+            t.focus(), t.is(":visible") && i === document.activeElement && (i.setSelectionRange ? i.setSelectionRange(n, n) : i.createTextRange && (e = i.createTextRange(), e.collapse(!1), e.select()))
+        }, 0)
+    }
+
+    function d(t) {
+        t.preventDefault(), t.stopPropagation()
+    }
+
+    function f(t) {
+        t.preventDefault(), t.stopImmediatePropagation()
+    }
+
+    function p(e) {
+        if (!N) {
+            var i = e[0].currentStyle || window.getComputedStyle(e[0], null);
+            N = t(document.createElement("div")).css({
+                position: "absolute",
+                left: "-10000px",
+                top: "-10000px",
+                display: "none",
+                fontSize: i.fontSize,
+                fontFamily: i.fontFamily,
+                fontStyle: i.fontStyle,
+                fontWeight: i.fontWeight,
+                letterSpacing: i.letterSpacing,
+                textTransform: i.textTransform,
+                whiteSpace: "nowrap"
+            }), N.attr("class", "select2-sizer"), t("body").append(N)
+        }
+        return N.text(e.val()), N.width()
+    }
+
+    function m(e, i, n) {
+        var s, o, a = [];
+        s = e.attr("class"), s && (s = "" + s, t(s.split(" ")).each2(function() {
+            0 === this.indexOf("select2-") && a.push(this)
+        })), s = i.attr("class"), s && (s = "" + s, t(s.split(" ")).each2(function() {
+            0 !== this.indexOf("select2-") && (o = n(this), o && a.push(this))
+        })), e.attr("class", a.join(" "))
+    }
+
+    function g(t, e, i, n) {
+        var s = t.toUpperCase().indexOf(e.toUpperCase()),
+            o = e.length;
+        return 0 > s ? void i.push(n(t)) : (i.push(n(t.substring(0, s))), i.push("<span class='select2-match'>"), i.push(n(t.substring(s, s + o))), i.push("</span>"), void i.push(n(t.substring(s + o, t.length))))
+    }
+
+    function v(e) {
+        var i, n = 0,
+            s = null,
+            o = e.quietMillis || 100,
+            a = e.url,
+            r = this;
+        return function(l) {
+            window.clearTimeout(i), i = window.setTimeout(function() {
+                n += 1;
+                var i = n,
+                    o = e.data,
+                    c = a,
+                    h = e.transport || t.ajax,
+                    u = e.type || "GET",
+                    d = {};
+                o = o ? o.call(r, l.term, l.page, l.context) : null, c = "function" == typeof c ? c.call(r, l.term, l.page, l.context) : c, null !== s && s.abort(), e.params && (t.isFunction(e.params) ? t.extend(d, e.params.call(r)) : t.extend(d, e.params)), t.extend(d, {
+                    url: c,
+                    dataType: e.dataType,
+                    data: o,
+                    type: u,
+                    cache: !1,
+                    success: function(t) {
+                        if (!(n > i)) {
+                            var s = e.results(t, l.page);
+                            l.callback(s)
+                        }
+                    }
+                }), s = h.call(r, d)
+            }, o)
+        }
+    }
+
+    function w(e) {
+        var i, n, s = e,
+            o = function(t) {
+                return "" + t.text
+            };
+        t.isArray(s) && (n = s, s = {
+            results: n
+        }), t.isFunction(s) === !1 && (n = s, s = function() {
+            return n
+        });
+        var a = s();
+        return a.text && (o = a.text, t.isFunction(o) || (i = s.text, o = function(t) {
+                return t[i]
+            })),
+            function(e) {
+                var i, n = e.term,
+                    a = {
+                        results: []
+                    };
+                return "" === n ? void e.callback(s()) : (i = function(s, a) {
+                    var r, l;
+                    if (s = s[0], s.children) {
+                        r = {};
+                        for (l in s) s.hasOwnProperty(l) && (r[l] = s[l]);
+                        r.children = [], t(s.children).each2(function(t, e) {
+                            i(e, r.children)
+                        }), (r.children.length || e.matcher(n, o(r), s)) && a.push(r)
+                    } else e.matcher(n, o(s), s) && a.push(s)
+                }, t(s().results).each2(function(t, e) {
+                    i(e, a.results)
+                }), void e.callback(a))
+            }
+    }
+
+    function b(i) {
+        var n = t.isFunction(i);
+        return function(s) {
+            var o = s.term,
+                a = {
+                    results: []
+                };
+            t(n ? i() : i).each(function() {
+                var t = this.text !== e,
+                    i = t ? this.text : this;
+                ("" === o || s.matcher(o, i)) && a.results.push(t ? this : {
+                    id: this,
+                    text: this
+                })
+            }), s.callback(a)
+        }
+    }
+
+    function y(e) {
+        if (t.isFunction(e)) return !0;
+        if (!e) return !1;
+        throw new Error("formatterName must be a function or a falsy value")
+    }
+
+    function x(e) {
+        return t.isFunction(e) ? e() : e
+    }
+
+    function _(e) {
+        var i = 0;
+        return t.each(e, function(t, e) {
+            e.children ? i += _(e.children) : i++
+        }), i
+    }
+
+    function C(t, i, s, o) {
+        var a, r, l, c, h, u = t,
+            d = !1;
+        if (!o.createSearchChoice || !o.tokenSeparators || o.tokenSeparators.length < 1) return e;
+        for (;;) {
+            for (r = -1, l = 0, c = o.tokenSeparators.length; c > l && (h = o.tokenSeparators[l], r = t.indexOf(h), !(r >= 0)); l++);
+            if (0 > r) break;
+            if (a = t.substring(0, r), t = t.substring(r + h.length), a.length > 0 && (a = o.createSearchChoice(a, i), a !== e && null !== a && o.id(a) !== e && null !== o.id(a))) {
+                for (d = !1, l = 0, c = i.length; c > l; l++)
+                    if (n(o.id(a), o.id(i[l]))) {
+                        d = !0;
+                        break
+                    }
+                d || s(a)
+            }
+        }
+        return u !== t ? t : void 0
+    }
+
+    function S(e, i) {
+        var n = function() {};
+        return n.prototype = new e, n.prototype.constructor = n, n.prototype.parent = e.prototype, n.prototype = t.extend(n.prototype, i), n
+    }
+    if (window.Select2 === e) {
+        var k, E, T, D, M, N, I, j;
+        k = {
+            TAB: 9,
+            ENTER: 13,
+            ESC: 27,
+            SPACE: 32,
+            LEFT: 37,
+            UP: 38,
+            RIGHT: 39,
+            DOWN: 40,
+            SHIFT: 16,
+            CTRL: 17,
+            ALT: 18,
+            PAGE_UP: 33,
+            PAGE_DOWN: 34,
+            HOME: 36,
+            END: 35,
+            BACKSPACE: 8,
+            DELETE: 46,
+            isArrow: function(t) {
+                switch (t = t.which ? t.which : t) {
+                    case k.LEFT:
+                    case k.RIGHT:
+                    case k.UP:
+                    case k.DOWN:
+                        return !0
+                }
+                return !1
+            },
+            isControl: function(t) {
+                var e = t.which;
+                switch (e) {
+                    case k.SHIFT:
+                    case k.CTRL:
+                    case k.ALT:
+                        return !0
+                }
+                return t.metaKey ? !0 : !1
+            },
+            isFunctionKey: function(t) {
+                return t = t.which ? t.which : t, t >= 112 && 123 >= t
+            }
+        }, j = t(document), M = function() {
+            var t = 1;
+            return function() {
+                return t++
+            }
+        }(), j.bind("mousemove", function(t) {
+            I = {
+                x: t.pageX,
+                y: t.pageY
+            }
+        }), E = S(Object, {
+            bind: function(t) {
+                var e = this;
+                return function() {
+                    t.apply(e, arguments)
+                }
+            },
+            init: function(i) {
+                var n, s, o = ".select2-results";
+                this.opts = i = this.prepareOpts(i), this.id = i.id, i.element.data("select2") !== e && null !== i.element.data("select2") && this.destroy(), this.enabled = !0, this.container = this.createContainer(), this.containerId = "s2id_" + (i.element.attr("id") || "autogen" + M()), this.containerSelector = "#" + this.containerId.replace(/([;&,\.\+\*\~':"\!\^#$%@\[\]\(\)=>\|])/g, "\\$1"), this.container.attr("id", this.containerId), this.body = c(function() {
+                    return i.element.closest("body")
+                }), m(this.container, this.opts.element, this.opts.adaptContainerCssClass), this.container.css(x(i.containerCss)), this.container.addClass(x(i.containerCssClass)), this.elementTabIndex = this.opts.element.attr("tabIndex"), this.opts.element.data("select2", this).addClass("select2-offscreen").bind("focus.select2", function() {
+                    t(this).select2("focus")
+                }).attr("tabIndex", "-1").before(this.container), this.container.data("select2", this), this.dropdown = this.container.find(".select2-drop"), this.dropdown.addClass(x(i.dropdownCssClass)), this.dropdown.data("select2", this), this.results = n = this.container.find(o), this.search = s = this.container.find("input.select2-input"), s.attr("tabIndex", this.elementTabIndex), this.resultsPage = 0, this.context = null, this.initContainer(), r(this.results), this.dropdown.delegate(o, "mousemove-filtered touchstart touchmove touchend", this.bind(this.highlightUnderEvent)), h(80, this.results), this.dropdown.delegate(o, "scroll-debounced", this.bind(this.loadMoreIfNeeded)), t.fn.mousewheel && n.mousewheel(function(t, e, i, s) {
+                    var o = n.scrollTop();
+                    s > 0 && 0 >= o - s ? (n.scrollTop(0), d(t)) : 0 > s && n.get(0).scrollHeight - n.scrollTop() + s <= n.height() && (n.scrollTop(n.get(0).scrollHeight - n.height()), d(t))
+                }), a(s), s.bind("keyup-change input paste", this.bind(this.updateResults)), s.bind("focus", function() {
+                    s.addClass("select2-focused")
+                }), s.bind("blur", function() {
+                    s.removeClass("select2-focused")
+                }), this.dropdown.delegate(o, "mouseup", this.bind(function(e) {
+                    t(e.target).closest(".select2-result-selectable").length > 0 && (this.highlightUnderEvent(e), this.selectHighlighted(e))
+                })), this.dropdown.bind("click mouseup mousedown", function(t) {
+                    t.stopPropagation()
+                }), t.isFunction(this.opts.initSelection) && (this.initSelection(), this.monitorSource()), (i.element.is(":disabled") || i.element.is("[readonly='readonly']")) && this.disable()
+            },
+            destroy: function() {
+                var t = this.opts.element.data("select2");
+                this.propertyObserver && (delete this.propertyObserver, this.propertyObserver = null), t !== e && (t.container.remove(), t.dropdown.remove(), t.opts.element.removeClass("select2-offscreen").removeData("select2").unbind(".select2").attr({
+                    tabIndex: this.elementTabIndex
+                }).show())
+            },
+            prepareOpts: function(i) {
+                var o, a, r, l;
+                if (o = i.element, "select" === o.get(0).tagName.toLowerCase() && (this.select = a = i.element), a && t.each(["id", "multiple", "ajax", "query", "createSearchChoice", "initSelection", "data", "tags"], function() {
+                        if (this in i) throw new Error("Option '" + this + "' is not allowed for Select2 when attached to a <select> element.")
+                    }), i = t.extend({}, {
+                        populateResults: function(n, s, o) {
+                            var a, r = this.opts.id,
+                                l = this;
+                            (a = function(n, s, c) {
+                                var h, u, d, f, p, m, g, v, w, b;
+                                for (n = i.sortResults(n, s, o), h = 0, u = n.length; u > h; h += 1) d = n[h], p = d.disabled === !0, f = !p && r(d) !== e, m = d.children && d.children.length > 0, g = t("<li></li>"), g.addClass("select2-results-dept-" + c), g.addClass("select2-result"), g.addClass(f ? "select2-result-selectable" : "select2-result-unselectable"), p && g.addClass("select2-disabled"), m && g.addClass("select2-result-with-children"), g.addClass(l.opts.formatResultCssClass(d)), v = t(document.createElement("div")), v.addClass("select2-result-label"), b = i.formatResult(d, v, o, l.opts.escapeMarkup), b !== e && v.html(b), g.append(v), m && (w = t("<ul></ul>"), w.addClass("select2-result-sub"), a(d.children, w, c + 1), g.append(w)), g.data("select2-data", d), s.append(g)
+                            })(s, n, 0)
+                        }
+                    }, t.fn.select2.defaults, i), "function" != typeof i.id && (r = i.id, i.id = function(t) {
+                        return t[r]
+                    }), t.isArray(i.element.data("select2Tags"))) {
+                    if ("tags" in i) throw "tags specified as both an attribute 'data-select2-tags' and in options of Select2 " + i.element.attr("id");
+                    i.tags = i.element.data("select2Tags")
+                }
+                if (a ? (i.query = this.bind(function(i) {
+                        var s, a, r, l = {
+                                results: [],
+                                more: !1
+                            },
+                            c = i.term;
+                        r = function(t, e) {
+                            var s;
+                            t.is("option") ? i.matcher(c, t.text(), t) && e.push({
+                                id: t.attr("value"),
+                                text: t.text(),
+                                element: t.get(),
+                                css: t.attr("class"),
+                                disabled: n(t.attr("disabled"), "disabled")
+                            }) : t.is("optgroup") && (s = {
+                                text: t.attr("label"),
+                                children: [],
+                                element: t.get(),
+                                css: t.attr("class")
+                            }, t.children().each2(function(t, e) {
+                                r(e, s.children)
+                            }), s.children.length > 0 && e.push(s))
+                        }, s = o.children(), this.getPlaceholder() !== e && s.length > 0 && (a = s[0], "" === t(a).text() && (s = s.not(a))), s.each2(function(t, e) {
+                            r(e, l.results)
+                        }), i.callback(l)
+                    }), i.id = function(t) {
+                        return t.id
+                    }, i.formatResultCssClass = function(t) {
+                        return t.css
+                    }) : "query" in i || ("ajax" in i ? (l = i.element.data("ajax-url"), l && l.length > 0 && (i.ajax.url = l), i.query = v.call(i.element, i.ajax)) : "data" in i ? i.query = w(i.data) : "tags" in i && (i.query = b(i.tags), i.createSearchChoice === e && (i.createSearchChoice = function(t) {
+                        return {
+                            id: t,
+                            text: t
+                        }
+                    }), i.initSelection === e && (i.initSelection = function(e, o) {
+                        var a = [];
+                        t(s(e.val(), i.separator)).each(function() {
+                            var e = this,
+                                s = this,
+                                o = i.tags;
+                            t.isFunction(o) && (o = o()), t(o).each(function() {
+                                return n(this.id, e) ? (s = this.text, !1) : void 0
+                            }), a.push({
+                                id: e,
+                                text: s
+                            })
+                        }), o(a)
+                    }))), "function" != typeof i.query) throw "query function not defined for Select2 " + i.element.attr("id");
+                return i
+            },
+            monitorSource: function() {
+                var t, e = this.opts.element;
+                e.bind("change.select2", this.bind(function() {
+                    this.opts.element.data("select2-change-triggered") !== !0 && this.initSelection()
+                })), t = this.bind(function() {
+                    var t, e;
+                    t = "disabled" !== this.opts.element.attr("disabled"), e = "readonly" === this.opts.element.attr("readonly"), t = t && !e, this.enabled !== t && (t ? this.enable() : this.disable()), m(this.container, this.opts.element, this.opts.adaptContainerCssClass), this.container.addClass(x(this.opts.containerCssClass)), m(this.dropdown, this.opts.element, this.opts.adaptDropdownCssClass), this.dropdown.addClass(x(this.opts.dropdownCssClass))
+                }), e.bind("propertychange.select2 DOMAttrModified.select2", t), "undefined" != typeof WebKitMutationObserver && (this.propertyObserver && (delete this.propertyObserver, this.propertyObserver = null), this.propertyObserver = new WebKitMutationObserver(function(e) {
+                    e.forEach(t)
+                }), this.propertyObserver.observe(e.get(0), {
+                    attributes: !0,
+                    subtree: !1
+                }))
+            },
+            triggerChange: function(e) {
+                e = e || {}, e = t.extend({}, e, {
+                    type: "change",
+                    val: this.val()
+                }), this.opts.element.data("select2-change-triggered", !0), this.opts.element.trigger(e), this.opts.element.data("select2-change-triggered", !1), this.opts.element.click(), this.opts.blurOnChange && this.opts.element.blur()
+            },
+            enable: function() {
+                this.enabled || (this.enabled = !0, this.container.removeClass("select2-container-disabled"), this.opts.element.removeAttr("disabled"))
+            },
+            disable: function() {
+                this.enabled && (this.close(), this.enabled = !1, this.container.addClass("select2-container-disabled"), this.opts.element.attr("disabled", "disabled"))
+            },
+            opened: function() {
+                return this.container.hasClass("select2-dropdown-open")
+            },
+            positionDropdown: function() {
+                var e, i, n, s = this.container.offset(),
+                    o = this.container.outerHeight(!1),
+                    a = this.container.outerWidth(!1),
+                    r = this.dropdown.outerHeight(!1),
+                    l = t(window).scrollLeft() + t(window).width(),
+                    c = t(window).scrollTop() + t(window).height(),
+                    h = s.top + o,
+                    u = s.left,
+                    d = c >= h + r,
+                    f = s.top - r >= this.body().scrollTop(),
+                    p = this.dropdown.outerWidth(!1),
+                    m = l >= u + p,
+                    g = this.dropdown.hasClass("select2-drop-above");
+                "static" !== this.body().css("position") && (e = this.body().offset(), h -= e.top, u -= e.left), g ? (i = !0, !f && d && (i = !1)) : (i = !1, !d && f && (i = !0)), m || (u = s.left + a - p), i ? (h = s.top - r, this.container.addClass("select2-drop-above"), this.dropdown.addClass("select2-drop-above")) : (this.container.removeClass("select2-drop-above"), this.dropdown.removeClass("select2-drop-above")), n = t.extend({
+                    top: h,
+                    left: u,
+                    width: a
+                }, x(this.opts.dropdownCss)), this.dropdown.css(n)
+            },
+            shouldOpen: function() {
+                var e;
+                return this.opened() ? !1 : (e = t.Event("opening"), this.opts.element.trigger(e), !e.isDefaultPrevented())
+            },
+            clearDropdownAlignmentPreference: function() {
+                this.container.removeClass("select2-drop-above"), this.dropdown.removeClass("select2-drop-above")
+            },
+            open: function() {
+                return this.shouldOpen() ? (window.setTimeout(this.bind(this.opening), 1), !0) : !1
+            },
+            opening: function() {
+                function e() {
+                    return {
+                        width: Math.max(document.documentElement.scrollWidth, t(window).width()),
+                        height: Math.max(document.documentElement.scrollHeight, t(window).height())
+                    }
+                }
+                var i, n = this.containerId,
+                    s = "scroll." + n,
+                    o = "resize." + n,
+                    a = "orientationchange." + n;
+                this.clearDropdownAlignmentPreference(), this.container.addClass("select2-dropdown-open").addClass("select2-container-active"), this.dropdown[0] !== this.body().children().last()[0] && this.dropdown.detach().appendTo(this.body()), this.updateResults(!0), i = t("#select2-drop-mask"), 0 == i.length && (i = t(document.createElement("div")), i.attr("id", "select2-drop-mask").attr("class", "select2-drop-mask"), i.hide(), i.appendTo(this.body()), i.bind("mousedown touchstart", function() {
+                    var e, i = t("#select2-drop");
+                    i.length > 0 && (e = i.data("select2"), e.opts.selectOnBlur && e.selectHighlighted({
+                        noFocus: !0
+                    }), e.close())
+                })), this.dropdown.prev()[0] !== i[0] && this.dropdown.before(i), t("#select2-drop").removeAttr("id"), this.dropdown.attr("id", "select2-drop"), i.css(e()), i.show(), this.dropdown.show(), this.positionDropdown(), this.dropdown.addClass("select2-drop-active"), this.ensureHighlightVisible();
+                var r = this;
+                this.container.parents().add(window).each(function() {
+                    t(this).bind(o + " " + s + " " + a, function() {
+                        t("#select2-drop-mask").css(e()), r.positionDropdown()
+                    })
+                }), this.focusSearch()
+            },
+            close: function() {
+                if (this.opened()) {
+                    var e = this.containerId,
+                        i = "scroll." + e,
+                        n = "resize." + e,
+                        s = "orientationchange." + e;
+                    this.container.parents().add(window).each(function() {
+                        t(this).unbind(i).unbind(n).unbind(s)
+                    }), this.clearDropdownAlignmentPreference(), t("#select2-drop-mask").hide(), this.dropdown.removeAttr("id"), this.dropdown.hide(), this.container.removeClass("select2-dropdown-open"), this.results.empty(), this.clearSearch(), this.search.removeClass("select2-active"), this.opts.element.trigger(t.Event("close"))
+                }
+            },
+            clearSearch: function() {},
+            getMaximumSelectionSize: function() {
+                return x(this.opts.maximumSelectionSize)
+            },
+            ensureHighlightVisible: function() {
+                var e, i, n, s, o, a, r, l = this.results;
+                if (i = this.highlight(), !(0 > i)) {
+                    if (0 == i) return void l.scrollTop(0);
+                    e = this.findHighlightableChoices(), n = t(e[i]), s = n.offset().top + n.outerHeight(!0), i === e.length - 1 && (r = l.find("li.select2-more-results"), r.length > 0 && (s = r.offset().top + r.outerHeight(!0))), o = l.offset().top + l.outerHeight(!0), s > o && l.scrollTop(l.scrollTop() + (s - o)), a = n.offset().top - l.offset().top, 0 > a && "none" != n.css("display") && l.scrollTop(l.scrollTop() + a)
+                }
+            },
+            findHighlightableChoices: function() {
+                this.results.find(".select2-result-selectable:not(.select2-selected):not(.select2-disabled)");
+                return this.results.find(".select2-result-selectable:not(.select2-selected):not(.select2-disabled)")
+            },
+            moveHighlight: function(e) {
+                for (var i = this.findHighlightableChoices(), n = this.highlight(); n > -1 && n < i.length;) {
+                    n += e;
+                    var s = t(i[n]);
+                    if (s.hasClass("select2-result-selectable") && !s.hasClass("select2-disabled") && !s.hasClass("select2-selected")) {
+                        this.highlight(n);
+                        break
+                    }
+                }
+            },
+            highlight: function(e) {
+                var n, s, o = this.findHighlightableChoices();
+                return 0 === arguments.length ? i(o.filter(".select2-highlighted")[0], o.get()) : (e >= o.length && (e = o.length - 1), 0 > e && (e = 0), this.results.find(".select2-highlighted").removeClass("select2-highlighted"), n = t(o[e]), n.addClass("select2-highlighted"), this.ensureHighlightVisible(), s = n.data("select2-data"), void(s && this.opts.element.trigger({
+                    type: "highlight",
+                    val: this.id(s),
+                    choice: s
+                })))
+            },
+            countSelectableResults: function() {
+                return this.findHighlightableChoices().length
+            },
+            highlightUnderEvent: function(e) {
+                var i = t(e.target).closest(".select2-result-selectable");
+                if (i.length > 0 && !i.is(".select2-highlighted")) {
+                    var n = this.findHighlightableChoices();
+                    this.highlight(n.index(i))
+                } else 0 == i.length && this.results.find(".select2-highlighted").removeClass("select2-highlighted")
+            },
+            loadMoreIfNeeded: function() {
+                var t, e = this.results,
+                    i = e.find("li.select2-more-results"),
+                    n = this.resultsPage + 1,
+                    s = this,
+                    o = this.search.val(),
+                    a = this.context;
+                0 !== i.length && (t = i.offset().top - e.offset().top - e.height(), t <= this.opts.loadMorePadding && (i.addClass("select2-active"), this.opts.query({
+                    element: this.opts.element,
+                    term: o,
+                    page: n,
+                    context: a,
+                    matcher: this.opts.matcher,
+                    callback: this.bind(function(t) {
+                        s.opened() && (s.opts.populateResults.call(this, e, t.results, {
+                            term: o,
+                            page: n,
+                            context: a
+                        }), s.postprocessResults(t, !1, !1), t.more === !0 ? (i.detach().appendTo(e).text(s.opts.formatLoadMore(n + 1)), window.setTimeout(function() {
+                            s.loadMoreIfNeeded()
+                        }, 10)) : i.remove(), s.positionDropdown(), s.resultsPage = n, s.context = t.context)
+                    })
+                })))
+            },
+            tokenize: function() {},
+            updateResults: function(i) {
+                function s() {
+                    c.scrollTop(0), l.removeClass("select2-active"), u.positionDropdown()
+                }
+
+                function o(t) {
+                    c.html(t), s()
+                }
+                var a, r, l = this.search,
+                    c = this.results,
+                    h = this.opts,
+                    u = this,
+                    d = l.val(),
+                    f = t.data(this.container, "select2-last-term");
+                if ((i === !0 || !f || !n(d, f)) && (t.data(this.container, "select2-last-term", d), i === !0 || this.showSearchInput !== !1 && this.opened())) {
+                    var p = this.getMaximumSelectionSize();
+                    if (p >= 1 && (a = this.data(), t.isArray(a) && a.length >= p && y(h.formatSelectionTooBig, "formatSelectionTooBig"))) return void o("<li class='select2-selection-limit'>" + h.formatSelectionTooBig(p) + "</li>");
+                    if (l.val().length < h.minimumInputLength) return void o(y(h.formatInputTooShort, "formatInputTooShort") ? "<li class='select2-no-results'>" + h.formatInputTooShort(l.val(), h.minimumInputLength) + "</li>" : "");
+                    if (h.maximumInputLength && l.val().length > h.maximumInputLength) return void o(y(h.formatInputTooLong, "formatInputTooLong") ? "<li class='select2-no-results'>" + h.formatInputTooLong(l.val(), h.maximumInputLength) + "</li>" : "");
+                    h.formatSearching && 0 === this.findHighlightableChoices().length && o("<li class='select2-searching'>" + h.formatSearching() + "</li>"), l.addClass("select2-active"), r = this.tokenize(), r != e && null != r && l.val(r), this.resultsPage = 1, h.query({
+                        element: h.element,
+                        term: l.val(),
+                        page: this.resultsPage,
+                        context: null,
+                        matcher: h.matcher,
+                        callback: this.bind(function(a) {
+                            var r;
+                            return this.opened() ? (this.context = a.context === e ? null : a.context, this.opts.createSearchChoice && "" !== l.val() && (r = this.opts.createSearchChoice.call(null, l.val(), a.results), r !== e && null !== r && u.id(r) !== e && null !== u.id(r) && 0 === t(a.results).filter(function() {
+                                return n(u.id(this), u.id(r))
+                            }).length && a.results.unshift(r)), 0 === a.results.length && y(h.formatNoMatches, "formatNoMatches") ? void o("<li class='select2-no-results'>" + h.formatNoMatches(l.val()) + "</li>") : (c.empty(), u.opts.populateResults.call(this, c, a.results, {
+                                term: l.val(),
+                                page: this.resultsPage,
+                                context: null
+                            }), a.more === !0 && y(h.formatLoadMore, "formatLoadMore") && (c.append("<li class='select2-more-results'>" + u.opts.escapeMarkup(h.formatLoadMore(this.resultsPage)) + "</li>"), window.setTimeout(function() {
+                                u.loadMoreIfNeeded()
+                            }, 10)), this.postprocessResults(a, i), s(), void this.opts.element.trigger({
+                                type: "loaded",
+                                data: a
+                            }))) : void this.search.removeClass("select2-active")
+                        })
+                    })
+                }
+            },
+            cancel: function() {
+                this.close()
+            },
+            blur: function() {
+                this.opts.selectOnBlur && this.selectHighlighted({
+                    noFocus: !0
+                }), this.close(), this.container.removeClass("select2-container-active"), this.search[0] === document.activeElement && this.search.blur(), this.clearSearch(), this.selection.find(".select2-search-choice-focus").removeClass("select2-search-choice-focus")
+            },
+            focusSearch: function() {
+                u(this.search)
+            },
+            selectHighlighted: function(t) {
+                var e = this.highlight(),
+                    i = this.results.find(".select2-highlighted"),
+                    n = i.closest(".select2-result").data("select2-data");
+                n && (this.highlight(e), this.onSelect(n, t))
+            },
+            getPlaceholder: function() {
+                return this.opts.element.attr("placeholder") || this.opts.element.attr("data-placeholder") || this.opts.element.data("placeholder") || this.opts.placeholder
+            },
+            initContainerWidth: function() {
+                function i() {
+                    var i, n, s, o, a;
+                    if ("off" === this.opts.width) return null;
+                    if ("element" === this.opts.width) return 0 === this.opts.element.outerWidth(!1) ? "auto" : this.opts.element.outerWidth(!1) + "px";
+                    if ("copy" === this.opts.width || "resolve" === this.opts.width) {
+                        if (i = this.opts.element.attr("style"), i !== e)
+                            for (n = i.split(";"), o = 0, a = n.length; a > o; o += 1)
+                                if (s = n[o].replace(/\s/g, "").match(/width:(([-+]?([0-9]*\.)?[0-9]+)(px|em|ex|%|in|cm|mm|pt|pc))/), null !== s && s.length >= 1) return s[1];
+                        return "resolve" === this.opts.width ? (i = this.opts.element.css("width"), i.indexOf("%") > 0 ? i : 0 === this.opts.element.outerWidth(!1) ? "auto" : this.opts.element.outerWidth(!1) + "px") : null
+                    }
+                    return t.isFunction(this.opts.width) ? this.opts.width() : this.opts.width
+                }
+                var n = i.call(this);
+                null !== n && this.container.css("width", n)
+            }
+        }), T = S(E, {
+            createContainer: function() {
+                var e = t(document.createElement("div")).attr({
+                    "class": "select2-container"
+                }).html(["<a href='javascript:void(0)' onclick='return false;' class='select2-choice' tabindex='-1'>", "   <span></span><abbr class='select2-search-choice-close' style='display:none;'></abbr>", "   <div><b></b></div>", "</a>", "<input class='select2-focusser select2-offscreen' type='text'/>", "<div class='select2-drop' style='display:none'>", "   <div class='select2-search'>", "       <input type='text' autocomplete='off' class='select2-input'/>", "   </div>", "   <ul class='select2-results'>", "   </ul>", "</div>"].join(""));
+                return e
+            },
+            disable: function() {
+                this.enabled && (this.parent.disable.apply(this, arguments), this.focusser.attr("disabled", "disabled"))
+            },
+            enable: function() {
+                this.enabled || (this.parent.enable.apply(this, arguments), this.focusser.removeAttr("disabled"))
+            },
+            opening: function() {
+                this.parent.opening.apply(this, arguments), this.focusser.attr("disabled", "disabled"), this.opts.element.trigger(t.Event("open"))
+            },
+            close: function() {
+                this.opened() && (this.parent.close.apply(this, arguments), this.focusser.removeAttr("disabled"), u(this.focusser))
+            },
+            focus: function() {
+                this.opened() ? this.close() : (this.focusser.removeAttr("disabled"), this.focusser.focus())
+            },
+            isFocused: function() {
+                return this.container.hasClass("select2-container-active")
+            },
+            cancel: function() {
+                this.parent.cancel.apply(this, arguments), this.focusser.removeAttr("disabled"), this.focusser.focus()
+            },
+            initContainer: function() {
+                var e, i = this.container,
+                    n = this.dropdown,
+                    s = !1;
+                this.showSearch(this.opts.minimumResultsForSearch >= 0), this.selection = e = i.find(".select2-choice"), this.focusser = i.find(".select2-focusser"), this.focusser.attr("id", "s2id_autogen" + M()), t("label[for='" + this.opts.element.attr("id") + "']").attr("for", this.focusser.attr("id")), this.search.bind("keydown", this.bind(function(t) {
+                    if (this.enabled) {
+                        if (t.which === k.PAGE_UP || t.which === k.PAGE_DOWN) return void d(t);
+                        switch (t.which) {
+                            case k.UP:
+                            case k.DOWN:
+                                return this.moveHighlight(t.which === k.UP ? -1 : 1), void d(t);
+                            case k.TAB:
+                            case k.ENTER:
+                                return this.selectHighlighted(), void d(t);
+                            case k.ESC:
+                                return this.cancel(t), void d(t)
+                        }
+                    }
+                })), this.search.bind("blur", this.bind(function() {
+                    document.activeElement === this.body().get(0) && window.setTimeout(this.bind(function() {
+                        this.search.focus()
+                    }), 0)
+                })), this.focusser.bind("keydown", this.bind(function(t) {
+                    return !this.enabled || t.which === k.TAB || k.isControl(t) || k.isFunctionKey(t) || t.which === k.ESC ? void 0 : this.opts.openOnEnter === !1 && t.which === k.ENTER ? void d(t) : t.which == k.DOWN || t.which == k.UP || t.which == k.ENTER && this.opts.openOnEnter ? (this.open(), void d(t)) : t.which == k.DELETE || t.which == k.BACKSPACE ? (this.opts.allowClear && this.clear(), void d(t)) : void 0
+                })), a(this.focusser), this.focusser.bind("keyup-change input", this.bind(function(t) {
+                    this.opened() || (this.open(), this.showSearchInput !== !1 && this.search.val(this.focusser.val()), this.focusser.val(""), d(t))
+                })), e.delegate("abbr", "mousedown", this.bind(function(t) {
+                    this.enabled && (this.clear(), f(t), this.close(), this.selection.focus())
+                })), e.bind("mousedown", this.bind(function(t) {
+                    s = !0, this.opened() ? this.close() : this.enabled && this.open(), d(t), s = !1
+                })), n.bind("mousedown", this.bind(function() {
+                    this.search.focus()
+                })), e.bind("focus", this.bind(function(t) {
+                    d(t)
+                })), this.focusser.bind("focus", this.bind(function() {
+                    this.container.addClass("select2-container-active")
+                })).bind("blur", this.bind(function() {
+                    this.opened() || this.container.removeClass("select2-container-active")
+                })), this.search.bind("focus", this.bind(function() {
+                    this.container.addClass("select2-container-active")
+                })), this.initContainerWidth(), this.setPlaceholder()
+            },
+            clear: function(t) {
+                var e = this.selection.data("select2-data");
+                e && (this.opts.element.val(""), this.selection.find("span").empty(), this.selection.removeData("select2-data"), this.setPlaceholder(), t !== !1 && (this.opts.element.trigger({
+                    type: "removed",
+                    val: this.id(e),
+                    choice: e
+                }), this.triggerChange({
+                    removed: e
+                })))
+            },
+            initSelection: function() {
+                if ("" === this.opts.element.val() && "" === this.opts.element.text()) this.close(), this.setPlaceholder();
+                else {
+                    var t = this;
+                    this.opts.initSelection.call(null, this.opts.element, function(i) {
+                        i !== e && null !== i && (t.updateSelection(i), t.close(), t.setPlaceholder())
+                    })
+                }
+            },
+            prepareOpts: function() {
+                var e = this.parent.prepareOpts.apply(this, arguments);
+                return "select" === e.element.get(0).tagName.toLowerCase() ? e.initSelection = function(e, i) {
+                    var n = e.find(":selected");
+                    t.isFunction(i) && i({
+                        id: n.attr("value"),
+                        text: n.text(),
+                        element: n
+                    })
+                } : "data" in e && (e.initSelection = e.initSelection || function(i, s) {
+                    var o = i.val(),
+                        a = null;
+                    e.query({
+                        matcher: function(t, i, s) {
+                            var r = n(o, e.id(s));
+                            return r && (a = s), r
+                        },
+                        callback: t.isFunction(s) ? function() {
+                            s(a)
+                        } : t.noop
+                    })
+                }), e
+            },
+            getPlaceholder: function() {
+                return this.select && "" !== this.select.find("option").first().text() ? e : this.parent.getPlaceholder.apply(this, arguments)
+            },
+            setPlaceholder: function() {
+                var t = this.getPlaceholder();
+                if ("" === this.opts.element.val() && t !== e) {
+                    if (this.select && "" !== this.select.find("option:first").text()) return;
+                    this.selection.find("span").html(this.opts.escapeMarkup(t)), this.selection.addClass("select2-default"), this.selection.find("abbr").hide()
+                }
+            },
+            postprocessResults: function(t, e, i) {
+                var s = 0,
+                    o = this,
+                    a = !0;
+                if (this.findHighlightableChoices().each2(function(t, e) {
+                        return n(o.id(e.data("select2-data")), o.opts.element.val()) ? (s = t, !1) : void 0
+                    }), i !== !1 && this.highlight(s), e === !0) {
+                    var r = this.opts.minimumResultsForSearch;
+                    a = 0 > r ? !1 : _(t.results) >= r, this.showSearch(a)
+                }
+            },
+            showSearch: function(e) {
+                this.showSearchInput = e, this.dropdown.find(".select2-search")[e ? "removeClass" : "addClass"]("select2-search-hidden"), t(this.dropdown, this.container)[e ? "addClass" : "removeClass"]("select2-with-searchbox")
+            },
+            onSelect: function(t, e) {
+                var i = this.opts.element.val();
+                this.opts.element.val(this.id(t)), this.updateSelection(t), this.opts.element.trigger({
+                    type: "selected",
+                    val: this.id(t),
+                    choice: t
+                }), this.close(), e && e.noFocus || this.selection.focus(), n(i, this.id(t)) || this.triggerChange()
+            },
+            updateSelection: function(t) {
+                var i, n = this.selection.find("span");
+                this.selection.data("select2-data", t), n.empty(), i = this.opts.formatSelection(t, n), i !== e && n.append(this.opts.escapeMarkup(i)), this.selection.removeClass("select2-default"), this.opts.allowClear && this.getPlaceholder() !== e && this.selection.find("abbr").show()
+            },
+            val: function() {
+                var t, i = !1,
+                    n = null,
+                    s = this;
+                if (0 === arguments.length) return this.opts.element.val();
+                if (t = arguments[0], arguments.length > 1 && (i = arguments[1]), this.select) this.select.val(t).find(":selected").each2(function(t, e) {
+                    return n = {
+                        id: e.attr("value"),
+                        text: e.text(),
+                        element: e.get(0)
+                    }, !1
+                }), this.updateSelection(n), this.setPlaceholder(), i && this.triggerChange();
+                else {
+                    if (this.opts.initSelection === e) throw new Error("cannot call val() if initSelection() is not defined");
+                    if (!t && 0 !== t) return this.clear(i), void(i && this.triggerChange());
+                    this.opts.element.val(t), this.opts.initSelection(this.opts.element, function(t) {
+                        s.opts.element.val(t ? s.id(t) : ""), s.updateSelection(t), s.setPlaceholder(), i && s.triggerChange()
+                    })
+                }
+            },
+            clearSearch: function() {
+                this.search.val(""), this.focusser.val("")
+            },
+            data: function(t) {
+                var i;
+                return 0 === arguments.length ? (i = this.selection.data("select2-data"), i == e && (i = null), i) : void(t && "" !== t ? (this.opts.element.val(t ? this.id(t) : ""), this.updateSelection(t)) : this.clear())
+            }
+        }), D = S(E, {
+            createContainer: function() {
+                var e = t(document.createElement("div")).attr({
+                    "class": "select2-container select2-container-multi"
+                }).html(["    <ul class='select2-choices'>", "  <li class='select2-search-field'>", "    <input type='text' autocomplete='off' class='select2-input'>", "  </li>", "</ul>", "<div class='select2-drop select2-drop-multi' style='display:none;'>", "   <ul class='select2-results'>", "   </ul>", "</div>"].join(""));
+                return e
+            },
+            prepareOpts: function() {
+                var e = this.parent.prepareOpts.apply(this, arguments);
+                return "select" === e.element.get(0).tagName.toLowerCase() ? e.initSelection = function(t, e) {
+                    var i = [];
+                    t.find(":selected").each2(function(t, e) {
+                        i.push({
+                            id: e.attr("value"),
+                            text: e.text(),
+                            element: e[0]
+                        })
+                    }), e(i)
+                } : "data" in e && (e.initSelection = e.initSelection || function(i, o) {
+                    var a = s(i.val(), e.separator),
+                        r = [];
+                    e.query({
+                        matcher: function(i, s, o) {
+                            var l = t.grep(a, function(t) {
+                                return n(t, e.id(o))
+                            }).length;
+                            return l && r.push(o), l
+                        },
+                        callback: t.isFunction(o) ? function() {
+                            o(r)
+                        } : t.noop
+                    })
+                }), e
+            },
+            initContainer: function() {
+                var e, i = ".select2-choices";
+                this.searchContainer = this.container.find(".select2-search-field"), this.selection = e = this.container.find(i), this.search.attr("id", "s2id_autogen" + M()), t("label[for='" + this.opts.element.attr("id") + "']").attr("for", this.search.attr("id")), this.search.bind("input paste", this.bind(function() {
+                    this.enabled && (this.opened() || this.open())
+                })), this.search.bind("keydown", this.bind(function(t) {
+                    if (this.enabled) {
+                        if (t.which === k.BACKSPACE && "" === this.search.val()) {
+                            this.close();
+                            var i, n = e.find(".select2-search-choice-focus");
+                            if (n.length > 0) return this.unselect(n.first()), this.search.width(10), void d(t);
+                            i = e.find(".select2-search-choice:not(.select2-locked)"), i.length > 0 && i.last().addClass("select2-search-choice-focus")
+                        } else e.find(".select2-search-choice-focus").removeClass("select2-search-choice-focus");
+                        if (this.opened()) switch (t.which) {
+                            case k.UP:
+                            case k.DOWN:
+                                return this.moveHighlight(t.which === k.UP ? -1 : 1), void d(t);
+                            case k.ENTER:
+                            case k.TAB:
+                                return this.selectHighlighted(), void d(t);
+                            case k.ESC:
+                                return this.cancel(t), void d(t)
+                        }
+                        if (t.which !== k.TAB && !k.isControl(t) && !k.isFunctionKey(t) && t.which !== k.BACKSPACE && t.which !== k.ESC) {
+                            if (t.which === k.ENTER) {
+                                if (this.opts.openOnEnter === !1) return;
+                                if (t.altKey || t.ctrlKey || t.shiftKey || t.metaKey) return
+                            }
+                            this.open(), (t.which === k.PAGE_UP || t.which === k.PAGE_DOWN) && d(t), t.which === k.ENTER && d(t)
+                        }
+                    }
+                })), this.search.bind("keyup", this.bind(this.resizeSearch)), this.search.bind("blur", this.bind(function(t) {
+                    this.container.removeClass("select2-container-active"), this.search.removeClass("select2-focused"), this.opened() || this.clearSearch(), t.stopImmediatePropagation()
+                })), this.container.delegate(i, "mousedown", this.bind(function(e) {
+                    this.enabled && (t(e.target).closest(".select2-search-choice").length > 0 || (this.clearPlaceholder(), this.open(), this.focusSearch(), e.preventDefault()))
+                })), this.container.delegate(i, "focus", this.bind(function() {
+                    this.enabled && (this.container.addClass("select2-container-active"), this.dropdown.addClass("select2-drop-active"), this.clearPlaceholder())
+                })), this.initContainerWidth(), this.clearSearch()
+            },
+            enable: function() {
+                this.enabled || (this.parent.enable.apply(this, arguments), this.search.removeAttr("disabled"))
+            },
+            disable: function() {
+                this.enabled && (this.parent.disable.apply(this, arguments), this.search.attr("disabled", !0))
+            },
+            initSelection: function() {
+                if ("" === this.opts.element.val() && "" === this.opts.element.text() && (this.updateSelection([]), this.close(), this.clearSearch()), this.select || "" !== this.opts.element.val()) {
+                    var t = this;
+                    this.opts.initSelection.call(null, this.opts.element, function(i) {
+                        i !== e && null !== i && (t.updateSelection(i), t.close(), t.clearSearch())
+                    })
+                }
+            },
+            clearSearch: function() {
+                var t = this.getPlaceholder();
+                t !== e && 0 === this.getVal().length && this.search.hasClass("select2-focused") === !1 ? (this.search.val(t).addClass("select2-default"), this.search.width(this.getMaxSearchWidth())) : this.search.val("").width(10)
+            },
+            clearPlaceholder: function() {
+                this.search.hasClass("select2-default") && this.search.val("").removeClass("select2-default")
+            },
+            opening: function() {
+                this.clearPlaceholder(), this.resizeSearch(), this.parent.opening.apply(this, arguments), this.focusSearch(), this.opts.element.trigger(t.Event("open"))
+            },
+            close: function() {
+                this.opened() && this.parent.close.apply(this, arguments)
+            },
+            focus: function() {
+                this.close(), this.search.focus()
+            },
+            isFocused: function() {
+                return this.search.hasClass("select2-focused")
+            },
+            updateSelection: function(e) {
+                var n = [],
+                    s = [],
+                    o = this;
+                t(e).each(function() {
+                    i(o.id(this), n) < 0 && (n.push(o.id(this)), s.push(this))
+                }), e = s, this.selection.find(".select2-search-choice").remove(), t(e).each(function() {
+                    o.addSelectedChoice(this)
+                }), o.postprocessResults()
+            },
+            tokenize: function() {
+                var t = this.search.val();
+                t = this.opts.tokenizer(t, this.data(), this.bind(this.onSelect), this.opts), null != t && t != e && (this.search.val(t), t.length > 0 && this.open())
+            },
+            onSelect: function(t, e) {
+                this.addSelectedChoice(t), this.opts.element.trigger({
+                    type: "selected",
+                    val: this.id(t),
+                    choice: t
+                }), (this.select || !this.opts.closeOnSelect) && this.postprocessResults(), this.opts.closeOnSelect ? (this.close(), this.search.width(10)) : this.countSelectableResults() > 0 ? (this.search.width(10), this.resizeSearch(), this.getMaximumSelectionSize() > 0 && this.val().length >= this.getMaximumSelectionSize() && this.updateResults(!0), this.positionDropdown()) : (this.close(), this.search.width(10)), this.triggerChange({
+                    added: t
+                }), e && e.noFocus || this.focusSearch()
+            },
+            cancel: function() {
+                this.close(), this.focusSearch()
+            },
+            addSelectedChoice: function(i) {
+                var n, s = !i.locked,
+                    o = t("<li class='select2-search-choice'>    <div></div>    <a href='#' onclick='return false;' class='select2-search-choice-close' tabindex='-1'></a></li>"),
+                    a = t("<li class='select2-search-choice select2-locked'><div></div></li>"),
+                    r = s ? o : a,
+                    l = this.id(i),
+                    c = this.getVal();
+                n = this.opts.formatSelection(i, r.find("div")), n != e && r.find("div").replaceWith("<div>" + this.opts.escapeMarkup(n) + "</div>"), s && r.find(".select2-search-choice-close").bind("mousedown", d).bind("click dblclick", this.bind(function(e) {
+                    this.enabled && (t(e.target).closest(".select2-search-choice").fadeOut("fast", this.bind(function() {
+                        this.unselect(t(e.target)), this.selection.find(".select2-search-choice-focus").removeClass("select2-search-choice-focus"), this.close(), this.focusSearch()
+                    })).dequeue(), d(e))
+                })).bind("focus", this.bind(function() {
+                    this.enabled && (this.container.addClass("select2-container-active"), this.dropdown.addClass("select2-drop-active"))
+                })), r.data("select2-data", i), r.insertBefore(this.searchContainer), c.push(l), this.setVal(c)
+            },
+            unselect: function(t) {
+                var e, n, s = this.getVal();
+                if (t = t.closest(".select2-search-choice"), 0 === t.length) throw "Invalid argument: " + t + ". Must be .select2-search-choice";
+                e = t.data("select2-data"), e && (n = i(this.id(e), s), n >= 0 && (s.splice(n, 1), this.setVal(s), this.select && this.postprocessResults()), t.remove(), this.opts.element.trigger({
+                    type: "removed",
+                    val: this.id(e),
+                    choice: e
+                }), this.triggerChange({
+                    removed: e
+                }))
+            },
+            postprocessResults: function() {
+                var t = this.getVal(),
+                    e = this.results.find(".select2-result"),
+                    n = this.results.find(".select2-result-with-children"),
+                    s = this;
+                e.each2(function(e, n) {
+                    var o = s.id(n.data("select2-data"));
+                    i(o, t) >= 0 && (n.addClass("select2-selected"), n.find(".select2-result-selectable").addClass("select2-selected"))
+                }), n.each2(function(t, e) {
+                    e.is(".select2-result-selectable") || 0 !== e.find(".select2-result-selectable:not(.select2-selected)").length || e.addClass("select2-selected")
+                }), -1 == this.highlight() && s.highlight(0)
+            },
+            getMaxSearchWidth: function() {
+                return this.selection.width() - o(this.search)
+            },
+            resizeSearch: function() {
+                var t, e, i, n, s, a = o(this.search);
+                t = p(this.search) + 10, e = this.search.offset().left, i = this.selection.width(), n = this.selection.offset().left, s = i - (e - n) - a, t > s && (s = i - a), 40 > s && (s = i - a), 0 >= s && (s = t), this.search.width(s)
+            },
+            getVal: function() {
+                var t;
+                return this.select ? (t = this.select.val(), null === t ? [] : t) : (t = this.opts.element.val(), s(t, this.opts.separator))
+            },
+            setVal: function(e) {
+                var n;
+                this.select ? this.select.val(e) : (n = [], t(e).each(function() {
+                    i(this, n) < 0 && n.push(this)
+                }), this.opts.element.val(0 === n.length ? "" : n.join(this.opts.separator)))
+            },
+            val: function() {
+                var i, n = !1,
+                    s = this;
+                if (0 === arguments.length) return this.getVal();
+                if (i = arguments[0], arguments.length > 1 && (n = arguments[1]), !i && 0 !== i) return this.opts.element.val(""), this.updateSelection([]), this.clearSearch(), void(n && this.triggerChange());
+                if (this.setVal(i), this.select) this.opts.initSelection(this.select, this.bind(this.updateSelection)), n && this.triggerChange();
+                else {
+                    if (this.opts.initSelection === e) throw new Error("val() cannot be called if initSelection() is not defined");
+                    this.opts.initSelection(this.opts.element, function(e) {
+                        var i = t(e).map(s.id);
+                        s.setVal(i), s.updateSelection(e), s.clearSearch(), n && s.triggerChange()
+                    })
+                }
+                this.clearSearch()
+            },
+            onSortStart: function() {
+                if (this.select) throw new Error("Sorting of elements is not supported when attached to <select>. Attach to <input type='hidden'/> instead.");
+                this.search.width(0), this.searchContainer.hide()
+            },
+            onSortEnd: function() {
+                var e = [],
+                    i = this;
+                this.searchContainer.show(), this.searchContainer.appendTo(this.searchContainer.parent()), this.resizeSearch(), this.selection.find(".select2-search-choice").each(function() {
+                    e.push(i.opts.id(t(this).data("select2-data")))
+                }), this.setVal(e), this.triggerChange()
+            },
+            data: function(e) {
+                var i, n = this;
+                return 0 === arguments.length ? this.selection.find(".select2-search-choice").map(function() {
+                    return t(this).data("select2-data")
+                }).get() : (e || (e = []), i = t.map(e, function(t) {
+                    return n.opts.id(t)
+                }), this.setVal(i), this.updateSelection(e), this.clearSearch(), void 0)
+            }
+        }), t.fn.select2 = function() {
+            var n, s, o, a, r = Array.prototype.slice.call(arguments, 0),
+                l = ["val", "destroy", "opened", "open", "close", "focus", "isFocused", "container", "onSortStart", "onSortEnd", "enable", "disable", "positionDropdown", "data"];
+            return this.each(function() {
+                if (0 === r.length || "object" == typeof r[0]) n = 0 === r.length ? {} : t.extend({}, r[0]), n.element = t(this), "select" === n.element.get(0).tagName.toLowerCase() ? a = n.element.attr("multiple") : (a = n.multiple || !1, "tags" in n && (n.multiple = a = !0)), s = a ? new D : new T, s.init(n);
+                else {
+                    if ("string" != typeof r[0]) throw "Invalid arguments to select2 plugin: " + r;
+                    if (i(r[0], l) < 0) throw "Unknown method: " + r[0];
+                    if (o = e, s = t(this).data("select2"), s === e) return;
+                    if (o = "container" === r[0] ? s.container : s[r[0]].apply(s, r.slice(1)), o !== e) return !1
+                }
+            }), o === e ? this : o
+        }, t.fn.select2.defaults = {
+            width: "copy",
+            loadMorePadding: 0,
+            closeOnSelect: !0,
+            openOnEnter: !0,
+            containerCss: {},
+            dropdownCss: {},
+            containerCssClass: "",
+            dropdownCssClass: "",
+            formatResult: function(t, e, i, n) {
+                var s = [];
+                return g(t.text, i.term, s, n), s.join("")
+            },
+            formatSelection: function(t) {
+                return t ? t.text : e
+            },
+            sortResults: function(t) {
+                return t
+            },
+            formatResultCssClass: function() {
+                return e
+            },
+            formatNoMatches: function() {
+                return "No matches found"
+            },
+            formatInputTooShort: function(t, e) {
+                var i = e - t.length;
+                return "Please enter " + i + " more character" + (1 == i ? "" : "s")
+            },
+            formatInputTooLong: function(t, e) {
+                var i = t.length - e;
+                return "Please delete " + i + " character" + (1 == i ? "" : "s")
+            },
+            formatSelectionTooBig: function(t) {
+                return "You can only select " + t + " item" + (1 == t ? "" : "s")
+            },
+            formatLoadMore: function() {
+                return "Loading more results..."
+            },
+            formatSearching: function() {
+                return "Searching..."
+            },
+            minimumResultsForSearch: 0,
+            minimumInputLength: 0,
+            maximumInputLength: null,
+            maximumSelectionSize: 0,
+            id: function(t) {
+                return t.id
+            },
+            matcher: function(t, e) {
+                return ("" + e).toUpperCase().indexOf(("" + t).toUpperCase()) >= 0
+            },
+            separator: ",",
+            tokenSeparators: [],
+            tokenizer: C,
+            escapeMarkup: function(t) {
+                var e = {
+                    "\\": "&#92;",
+                    "&": "&amp;",
+                    "<": "&lt;",
+                    ">": "&gt;",
+                    '"': "&quot;",
+                    "'": "&apos;",
+                    "/": "&#47;"
+                };
+                return String(t).replace(/[&<>"'\/\\]/g, function(t) {
+                    return e[t[0]]
+                })
+            },
+            blurOnChange: !1,
+            selectOnBlur: !1,
+            adaptContainerCssClass: function(t) {
+                return t
+            },
+            adaptDropdownCssClass: function() {
+                return null
+            }
+        }, window.Select2 = {
+            query: {
+                ajax: v,
+                local: w,
+                tags: b
+            },
+            util: {
+                debounce: l,
+                markMatch: g
+            },
+            "class": {
+                "abstract": E,
+                single: T,
+                multi: D
+            }
+        }
+    }
+}(jQuery),
+function() {
+    var t;
+    t = {}, t.ak = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/ak-0700a7be141d3bd8b7ba4bdfa87531f7.png", t.al = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/al-71c52862d75dde9e7e45559674d2789d.png", t.ar = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/ar-945cc7025c13e8126d24926080aef34e.png", t.az = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/az-a76c61e44499a5e362b3e4fa17f29c98.png", t.ca = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/ca-e2ca9a342c9e5ea8757578886cbd8baa.png", t.co = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/co-dd297e8e2801bb395330cf7a4e6c524e.png", t.ct = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/ct-36410ab302010898d5e903dc17b949c0.png", t.dc = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/dc-ccc82a8356c462575c6c5ef46d058b16.png", t.de = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/de-1b509f7c100547c61692b3bc6799cd6e.png", t.fl = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/fl-474259cb963864598eea9fdde29c1545.png", t.ga = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/ga-3a3dcd17859b6d561e6710c1b8e73f11.png", t.hi = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/hi-a1110c0f128bd7b6fb046265318e95ea.png", t.ia = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/ia-7e2428f3b0df9153b453f225cd763902.png", t.id = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/id-4457fb268c0537b5c5a88acffc3ae327.png", t.il = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/il-2bd83197d3979852a9b279fa4d983e7c.png", t["in"] = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/in-9970c4fa98c27df29f22254d95fa4c3d.png", t.ks = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/ks-7b9bdacb3a9f9346828579d5f8964847.png", t.ky = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/ky-bf7bb1e922041c4d42f8e34f33954937.png", t.la = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/la-6a34cc23a2f5a14c286b39225783e8fc.png", t.ma = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/ma-9d9b0d976a4de9dfc9d4c605c345603a.png", t.md = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/md-d990f7358aa574483029c8f36887a078.png", t.me = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/me-4f4a28719cf92bd9accac375287d1478.png", t.mi = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/mi-54e8fd7a3d3df9a81d65904e909bc166.png", t.mn = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/mn-9671869739c0322077bafe99566ad4e5.png", t.mo = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/mo-33194a1b037c49c88c4d122ee1d7c01b.png", t.ms = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/ms-8adb35a0f60946a4cda7ec5152d22847.png", t.mt = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/mt-8484c9ac341761b983f5bf56a9185c97.png", t.nc = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/nc-8508755afe8d1ee4752c2622c98c5e50.png", t.nd = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/nd-557faf984c29f84c261d12d505e2e2d6.png", t.ne = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/ne-b8e7ba606c16820eb58338bd08fc63c5.png", t.nh = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/nh-1311e5fc9ff30b9f41f4be32fa43dd31.png", t.nj = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/nj-214abd67c9a02e58bca5015fcf76c9c3.png", t.nm = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/nm-089365394f5ae5029b0703645ee133d1.png", t.nv = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/nv-891ca70fd55cc755bfb23993acaf32a4.png", t.ny = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/ny-26f2c044b87531546cb080e554d3b936.png", t.oh = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/oh-98eef1fdcce8c625052c72e2fe6536d8.png", t.ok = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/ok-3153f87d998a355c6c81cf4bd93cb4b5.png", t.or = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/or-4e1110dece6cf78c1bdd866193c0c665.png", t.pa = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/pa-d9398e4572993dfda93d91f119541170.png", t.ri = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/ri-110f992a75bd4d8c61a5907f1793ae4b.png", t.sc = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/sc-dc433a2ca3bb6cfa6e307f04af472b2e.png", t.sd = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/sd-9e7eff8d90a853dab97dc1a06b206c94.png", t.tn = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/tn-b976627b44743d10c51706d3570b97eb.png", t.tx = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/tx-fef7099a436b9f7da06dd38295db2f91.png", t.ut = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/ut-cc3b8256bb15a6c982688555b4531981.png", t.va = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/va-7877307559047a0be01a77aa48f34cc5.png", t.vt = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/vt-c5a059f7a5668e513d49f4eb912a4b5b.png", t.wa = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/wa-98401360279801b00e4f114c02b778b9.png", t.wi = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/wi-46c7a6ad20d27121bab350676be91b3c.png", t.wv = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/wv-9707f93acd8368cb5c750daff73c4b54.png", t.wy = "//d1w32dwlo9psx6.cloudfront.net/assets/flags/wy-224de28af2a4636cc754702459c608e4.png", window.renderSelect2States = function(e) {
+        var i, n, s, o, a, r, l;
+        for (s = function(e) {
+                return e.id ? "<img class='flag' src='" + t[e.id.toLowerCase()] + "'/> " + e.text : e.text
+            }, e("select.states").css({
+                width: "100%"
+            }).select2({
+                formatResult: s,
+                formatSelection: s,
+                escapeMarkup: function(t) {
+                    return t
+                },
+                placeholder: "All Company Locations (states)"
+            }), e(".select2-container input.select2-input").removeAttr("tabindex"), n = function(t) {
+                return e("#" + t).change(function() {
+                    return e(this).val() < 0 ? e(this).val("") : void 0
+                })
+            }, r = ["company_lead_number_employees", "accountant_lead_number_companies"], l = [], o = 0, a = r.length; a > o; o++) i = r[o], l.push(n(i));
+        return l
+    }, jQuery(function(t) {
+        return renderSelect2States(t)
+    })
+}.call(this), jQuery(function(t) {
+        function e() {
+            if (!t.cookie("so"))
+                if (t.cookie("refcode")) {
+                    var e = t.cookie("refcode");
+                    n("so", e)
+                } else {
+                    var a = document.referrer,
+                        r = a.split("/")[2];
+                    if (n("lp", i()), o("refcode") || o("utm_source")) {
+                        var l = o("refcode") || o("utm_source");
+                        n("so", l), s("ca", "utm_campaign"), s("co", "utm_content"), s("mt", "matchtype"), s("kw", "keyword"), s("cr", "creative"), s("xu", "xuid"), s("gc", "gclid"), s("pl", "placement");
+                        var c = o("network") ? o("network") : a;
+                        n("ne", c)
+                    } else if (a) {
+                        var h = ["www.google.com", "www.bing.com", "www.ask.com", "r.search.yahoo.com", "search.aol.com"];
+                        t.inArray(r, h) > -1 ? (n("so", "SEO"), n("ne", r)) : (n("so", "Inbound Referral"), n("ne", a))
+                    } else n("so", "Direct")
+                }
+        }
+
+        function i() {
+            return window.location.pathname
+        }
+
+        function n(e, i) {
+            t.cookie(e, i.substring(0, 255), {
+                expires: a,
+                path: "/",
+                domain: window.location.hostname
+            })
+        }
+
+        function s(t, e) {
+            var i = o(e);
+            i && n(t, i)
+        }
+
+        function o(t) {
+            var e = "[\\?&]" + t + "=([^&#]*)",
+                i = new RegExp(e),
+                n = i.exec(window.location.search);
+            return null == n ? !1 : (window.location.search.replace(e, ""), decodeURIComponent(n[1].replace(/\+/g, " ")))
+        }
+        t(function() {
+            e()
+        });
+        var a = 90
+    }),
+    function() {
+        function t() {}
+
+        function e(t) {
+            return o.retinaImageSuffix + t
+        }
+
+        function i(t, i) {
+            if (this.path = t || "", "undefined" != typeof i && null !== i) this.at_2x_path = i, this.perform_check = !1;
+            else {
+                if (void 0 !== document.createElement) {
+                    var n = document.createElement("a");
+                    n.href = this.path, n.pathname = n.pathname.replace(a, e), this.at_2x_path = n.href
+                } else {
+                    var s = this.path.split("?");
+                    s[0] = s[0].replace(a, e), this.at_2x_path = s.join("?")
+                }
+                this.perform_check = !0
+            }
+        }
+
+        function n(t) {
+            this.el = t, this.path = new i(this.el.getAttribute("src"), this.el.getAttribute("data-at2x"));
+            var e = this;
+            this.path.check_2x_variant(function(t) {
+                t && e.swap()
+            })
+        }
+        var s = "undefined" == typeof exports ? window : exports,
+            o = {
+                retinaImageSuffix: "@2x",
+                check_mime_type: !0,
+                force_original_dimensions: !0
+            };
+        s.Retina = t, t.configure = function(t) {
+            null === t && (t = {});
+            for (var e in t) t.hasOwnProperty(e) && (o[e] = t[e])
+        }, t.init = function(t) {
+            null === t && (t = s), t.addEventListener("load", function() {
+                var t, e, i = document.getElementsByTagName("img"),
+                    s = i.length,
+                    o = [];
+                for (t = 0; s > t; t += 1) e = i[t], e.getAttributeNode("data-no-retina") || e.src && o.push(new n(e))
+            })
+        }, t.isRetina = function() {
+            var t = "(-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2), (min-resolution: 1.5dppx)";
+            return s.devicePixelRatio > 1 ? !0 : s.matchMedia && s.matchMedia(t).matches ? !0 : !1
+        };
+        var a = /\.[\w\?=]+$/;
+        s.RetinaImagePath = i, i.confirmed_paths = [], i.prototype.is_external = function() {
+            return !(!this.path.match(/^https?\:/i) || this.path.match("//" + document.domain))
+        }, i.prototype.check_2x_variant = function(t) {
+            var e, n = this;
+            return this.perform_check || "undefined" == typeof this.at_2x_path || null === this.at_2x_path ? this.at_2x_path in i.confirmed_paths ? t(!0) : this.is_external() ? t(!1) : (e = new XMLHttpRequest, e.open("HEAD", this.at_2x_path), e.onreadystatechange = function() {
+                if (4 !== e.readyState) return t(!1);
+                if (e.status >= 200 && e.status <= 399) {
+                    if (o.check_mime_type) {
+                        var s = e.getResponseHeader("Content-Type");
+                        if (null === s || !s.match(/^image/i)) return t(!1)
+                    }
+                    return i.confirmed_paths.push(n.at_2x_path), t(!0)
+                }
+                return t(!1)
+            }, e.send(), void 0) : t(!0)
+        }, s.RetinaImage = n, n.prototype.swap = function(t) {
+            function e() {
+                i.el.complete ? (o.force_original_dimensions && (0 == i.el.offsetWidth && 0 == i.el.offsetHeight ? (i.el.setAttribute("width", i.el.naturalWidth), i.el.setAttribute("height", i.el.naturalHeight)) : (i.el.setAttribute("width", i.el.offsetWidth), i.el.setAttribute("height", i.el.offsetHeight))), i.el.setAttribute("src", t)) : setTimeout(e, 5)
+            }
+            "undefined" == typeof t && (t = this.path.at_2x_path);
+            var i = this;
+            e()
+        }, t.isRetina() && t.init(s)
+    }(),
+    function() {
+        jQuery(function(t) {
+            var e, i;
+            return e = function() {
+                return t("#zp-nav-logo .zp-logo-2c").css("opacity", 1).css("display", "block")
+            }, i = function() {
+                return t("#corporate-main-nav").hasClass("nav-dark") ? void 0 : t("#zp-nav-logo .zp-logo-2c").css("opacity", 0).css("display", "none")
+            }, t("#corporate-main-nav button.navbar-toggle").click(function() {
+                return t("#corporate-nav-bar").hasClass("in") && !t("nav#corporate-main-nav.navbar-fixed-top").hasClass("scrolled") ? i() : e()
+            }), t(window).bind({
+                resize: function() {
+                    return t(window).width() >= 768 ? t("#corporate-nav-bar.in").removeClass("in") : void 0
+                }
+            }), t(window).bind({
+                "scroll load resize": function() {
+                    var e, i, n, s, o, a, r;
+                    return i = .95, n = t("section.first-section").height(), r = .1, o = 2, a = n * r / o, t(window).scrollTop() >= 80 ? (t("nav#corporate-main-nav.navbar-fixed-top").addClass("scrolled"), t(window).scrollTop() > n ? (e = i, s = 0) : (e = i * ((t(window).scrollTop() * o - a) / (n - a)), s = 1 - e / (1.8 * o)), t("nav#corporate-main-nav.navbar-fixed-top").css("background-color", "rgba(255,255,255,0.95)"), t("section.first-section .first-section-content").css("opacity", s), t("nav #zp-nav-logo .zp-logo-2c").css("opacity", 1).css("display", "block")) : (t("nav#corporate-main-nav.navbar-fixed-top").removeClass("scrolled"), t("nav#corporate-main-nav.navbar-fixed-top").css("background-color", "transparent"), t("section.first-section .first-section-content").css("opacity", 1), t("#corporate-nav-bar").hasClass("in") ? void 0 : t("nav #zp-nav-logo .zp-logo-2c").css("display", "none"))
+                }
+            })
+        })
+    }.call(this),
+    function() {
+        jQuery(function(t) {
+            return t(document).on("click", "a.anchor-scroll[href^='#']", function(e) {
+                var i;
+                e.preventDefault(), i = this.hash, t("html, body").animate({
+                    scrollTop: t(i).offset().top
+                }, 500, function() {
+                    window.location.hash = i
+                })
+            })
+        })
+    }.call(this),
+    function() {
+        jQuery(function(t) {
+            return t("body").hasClass("landing-page") && t("body.landing-page .landing-intro-resize").length > 0 && t(window).width() > 768 ? t(window).bind({
+                "load resize": function() {
+                    var e, i;
+                    return i = 102, e = Math.min(t(window).height() - i, 1e3), t("body.landing-page .landing-intro-resize").css("min-height", e)
+                }
+            }) : void 0
+        })
+    }.call(this),
+    function() {
+        jQuery(function(t) {
+            return t("body").hasClass("landing-page") ? t("input#company_lead_company_name").bind("change keyup input", function() {
+                var e;
+                return e = t("input#company_lead_company_name").val(), e.length > 1 && (t("#landing-signup-form-full-section-2").slideDown(1e3), window.renderSelect2States(t), window.formatPhoneFields(), t("#corporate-main-nav").hasClass("nav-dark")) ? t("#signup-form h4").removeClass("text-shadow-light").removeClass("text-white") : void 0
+            }) : void 0
+        })
+    }.call(this),
+    function() {
+        jQuery(function(t) {
+            var e, i, n;
+            return i = t("input#company_lead_full_name"), e = t("input#company_lead_company_name"), n = t("button#homepage-submit-button"), i.bind("change keyup input", function() {
+                var t;
+                return t = i.val(), 2 === t.length ? i.trigger("formStarted") : void 0
+            }), e.bind("change keyup input", function() {
+                var t;
+                return t = e.val(), 2 === t.length ? e.trigger("formExpanded") : void 0
+            }), n.bind("click", function() {
+                return i.val().length > 2 ? n.trigger("formSubmitted") : void 0
+            }), i.one("formStarted", function() {
+                return analytics.track("Form Started", {
+                    category: "Form",
+                    label: "Homepage Company Lead Form"
+                })
+            }), e.one("formExpanded", function() {
+                return analytics.track("Form Expanded", {
+                    category: "Form",
+                    label: "Homepage Company Lead Form"
+                })
+            }), n.one("formSubmitted", function() {
+                return analytics.track("Form Submitted", {
+                    category: "Form",
+                    label: "Homepage Company Lead Form"
+                })
+            })
+        })
+    }.call(this),
+    function() {
+        jQuery(function() {
+            return jQuery("body").on("click", "[data-event-category]", function(t) {
+                var e;
+                return e = jQuery(t.currentTarget), analytics.track(e.data("event-action"), {
+                    category: e.data("event-category"),
+                    label: e.data("event-label")
+                })
+            })
+        })
+    }.call(this),
+    function() {
+        jQuery(function(t) {
+            return t("#faq-secondary .toggle-link").on("click", function() {
+                return t(this).toggleClass("collapsed"), t(".toggle-content").toggle(), t("#pricing.pricing-2col .zen-slider .tooltip").trigger("reposition")
+            })
+        })
+    }.call(this),
+    function() {
+        jQuery(function(t) {
+            var e, i, n, s;
+            if (i = 90, e = "zenpayroll.com", n = t("body").data("lead-tag")) {
+                if (s = t.cookie("tags"), !s) return t.cookie("tags", n, {
+                    expires: i,
+                    path: "/",
+                    domain: e
+                });
+                if (s.search(n) < 0) return n = s + "-" + n, t.cookie("tags", n, {
+                    expires: i,
+                    path: "/",
+                    domain: e
+                })
+            }
+        })
+    }.call(this),
+    function(t) {
+        ! function() {
+            var t = document.createElement("script");
+            t.type = "text/javascript", t.async = !0, t.src = "//cdn.mouseflow.com/projects/eba6e5dc-6ea7-4812-9044-f54a22ae81a0.js", document.getElementsByTagName("head")[0].appendChild(t)
+        }(), window.windowWidth = t(window).width(), window.mouseflowPath = document.location.pathname, mouseflowPath += windowWidth <= 480 ? "/xs" : windowWidth <= 768 ? "/sm" : windowWidth <= 992 ? "/md" : "/lg"
+    }(jQuery),
+    function() {
+        jQuery(function(t) {
+            var e, i, n, s, o, a, r;
+            return t("body").ajaxSpinner(), n = 100, e = 25, s = 5, i = e + s * n, a = function(t) {
+                var i;
+                return i = {}, t = Math.min(Math.max(t, 0), n), i.baseEmployees = t, i.baseEmployeesCost = i.baseEmployees * s, i.totalCost = e + i.baseEmployeesCost, i
+            }, r = function(t) {
+                var e, i;
+                return e = 100 === t ? "100+" : t, i = 1 === t ? "personne" : "personnes", e + " " + i
+            }, window.isOldIE ? t(".zen-slider").css("margin-top", 0) : (t("#pricing.pricing-standard .zen-slider").zenSlider({
+                range: "min",
+                min: 1,
+                value: 1,
+                sliderChanged: function(n, s) {
+                    var o, l, c, h;
+                    // return c = a(n), isNaN(n) ? void 0 : (o = "<div class='tooltip-header'></div>", o += "<div class='tooltip-content'>", o += "<h3>" + r(n) + "</h3>", o += "<ul>", c.totalCost >= i ? (h = t("#zen-slider-contact a").attr("href"), l = "Contact us for enterprise pricing", o += "<li>" + l + "</li>", t("#pricing #total .total-text").html("<p class='text-large'>With <span>over 100 people</span> in your company,<br /><span><a href='" + h + "'>contact us</a></span> for enterprise pricing.</p>")) : (o += "<li>$" + e + " base price</li>", o += "<li>$4/person x " + r(c.baseEmployees) + "</li>", t("#pricing #total .total-text").html("<p class='text-large'>With <span class='text-color'>" + r(n) + "</span> in your company, <br /><span>$" + c.totalCost + " per month</span> for delightful payroll</p>")), o += "</ul>", o += "</div>", s(o))
+
+                    return c = a(n), isNaN(n) ? void 0 : (o = "<div class='tooltip-header'></div>", o += "<div class='tooltip-content'>", o += "<h3>" + r(n) + "</h3>", o += "<ul>", c.totalCost >= i ? (h = t("#zen-slider-contact a").attr("href"), l = "Contact us for enterprise pricing", o += "<li>" + l + "</li>", t("#pricing #total .total-text").html("<p class='text-large'>With <span>over 100 people</span> in your company,<br /><span><a href='" + h + "'>contact us</a></span> for enterprise pricing.</p>")) : (o += "<li>$" + e + " base price</li>", o += "<li>$5/personne x " + r(c.baseEmployees) + "</li>", t("#pricing #total .total-text").html("<p class='text-large'>Avec <span class='text-color'>" + r(n) + "</span> dans votre société, <br /><span>$" + c.totalCost + " par mois</span> pour une paie moderne</p>")), o += "</ul>", o += "</div>", s(o))
+                }
+            }), t("#pricing.pricing-2col .zen-slider").zenSlider({
+                range: "min",
+                min: 1,
+                value: 1,
+                sliderChanged: function(e, n) {
+                    var s, o, l, c;
+                    return l = a(e), isNaN(e) ? void 0 : (s = "<div class='tooltip-header'></div>", s += "<div class='tooltip-content'>", s += "<h3>" + r(e) + "</h3>", s += "<ul>", l.totalCost >= i ? (c = t("#zen-slider-contact a").attr("href"), o = "Contact us for enterprise pricing", s += "<li>" + o + "</li>", t("#pricing #total .total-text").html("<div class='row'><div class='col-xs-6'><p>" + r(e) + "</p></div><div class='col-xs-6'><p><a href='" + c + "'>Contact us</a> for enterprise pricing</p></div></div>")) : s += "<li class='tooltip-price-total'><span class='total-cost'>$" + l.totalCost + "</span>/ month <span class='tooltip-payroll'>for delightful payroll</span></li>", s += "</ul>", s += "</div>", n(s))
+                }
+            })), o = function(t, e) {
+                return 1 === e.length ? t + " " + e[0] : 2 === e.length ? t + " " + e[0] + " and " + e[1] : o(t + " " + e.pop() + ",", e)
+            }, formatPhoneFields()
+        })
+    }.call(this);
