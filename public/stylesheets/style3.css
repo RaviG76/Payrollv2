@@ -6609,7 +6609,7 @@ body.pricing #pricing.pricing-2col h2 {
     font-family: "Lato","Helvetica Neue","Helvetica",Arial,sans-serif;
 }
 #pricing.pricing-2col .zen-slider .tooltip .tooltip-header:before {
-    content: "Calculate Your Price";
+    content: "Calculez votre prix";
 }
 #pricing.pricing-2col .zen-slider .tooltip .tooltip-content:before, #pricing.pricing-2col .zen-slider .tooltip .tooltip-content:after {
     color: #5c5947;
@@ -9231,7 +9231,7 @@ span.span-inline-block-lg {
     text-transform: uppercase;
 }
 .zen-slider .tooltip .tooltip-header:before {
-    content: "Drag to calculate price";
+    content: "Déplacer pour calculer le prix";
 }
 .zen-slider .tooltip .tooltip-content {
     padding: 0 10px 5px;
@@ -9314,5 +9314,5 @@ span.span-inline-block-lg {
 
 .tooltip{
     left: -82px !important;
-    top: -162px !important;
+    top: -175px !important;
 	}
