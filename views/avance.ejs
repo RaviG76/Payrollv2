@@ -10,8 +10,8 @@
 
 	<% include /layouts/header %>
 	  
-	<div id="feature-advanced">
-		<section id="hero" class="first-section text-center text-white gradient-light-teal">
+	<div id="avance_section">
+		<section id="funtionality_hero" class="first-section text-center text-white gradient-light-teal">
 			<div class="container">
 				<div class="row no-border">
 					<div class="col-xs-12 first-section-content">
@@ -33,7 +33,29 @@
 						</button>
 					</div>
 
-		<% include /layouts/fun_nav %>
+					<!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="corporate-subnav-bar">
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="fonctionnalites" class="">Liste complète</a>
+          </li>
+          <li>
+            <a href="employes" class="">Employés</a>
+          </li>
+          <li>
+            <a href="automatique" class="">Automatique</a>
+          </li>
+          <li>
+            <a href="avance" class="current">Avancé</a>
+          </li>
+          <li>
+            <a href="support" class="">Support</a>
+          </li>
+          <li>
+            <a href="securite" class="">Sécurité</a>
+          </li>
+        </ul>
+      </div>
 
 
 					</div>
@@ -48,12 +70,12 @@
 						<h2>Parfaitement adapté</h2>
 						<p>
 							Vous pouvez nous confier le paiement des salaires et cotisations sociales ou continuer de les payer vous-même. Quelque soit votre choix, tout est inclus dans votre 
-							<a href="/tarif">tarif mensuel</a>.
+							<a href="tarif">tarif mensuel</a>.
 						</p>
 						<ul class="col-xs-12 vertical-features">
 							<li class="row">
 								<div class="col-xs-1 feature-icon">
-									<img alt="Unlimited Payroll Icon" class="img-responsive" src="img/icon-unlimited-e55d650000c31393b59aed7ad17164b5.png" />
+									<img alt="Unlimited Payroll Icon" class="img-responsive" src="img/icon-unlimited.png" />
 								</div>
 								<div class="col-xs-10">
 									<h4>Versement des accomptes ou des primes</h4>
@@ -62,7 +84,7 @@
 							</li>
 							<li class="row">
 								<div class="col-xs-1 feature-icon">
-									<img alt="Cancel Payroll Icon" class="img-responsive" src="img/icon-cancel-pay-9912c215e80b8357c853a093e8667aa2.png" />
+									<img alt="Cancel Payroll Icon" class="img-responsive" src="img/icon-cancel-pay.png" />
 								</div>
 								<div class="col-xs-10">
 									<h4>Annuler une paie</h4>
@@ -71,7 +93,7 @@
 							</li>
 							<li class="row">
 								<div class="col-xs-1 feature-icon">
-									<img alt="Payment Schedule Icon" class="img-responsive" src="img/icon-pay-schedule-4b3184f46fa2b35bd2f444bf9cf095ad.png" />
+									<img alt="Payment Schedule Icon" class="img-responsive" src="img/icon-pay-schedule.png" />
 								</div>
 								<div class="col-xs-10">
 									<h4>Des moyens de paiements flexibles</h4>
@@ -94,7 +116,7 @@
 						<ul class="col-xs-12 vertical-features">
 							<li class="row">
 								<div class="col-xs-1 feature-icon">
-									<img alt="No Calculator Icon" class="img-responsive" src="img/icon-no-calculator-ddca84f9c5439ac9048dbb30f5fa5240.png" />
+									<img alt="No Calculator Icon" class="img-responsive" src="img/icon-no-calculator.png" />
 								</div>
 								<div class="col-xs-10">
 									<h4>Pas besoin de calculatrice</h4>
@@ -140,7 +162,7 @@
 			<div class="dotted-feature-arrow left"></div>
 			<div class="tour-btn-left">
 				<div class="tour-nav-border dotted-top"></div>
-				<a href="/support" class="tour-btn zen-grey">
+				<a href="support" class="tour-btn zen-grey">
 					<h4>Suivant</h4>
 					<h3>Support&nbsp;&raquo;</h3>
 					<!--<p>Payroll that plays nicely with others</p>-->
@@ -153,18 +175,18 @@
 
 
 
-	<section id="bottom-signup-cta" class="gradient-light-gold">
+	<section id="utilize-cta" class="gradient-light-gold">
 		<div class="container">
 			<div class="zen-rocks-header">
 				<div class="zen-rocks text-center">
-					<img alt="Icon-zen-rocks" src="img/icon-zen-rocks-244f5c29ad6fa91f4725d04b27201657.png" />
+					<img alt="Icon-zen-rocks" src="img/icon-zen-rocks.png" />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-12 text-center">
 					<h3>Utilisez ZenPaye aujourd'hui</h3>
 					<p>Vos 2 premiers mois sont gratuits</p>
-					<form id="landing-signup-form" action="/inscription" method="GET">
+					<form id="landing-signup-form" action="inscription" method="GET">
 						<div class="input-append">
 							<button type="submit" class="btn primary">Commencez maintenant</button>
 						</div>
@@ -173,6 +195,16 @@
 			</div>
 		</div>
 	</section>
+
+
+
+
+
+  
+	<div style="display:none">
+		<script type="text/javascript" src="#">
+		</script>
+	</div>
 
 
 

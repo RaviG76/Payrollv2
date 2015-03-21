@@ -1,0 +1,372 @@
+/* edit by rakes  */
+body {
+    color: #5c5947;
+    font-family: "Lato","Helvetica Neue","Helvetica",Arial,sans-serif;
+    font-size: 16px;
+    letter-spacing: 0.015em;
+    line-height: 1.5em;
+}
+
+h1, h2, h3 {
+    font-family: "Raleway-Light","Helvetica Neue","Helvetica",Arial,sans-serif;
+}
+p {
+    margin-bottom: 1em;
+}
+.inscription {
+    background:#c3b09a;
+}
+.signup-section-wrapper {
+    position: relative;
+}
+.inscription-top {
+    background-color: #d6c0a7;
+}
+
+.insc_pattern {
+    background-image: url("../img/pattern.png");
+    background-position: center center;
+    background-repeat: repeat;
+    background-size: 156px auto;
+}
+
+.inscription-content h4 {
+    font-size: 1.7em;
+    line-height: 1.5em;
+}
+
+.insc_cont h4 {
+    font-size: 1.7em;
+    line-height: 1.5em;
+}
+.insc_cont ul {
+    list-style: outside url("../img/bullets.png") disc;
+    padding-left: 15px;
+	margin-top:40px;
+}
+.insc_cont ul li {
+    list-style-type: none;
+    margin-top: 20px;
+}
+
+.insc_cont ul li h5 {
+    font-family: "Lato","Helvetica Neue","Helvetica",Arial,sans-serif;
+    font-size: 0.75em;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+#inscription-form {
+    padding-right: 60px;
+    z-index: 9999;
+	margin-top: 0px;
+}
+.inscr-form .top-head {
+    margin-bottom: 18px;
+    text-align: center;
+	padding-top:15px;
+}
+.top-head .inc-logo {
+    display: inline-block;
+    width: 100px;
+}
+.inscr-form .top-head h2 {
+    font-size: 34px;
+    line-height: 1.35em;
+    margin-bottom: 5px;
+    margin-top: 15px;
+}
+.inscr-form .top-head p {
+    color: #a8a698;
+}
+#inscription-content {
+    padding-top: 50px;
+}
+.top-content{}
+.top-content .form-group {
+    margin-bottom: 0;
+}
+.top-content .form-group input {
+    background-position: left top -38px;
+}
+.top-content .form-group input {
+    background-color: #fff;
+    background-image: url("../img/icon_sigup.png");
+    background-position: left top 0;
+    background-repeat: no-repeat;
+    background-size: 47px auto;
+    border-bottom-width: 0;
+    border-color: #bdbcb1;
+    font-size: 1.125em;
+    height: 48px;
+    line-height: 20px;
+    padding-bottom: 5px;
+    padding-left: 63px;
+    padding-top: 5px;
+	border-radius:0;
+}
+.top-content #user-name.form-group input {
+    background-position: left top -38px;
+}
+.top-content  #user-email.form-group input {
+    background-position: left top -398px;
+}
+.top-content  #company-name.form-group input {
+    background-position: left top -518px;
+}
+.top-content  #user-phone.form-group input {
+    background-position: left top -758px;
+}
+
+.top-content .signup-form-style #user-employees.form-group input {
+    background-position: left top -638px;
+}
+.inscription-bottom .container {
+    padding-bottom: 0;
+	  padding-top: 11px;
+}
+p.subtext {
+    color: #a8a698;
+    text-align: center;
+}
+.inscr-form {
+    background: none repeat scroll 0 0 #fff;
+    border-top: 2px solid #3d9936;
+    padding: 15px 25px;
+    position: relative;
+    z-index: 100;
+}
+.inscription-bottom {
+    bottom: -37px;
+    display: block;
+    padding-bottom: 60px;
+    position: absolute;
+    z-index: 50;
+	background: none repeat scroll 0 0 #c3b09a;
+    color: #444235;
+    width: 100%;
+}
+.quote-cont {
+    color: #444235;
+    padding-top: 19px;
+}
+.cust-photo {
+    display: block;
+}
+.cust-photo img {
+    margin: 0 auto 20px;
+    max-width: 60px;
+    border-radius: 50%;
+	border: 3px solid #5c5947;
+}
+.cust-author span {
+    font-weight: bold;
+}
+.cust-author{
+    font-size: 0.8125em;
+    margin-top: 12px;
+}
+.submit-wrapper button {
+    display: block;
+    margin: 20px auto;
+    max-width: 100%;
+    padding-left: 35px;
+    padding-right: 35px;
+}
+.btn {
+    border: medium none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 0.813em;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    margin-bottom: 10px;
+    padding: 12px 45px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.btn.primary {
+    background: linear-gradient(to bottom, #49ad41 0%, #3d9936 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+.submit-wrapper button {
+    margin-bottom: 10px;
+    padding-left: 45px;
+    padding-right: 45px;
+}
+
+
+.gradient-green {
+    background-image: url("../img/header_back.jpg");
+    background-position: center top 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.gradient-gold {
+    background: linear-gradient(10deg, #e1d5ac 0%, #f2ecd2 60%, #f9f6de 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+
+.tarif_faq_grey {
+    background: none repeat scroll 0 0 #f0edeb;
+}
+#faq-secondary .faq-question::before, #faq-secondary .faq-answer::before {
+    left: -2.85rem;
+}
+.tarif_faq_grey .faq-question::before {
+    content: "Q";
+}
+
+.tarif_faq_grey .faq-grey .faq-question::before, #faq-secondary.faq-grey .faq-answer::before {
+    color: #dcdcd9;
+}
+.tarif_faq_grey .faq-question::before, #faq-secondary .faq-answer::before {
+    left: -2.85rem;
+}
+.tarif_faq_grey .faq-answer::before {
+    content: "A";
+}
+.tarif_faq_grey .faq-question::before, #faq-secondary .faq-answer::before {
+    color: #e3e3e1;
+    font-family: "Lato","Helvetica Neue","Helvetica",Arial,sans-serif;
+    font-size: 1.618rem;
+    font-weight: 700;
+    left: -2.6rem;
+    letter-spacing: 0.15em;
+    position: absolute;
+    text-transform: uppercase;
+}
+#pricing-content .container {
+    padding-bottom: 0;
+    padding-top: 20px;
+}
+.faq-contact {
+    margin-top: 34px;
+    text-align: center;
+}
+.faq-contact p {
+    font-weight: 300;
+    text-align: center;
+}
+.tarif_faq_grey .faq-question {
+    border-left: 1px solid #e3e3e1;
+    padding-left: 16px;
+}
+.tarif_faq_grey .faq-answer {
+    border-left: 1px solid #e3e3e1;
+    padding-left: 16px;
+}
+
+.tarif_faq_grey .faq-grey .faq-question::before, .tarif_faq_grey .faq-grey .faq-answer::before {
+    color: #dcdcd9;
+}
+.tarif_faq_grey .faq-question::before, .tarif_faq_grey .faq-answer::before {
+    left: -2.85rem;
+}
+.tarif_faq_grey .faq-answer::before {
+    content: "A";
+}
+.tarif_faq_grey .faq-question::before, .tarif_faq_grey .faq-answer::before {
+    color: #e3e3e1;
+    font-family: "Lato","Helvetica Neue","Helvetica",Arial,sans-serif;
+    font-size: 1.618rem;
+    font-weight: 700;
+    left: -2.6rem;
+    letter-spacing: 0.15em;
+    position: absolute;
+    text-transform: uppercase;
+}
+
+.container.padding-top-none {
+    padding-top: 0;
+}
+
+.dotted-hr-line {
+    background-image: url("../img/dotted-transparent.png");
+    background-position: 0 0;
+    background-repeat: repeat-x;
+    background-size: 6px auto;
+    height: 2px;
+    margin-bottom: 20px;
+    margin-top: 3px;
+}
+#corporate-main-nav.scrolled .nav.navbar-nav li a {
+    color: #3d9936 !important;
+    text-decoration: none;
+}
+#corporate-main-nav #corporate-nav-bar ul.navbar-nav a, #corporate-main-nav #corporate-nav-bar ul.navbar-nav button {
+    background: none repeat scroll 0 0 transparent;
+    border-radius: 5px;
+    color: rgba(255, 255, 255, 0.75);
+    font-family: "Lato","Helvetica Neue","Helvetica",Arial,sans-serif;
+    font-size: 0.8125em;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 125ms ease-in-out 0s;
+}
+
+#corporate-main-nav #corporate-nav-bar ul.navbar-nav a.btn.sign-in, #corporate-main-nav #corporate-nav-bar ul.navbar-nav button.btn.sign-in {
+    background: none repeat scroll 0 0 rgba(255, 255, 255, 0.15);
+    color: #fff;
+    margin-right: 0;
+}
+#corporate-main-nav #corporate-nav-bar ul.navbar-nav a.btn.sign-in {
+    font-size: 0.61em;
+    margin-right: 15px;
+}
+#corporate-main-nav #corporate-nav-bar ul.navbar-nav a.btn.sign-up, #corporate-main-nav #corporate-nav-bar ul.navbar-nav button.btn.sign-up {
+    background: none repeat scroll 0 0 #3d9936;
+    color: #fff;
+    font-size: 0.75em;
+    margin-left: 15px;
+    margin-right: 15px;
+    opacity: 1;
+    transition: background-color 125ms ease-in-out 0s;
+}
+#corporate-main-nav #corporate-nav-bar ul.navbar-nav a.btn, #corporate-main-nav #corporate-nav-bar ul.navbar-nav button.btn {
+    margin-bottom: 0;
+    margin-top: 5px;
+    padding: 5px 15px;
+    transition: background-color 125ms ease-in-out 0s, color 125ms ease-in-out 0s;
+}
+
+#corporate-main-nav.scrolled .nav.navbar-nav li a.sign-up{  color: #fff !important;
+    text-decoration: none;
+}
+#corporate-main-nav.navbar-default.scrolled {
+    box-shadow: 0 2px 25px rgba(0, 0, 0, 0.2);
+}
+#corporate-main-nav {
+    background: none repeat scroll 0 0 transparent;}
+	
+.gradient-indigo {
+    background: linear-gradient(168deg, #2e3768 0%, #455296 38%, #be9ed3 75%, #f4e9de 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+
+a.tour-btn {
+    display: block;
+    padding: 15px 30px 25px;
+    text-decoration: none;
+    transition: all 125ms ease-in-out 0s;
+}
+.zen-grey {
+    background: none repeat scroll center top 0 #f0edeb;
+}	
+.gradient-blue {
+    background: linear-gradient(168deg, #313466 0%, #2f5377 36%, #79b9be 75%, #c9e2d9 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+.gradient-light-teal {
+    background: linear-gradient(168deg, #2d5a62 0%, #519173 38%, #b2dead 75%, #ecf7c8 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+
+/* edit by rakes  */
+
+#feature-overview #hero {
+    background-image: url("../img/header-bg-dandelion.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+section.first-section {
+    padding-top: 102px !important;
+}

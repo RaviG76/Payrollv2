@@ -4,14 +4,14 @@
    <% include /layouts/head %>  
  </head>
 
-<body class="corporate features">
+<body >
 
   <% include /layouts/header %>
 
   
-<div id="feature-employees">
+<div id="employees_section">
 
-  <section id="hero" class="first-section text-center text-white gradient-green">
+  <section id="employee_hero" class="first-section text-center text-white gradient-light-green">
     <div class="container">
       <div class="row no-border">
         <div class="col-xs-12 first-section-content">
@@ -32,99 +32,105 @@
         </button>
       </div>
 
-      <% include /layouts/fun_nav %>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="corporate-subnav-bar">
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="fonctionnalites" class="">Liste complète</a>
+          </li>
+          <li>
+            <a href="employes" class="current">Employés</a>
+          </li>
+          <li>
+            <a href="automatique" class="">Automatique</a>
+          </li>
+          <li>
+            <a href="avance" class="">Avancé</a>
+          </li>
+          <li>
+            <a href="support" class="">Support</a>
+          </li>
+          <li>
+            <a href="securite" class="">Sécurité</a>
+          </li>
+        </ul>
+      </div>
 
-	  </div>
+    </div>
   </div>
 </div>
 
 
-  <section id="new-employees" class="browser-screenshot">
+  <section id="easy-employees" class="browser-screenshot">
     <div class="container">
       <div class="row">
         <div class="col-sm-8 col-md-6">
-          <h2>Add new employees easily</h2>
-          <p>Your business is in good hands. We make it easy for you to bring everyone on board, 
-		  so you can focus on the welcome celebrations.</p>
+          <h2>Ajouter de nouveaux employés facilement</h2>
+          <p>Votre activité est entre de bonnes mains. Nous avons optimisé les tâches administratives de l'embauche de vos nouveaux employés, afin que vous puissiez vous concentrer sur leur intégration.</p>
           <ul class="col-xs-12 vertical-features">
             <li class="row">
               <div class="col-xs-1 feature-icon">
-                <img alt="New Hire Report Icon" class="img-responsive" src="img/icon-new-hire-report-05e44a8124af9936b1cb7450f2edf5d5.png" />
+                <img alt="New Hire Report Icon" class="img-responsive" src="img/icon-new-hire-report.png" />
               </div>
               <div class="col-xs-10">
-                <h4>Automatic New Hire Reporting</h4>
+                <h4>Déclaration Préalable à l'Embauche</h4>
                 <p>
-                  We’ll automatically report new hires to the government. Less paperwork means more time
-				  to make them feel welcome.
+                  Nous déclarons automatiquement les nouveaux employés à l'administration fiscale et aux organismes de Sécurité Sociale. Moins de tâches administratives signifie plus de temps à consacrer à vos nouveaux employés. 
                 </p>
               </div>
             </li>
             <li class="row">
               <a id="self-onboarding"></a>
               <div class="col-xs-1 feature-icon">
-                <img alt="Employee Icon" class="img-responsive" src="img/icon-employee-236e19e66e69b2047cb21299c7cde6ad.png" />
+                <img alt="Employee Icon" class="img-responsive" src="img/icon-employeed.png" />
               </div>
               <div class="col-xs-10">
-                <h4>Employee Self-Onboarding</h4>
+                <h4>Auto-enregistrement des Employés</h4>
                 <p>
-                  No more hunting for information. Employees can fill out their own personal details, 
-				  saving you from manual data entry.
+                  Fini la chasse aux informations. Les employés peuvent saisir eux-mêmes leurs informations personnelles, ce qui vous évite de la saisie manuelle fastidieuse. 
                 </p>
               </div>
             </li>
           </ul>
         </div>
         <div class="col-md-5 col-md-offset-1 dotted-curve">
-          <img alt="Dotted-line-self-onboard" class="img-responsive" src="img/dotted-line-self-onboard-0b20119f0b3cf3ca6a9d0ec21e78bd91.png" />
+          <img alt="Dotted-line-self-onboard" class="img-responsive" src="img/dotted-line-self-onboard.png" />
         </div>
       </div>
     </div>
   </section>
 
-  <section id="meaningful-payday" class="top-divider browser-screenshot">
+  <section id="payday_section" class="top-divider browser-screenshot">
     <div class="container">
       <div class="row">
         <div class="col-sm-7 col-md-6 feature-content">
-          <h2>Make payday more meaningful</h2>
-          <p>Your employees have never been paid like this before. Paystubs now show more than just 
-		  a few numbers and employees can make donations to their favorite charities.</p>
+          <h2>Faites que la paie soit significative</h2>
+          <p>Vos employés n'auront jamais été payés comme cela auparavant. Les bulletins de salaire affichent désormais plus que quelques montants et taux. Vous pourrez accompagner l'envoi du bulletin de paie d'un message personnalisé.</p>
           <ul class="col-xs-12 vertical-features">
             <li class="row">
               <div class="col-xs-1 feature-icon">
-                <img alt="Email Paystub Icon" class="img-responsive" src="img/icon-employee-email-bdc7596a1c5b2c5f8b6bf2d3e2ba495b.png" />
+                <img alt="Email Paystub Icon" class="img-responsive" src="img/icon-employee-email.png" />
               </div>
               <div class="col-xs-10">
-                <h4>Email Paystubs with Explanations</h4>
-                <p>A beautiful paystub shows employees exactly where their money is 
-				going. They will have a better understanding of what their paycheck means.</p>
+                <h4>Des Bulletins de Paie clairs</h4>
+                <p>Les explications intégrées aideront vos employés à comprendre chaque ligne de leurs bulletins de paie. Ils sauront enfin où part leur argent dans les différentes retenues à la source.</p>
               </div>
             </li>
             <li class="row">
               <div class="col-xs-1 feature-icon">
-                <img alt="Donate Icon" class="img-responsive" src="img/icon-donate-aae0d6c8700aeb27cae9b902d0b852ed.png" />
+                <img alt="Donate Icon" class="img-responsive" src="img/icon-mobile-web.png" />
               </div>
               <div class="col-xs-10">
-                <h4>Easy Charitable Donations</h4>
-                <p><a href="#" target="_blank">ZenPayroll Giving</a> 
-				lets employees contribute to nonprofit organizations directly from their paycheck. 
-				It's easy to donate once or on a recurring basis.</p>
-              </div>
-            </li>
-            <li class="row">
-              <div class="col-xs-1 feature-icon">
-                <img alt="Mobile &amp; Web Icon" class="img-responsive" src="img/icon-mobile-web-d98e9e128a4f6b4e37be77fe99a1efea.png" />
-              </div>
-              <div class="col-xs-10">
-                <h4>Web & Mobile Access 24/7</h4>
-                <p>Employees can easily access their paystubs from any device, anywhere, anytime.</p>
+                <h4>Accès Web & Mobile 24/7</h4>
+                <p>Les employés peuvent accéder à leurs paies depuis n'importe quel périphérique, depuis n'importe où, n'importe quand.</p>
               </div>
             </li>
           </ul>
         </div>
         <div class="col-sm-5 col-md-5 col-md-offset-1">
           <div class="heart-line">
-            <img alt="Heart" class="img-responsive floating-subtle heart" src="img/heart-transparent-361158cc84bf562aac7b5e2db57de78c.png" />
-            <img alt="Dotted Line" class="img-responsive dotted-heart-line" src="img/dotted-line-heart-curve-short-4461457d5bf6449843894352e4295c79.png" />
+            <img alt="Heart" class="img-responsive floating-subtle heart" src="img/heart-orange-transparent.png" />
+            <img alt="Dotted Line" class="img-responsive dotted-heart-line" src="img/dotted-line-heart-curve.png" />
           </div>
         </div>
       </div>
@@ -135,7 +141,7 @@
     <div class="dotted-feature-arrow left"></div>
     <div class="tour-btn-left">
       <div class="tour-nav-border dotted-top"></div>
-      <a href="/automatique" class="tour-btn zen-grey">
+      <a href="automatique" class="tour-btn zen-grey">
         <h4>Suivant</h4>
         <h3>Mode Automatique&nbsp;&raquo;</h3>
 </a>      <div class="tour-nav-border dotted-top"></div>
@@ -144,26 +150,26 @@
 
 </div>
 
-	<section id="bottom-signup-cta" class="gradient-light-gold">
-		<div class="container">
-			<div class="zen-rocks-header">
-				<div class="zen-rocks text-center">
-					<img alt="Icon-zen-rocks" src="img/icon-zen-rocks-244f5c29ad6fa91f4725d04b27201657.png" />
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-12 text-center">
-					<h3>Utilisez ZenPaye aujourd'hui</h3>
-					<p>Vos 2 premiers mois sont gratuits</p>
-					<form id="landing-signup-form" action="/inscription" method="GET">
-						<div class="input-append">
-							<button type="submit" class="btn primary">Commencer maintenant</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</section>
+  <section id="utilize-cta" class="gradient-light-gold">
+    <div class="container">
+      <div class="zen-rocks-header">
+        <div class="zen-rocks text-center">
+          <img alt="Icon-zen-rocks" src="img/icon-zen-rocks.png" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 text-center">
+          <h3>Utilisez ZenPaye aujourd'hui</h3>
+          <p>Vos 2 premiers mois sont gratuits</p>
+          <form id="landing-signup-form" action="inscription" method="GET">
+            <div class="input-append">
+              <button type="submit" class="btn primary">Commencer maintenant</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
 
 
 

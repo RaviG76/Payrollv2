@@ -2,15 +2,21 @@
 <html lang="fr">
  <head>
   <% include /layouts/head %> 
+  <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/font-awesome.css">
+  <link rel="stylesheet" href="../css/font-awesome.css" type="text/css"/>
+    <link rel="stylesheet" href="../fonts/stylesheet.css">   
+    <link rel="stylesheet" href="../css/style_incription.css"> 
+    <link rel="stylesheet" href="../css/auto.css">
+  <link rel="stylesheet" href="../css/style3.css">  
  </head>
 
-<body class="corporate features">
+<body>
+<% include /layouts/header %>
 
-  <% include /layouts/header %>
+<div class="gradient-fuschia" id="payday">
 
-<div class="gradient-fuschia" id="tour-payday">
-
-  <section class="browser-screenshot first-section">
+  <section class="phone-screenshot first-section">
     <div class="container">
       <div class="row">
         <div class="col-sm-6">
@@ -18,7 +24,7 @@
             <div class="col-xs-12">
 
               <h5>Présentation de ZenPaye</h5>
-              <h1>4. Célébrer les jours de paie</h1>
+              <h1 class="tarif-heading-style" style="padding-bottom:5px;">4. Célébrer les jours de paie</h1>
 
               <p>
                 Vos employés n'auront jamais été aussi bien traité. Ils recevront de magnifiques emails, personnalisés, qui leurs rappelleront que vous appréciez leur travail.
@@ -26,7 +32,7 @@
               <div class="dotted-hr-light"></div>
               <p class="tour-next-link">
                 <span>Suivant:</span>
-                <a class="paragraph-cta" href="/tour_support">Un Support Client Premium
+                <a class="paragraph-cta" href="support">Un Support Client Premium
                 </a>
               </p>
 
@@ -75,18 +81,18 @@
 </div>
 
 
-  <section id="bottom-signup-cta" class="gradient-light-gold">
+  <section id="utilize-cta" class="gradient-light-gold">
     <div class="container">
       <div class="zen-rocks-header">
         <div class="zen-rocks text-center">
-          <img alt="Icon-zen-rocks" src="../img/icon-zen-rocks-244f5c29ad6fa91f4725d04b27201657.png" />
+          <img alt="Icon-zen-rocks" src="../img/icon-zen-rocks.png" />
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12 text-center">
           <h3>Utilisez ZenPaye aujourd'hui</h3>
           <p>Vos 2 premiers mois sont gratuits</p>
-          <form id="landing-signup-form" action="/inscription" method="GET">
+          <form id="landing-signup-form" action="../inscription" method="GET">
             <div class="input-append">
               <button type="submit" class="btn primary">Commencer maintenant</button>
             </div>
@@ -96,8 +102,7 @@
     </div>
   </section>
 
-
-  <% include /layouts/footer %>
+<% include /layouts/footer %>
 
 </body>
 

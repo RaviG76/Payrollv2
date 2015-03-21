@@ -74,7 +74,14 @@ router.get('/automatique', function(req,res){
 
 router.get('/tour_automatique', function(req,res){
     res.render('tour_automatique',{
-       title:'Mode Automatique | ZenPaye'
+       title:'Mode Automatique | ZenPaye',
+       page: 'tour_automatique'
+    });
+});
+router.get('/tour_decouvrir', function(req,res){
+    res.render('tour_decouvrir',{
+       title:'Mode Automatique | ZenPaye',
+       page: 'tour_decouvrir'
     });
 });
 

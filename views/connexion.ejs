@@ -2,7 +2,8 @@
 <html lang="fr">
  <head>
   <% include /layouts/head %>  
-  <link rel="stylesheet" href="stylesheets/signin-form.css">
+
+  <link rel="stylesheet" href="css/signin-form.css">
  </head>
 <!-- END HEAD -->
 
@@ -17,33 +18,33 @@
       <div id="login" class="paper span7">
         <div class="row-fluid">
           <div class="span12 text-center margin-top">
-            <a href="/"><img alt="ZenPayroll - Delightful, Modern Payroll" src="img/zenpayroll-login-logo-5d8637cf28fefd732e61bb552ade1fec.png" /></a>
+            <a href="#"><img alt="ZenPayroll - Delightful, Modern Payroll" src="img/logo.png" /></a>
           </div>
         </div>
 
         <div class="row-fluid">
 
-          <form accept-charset="UTF-8" action="/connexion" class="form-horizontal" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="CRo1bgltIAI/m6Dugcu4P9Zj3EjBcO+yztZvpETRmUgg1zkHOsI8bHlrCLxugOu0KG5tWP6N4gHbA263KDSSbA==" /></div>
+          <form accept-charset="UTF-8" action="/login" class="form-horizontal" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="CRo1bgltIAI/m6Dugcu4P9Zj3EjBcO+yztZvpETRmUgg1zkHOsI8bHlrCLxugOu0KG5tWP6N4gHbA263KDSSbA==" /></div>
 
 
   <fieldset>
     <div class="control-group">
       <label class="control-label" for="user_email">Adresse email</label>
       <div class="controls">
-        <input class="span10" required id="user_email" name="user[email]" size="30" type="email" />
+        <input class="span10" id="user_email" name="user[email]" size="30" type="email" />
       </div>
     </div>
     <div class="control-group">
       <label class="control-label" for="user_password">Mot de passe</label>
       <div class="controls">
-        <input autocomplete="off" required class="span10" id="user_password" name="user[password]" size="30" type="password" />
+        <input autocomplete="off" class="span10" id="user_password" name="user[password]" size="30" type="password" />
       </div>
     </div>
 
     <div class="form-actions">
       <button class="btn green-btn" id="login-button" name="button" type="submit">
-	  <i class='icon-lock icon-white'></i>Connexion</button>
-      <a href="#" class="btn">Créer un nouveau compte</a>
+    <i class='icon-lock icon-white'></i>Connexion</button>
+      <a href="invitation" class="btn">Créer un nouveau compte</a>
       <br /><br />
 
       <a href="#" class="">Vous avez oublié votre mot de passe?</a>
@@ -67,9 +68,9 @@
         <div id="footer" class="public span12">
           <ul>
             <li><img alt="secure connection" 
-			src="img/secure-connection-f148f51eee9213b74a9e753677906500.png" title="secure connection" />
-			</li>
-            <li><a href="/">home</a></li>
+      src="img/secure-connection-f148f51eee9213b74a9e753677906500.png" title="secure connection" />
+      </li>
+            <li><a href="index">home</a></li>
           </ul>
         </div>
       </div>
@@ -79,12 +80,11 @@
 
 
  <!--START HEADER SCRIPT-->
-<script src="javascripts/js/jquery.min.js" defer="defer">
+<script src="js/jquery.min.js" defer="defer">
 </script>
-<script defer="defer" src="javascripts/js/corporate_v2-d80a69dc60fed93bbe204ac3c77135f7.js" type="text/javascript">
+<script defer="defer" src="js/corporate_v2-d80a69dc60fed93bbe204ac3c77135f7.js" type="text/javascript">
 </script>
 <!--END HEADER SCRIPT-->
-
 
 </body>
 </html>

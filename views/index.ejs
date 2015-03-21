@@ -8,7 +8,7 @@
 
 	<% include /layouts/header %>
 
-	<section id="landing-intro" class="first-section customer-story intro-customer-socialprint ">
+	<section id="payroll_landing-intro" class="first-section customer-story intro-customer-socialprint">
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-6 col-sm-offset-6 col-md-6 landing-first-section-content">
@@ -25,12 +25,7 @@
 
 					<div class="row">
 						<div id="signup-form" class="col-sm-12 col-md-10 col-lg-8">
-
-							<form class="simple_form signup-form-style focus-first" id="landing-signup-form-full" method="post" novalidate="novalidate" action="/">
-
-							<%if(typeof message!= 'undefined') {%>
-  <div class="msg_text alert alert-success"><%= message %></div>
-  <%}%>
+							<form class="simple_form signup-form-style focus-first" id="landing-signup-form-full" method="post" novalidate="novalidate">
 								<div style="margin:0;padding:0;display:inline">
 									<input name="utf8" type="hidden"/>
 									<input name="authenticity_token" type="hidden" />
@@ -38,19 +33,19 @@
 								<div class='form-group' id='full-name'>
 									<label class='sr-only'>Full Name</label>
 									<div class="form-group string optional company_lead_full_name">
-										<input class="string optional form-control placeholder" id="company_lead_full_name" name="full_name" placeholder="Nom complet" size="50" type="text" autofocus="autofocus" required value="" />
+										<input class="string optional form-control placeholder" id="company_lead_full_name" name="company_lead[full_name]" placeholder="Nom complet" size="50" type="text" autofocus="autofocus" value="" />
 									</div>
 								</div>
 								<div class='form-group' id='work-email'>
 									<label class='sr-only'>Work Email Address</label>
 									<div class="form-group email optional company_lead_email">
-										<input class="string email optional form-control" id="company_lead_email" name="email" placeholder="Adresse mail professionnelle" size="50" type="email" />
+										<input class="string email optional form-control" id="company_lead_email" name="company_lead[email]" placeholder="Adresse mail professionnelle" size="50" type="email" />
 									</div>
 								</div>
 								<div class='form-group' id='company-name'>
 									<label class='sr-only'>Company Name</label>
 									<div class="form-group string optional company_lead_company_name">
-										<input class="string optional form-control" id="company_lead_company_name" name="company_name" placeholder="Nom de la société" size="50" type="text" />
+										<input class="string optional form-control" id="company_lead_company_name" name="company_lead[company_name]" placeholder="Nom de la société" size="50" type="text" />
 									</div>
 								</div>
 								<div id='landing-signup-form-full-section-2' style='display: none;'>
@@ -58,13 +53,13 @@
 									<div class='form-group' id='number-employees'>
 										<label class='sr-only'>Number of Employees</label>
 										<div class="form-group integer optional company_lead_number_employees">
-											<input class="numeric integer optional form-control" id="company_lead_number_employees" name="number_employees" placeholder="Nombre de Salariés" step="1" type="number" />
+											<input class="numeric integer optional form-control" id="company_lead_number_employees" name="company_lead[number_employees]" placeholder="Nombre de Salariés" step="1" type="number" />
 										</div>
 									</div>
 								</div>
 
 								<div class="form-group hidden company_lead_source">
-									<input class="hidden referral-input" id="company_lead_source" name="source" type="hidden" />
+									<input class="hidden referral-input" id="company_lead_source" name="company_lead[source]" type="hidden" />
 								</div>
 								<div class='form-actions submit-wrapper'>
 									<button class='btn primary' id='homepage-submit-button' type='submit'>Essai gratuit 2 mois</button>
@@ -76,7 +71,8 @@
 			</div>
 		</div>
 	</section>
-  	<section id="business-types" class="text-center">
+
+	<section id="business-section" class="text-center">
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12">
@@ -87,37 +83,37 @@
 			<ul class="row list-unstyled margin-top-15px">
 				<li class="col-sm-2 business-type">
 					<div class="biz-icon">
-						<img alt="Startup Icon" class="img-responsive" src="img/biz-icon-tech-7bccbac829c06c0ba0301e00c0cccf08.png" />
+						<img alt="Startup Icon" class="img-responsive" src="img/biz-icon.png" />
 					</div>
 					<p>Startups</p>
 				</li>
 				<li class="col-sm-2 business-type">
 					<div class="biz-icon">
-						<img alt="Coffee Icon" class="img-responsive" src="img/biz-icon-coffee-2eb6273c42f3313c872e4404ed201fd0.png" />
+						<img alt="Coffee Icon" class="img-responsive" src="img/biz-icon-coffee.png" />
 					</div>
 					<p>Restaurants</p>
 				</li>
 				<li class="col-sm-2 business-type">
 					<div class="biz-icon">
-						<img alt="Doctor Icon" class="img-responsive" src="img/biz-icon-doctor-cb991e9bf9b74a1682ef57be521b9374.png" />
+						<img alt="Doctor Icon" class="img-responsive" src="img/biz-icon-doctor.png" />
 					</div>
 					<p>Docteurs</p>
 				</li>
 				<li class="col-sm-2 business-type">
 					<div class="biz-icon">
-						<img alt="Creative Icon" class="img-responsive" src="img/biz-icon-creative-a2a4e8de1e1581137adef778a9a0aee6.png" />
+						<img alt="Creative Icon" class="img-responsive" src="img/biz-icon-creative.png" />
 					</div>
 					<p>Agences</p>
 				</li>
 				<li class="col-sm-2 business-type">
 					<div class="biz-icon">
-						<img alt="Lawyer Icon" class="img-responsive" src="img/biz-icon-lawyer-a245f9113c211107cc1a2544e13ce292.png" />
+						<img alt="Lawyer Icon" class="img-responsive" src="img/biz-icon-lawyer.png" />
 					</div>
 					<p>Avocats</p>
 				</li>
 				<li class="col-sm-2 business-type">
 					<div class="biz-icon">
-						<img alt="Boutique Icon" class="img-responsive" src="img/biz-icon-shop-d2bec1e898447c0c90f97e741b6ac3f8.png" />
+						<img alt="Boutique Icon" class="img-responsive" src="img/biz-icon-shop.png" />
 					</div>
 					<p>Boutiques</p>
 				</li>
@@ -192,14 +188,14 @@
 
     <div class="row">
 		<div class="col-xs-12">
-			<h2>Simple, tarif mensuel</h2>
+			<h2 class="heading-text-large">Simple, tarif mensuel</h2>
 		</div>
     </div>
 
     <div class="row text-center margin-top-30px">
 		<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 price-breakdown-wrapper">
 			<div id="price-breakdown">
-				<img alt="€25 + €5 par salarié" class="img-responsive" src="img/price-breakdown-sm-09b1d27c49f46d5e90e8b4b8cb23d822.png" />
+				<img alt="€25 + €5 par salarié" class="img-responsive" src="img/price-breakdown.png" />
 				<p class="small-caps margin-top-15px">par mois</p>
 			</div>
 		</div>
@@ -254,13 +250,13 @@
 
     <div class="row">
 		<div class="col-sm-8 col-sm-push-2">
-			<p><a href="/fonctionnalites" class="paragraph-cta">Voir ce qui est inclu</a></p>
+			<p><a href="fonctionnalites" class="paragraph-cta">Voir ce qui est inclu</a></p>
 		</div>
     </div>
 
 		<div class="row">
 			<div class="col-sm-8 col-sm-push-2 pricing-signup dotted-top margin-top-30px">
-				<form id="landing-signup-form" action="/inscription" method="GET">
+				<form id="landing-signup-form" action="inscription" method="GET">
 					<div class="input-append">
 						<button type="submit" class="btn primary">Essai gratuit</button>
 					</div>
@@ -281,7 +277,7 @@
 				<h2>Simple, monthly pricing</h2>
 				<div class="price-breakdown-wrapper">
 					<div id="price-breakdown">
-						<img alt="$25 + $4 per person" class="img-responsive" src="img/price-breakdown-sm-09b1d27c49f46d5e90e8b4b8cb23d822.png" />
+						<img alt="$25 + $4 per person" class="img-responsive" src="img/price-breakdown.png" />
 						<p class="small-caps margin-top-15px">per month</p>
 					</div>
 					<div class="dotted-hr"></div>
@@ -292,7 +288,7 @@
 							<a href="/features" class="features-link">See what&#x27;s included</a>
 						</span>
 					</p>
-					<form id="landing-signup-form" action="/inscription" method="GET">
+					<form id="landing-signup-form" action="inscription" method="GET">
 						<div class="input-append">
 							<button type="submit" class="btn primary">Essai gratuit</button>
 						</div>
@@ -319,13 +315,13 @@
 										<div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min" style="width: 0%;">
 										</div>
 										<span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 0%;">
-											<div class="tooltip">
+											<div class="tooltip"> 
 												<div class="tooltip-header"></div>
 												<div class="tooltip-content">
-													<h3>1 person</h3>
+													<h3>1 personne</h3>
 													<ul>
-														<li>$25 base price</li>
-														<li>$4/person x 1 person</li>
+														<li>25 € tarif de base</li>
+														<li>5 € /personne x 1 personne</li>
 													</ul>
 												</div>
 											</div>
@@ -340,7 +336,6 @@
 		</div>
 	</div>
 </section>
-
 
 <% include /layouts/footer %>
 

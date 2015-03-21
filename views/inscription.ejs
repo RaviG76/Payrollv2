@@ -3,105 +3,109 @@
   <head>
     <% include /layouts/head %>
   </head>
-  <body class="signup ">
+  <body class="inscription">
     <div class="signup-section-wrapper">
-      <a class="anchor" id="signup"></a>
-      <section id="signup-top">
-        <div class="zen-pattern-a12">
-          <div class="container">
-            <div class="row">
-              <div id="signup-page-header" class="col-xs-12">
-                <img alt="ZenPayroll Logo" class="zp-logo" src="img/zp-logo-2c-sm-fc94aee4804bee7f59f7c113e51968e6.png" />
+
+    <section class="inscription-top">
+    <div class="insc_pattern">
+      <div class="container">
+       
+        <div class="row">
+       <div id="inscription-content" class="col-sm-5 col-md-6 col-lg-5 col-md-push-6">
+            <div class="insc_cont">  
+      <h4>
+              Des centaines de petites entreprises adorent ZenPaye. Rejoignez les.
+            </h4>
+            <ul class="hidden-xs">
+              <li><h5>Système très simple à utiliser</h5></li>
+              <li><h5>Calcul, déclaration et paiement automatique des cotisations sociales et taxes</h5></li>
+              <li><h5>Paiement de vos employés</h5></li>
+            </ul>
+           </div>
+      </div>
+           
+     
+     
+      <div id="inscription-form" class="col-sm-7 col-md-6 col-md-pull-6 col-lg-pull-5">
+            <div class="inscr-form">
+              <div class="top-head">
+                <img alt="Logo" class="inc-logo" src="img/logo.png" />
+                <h2>Démarrer vos 2 mois<br/> d'essai gratuit</span></h2>
+                <p>La méthode la plus simple pour payer vos employés</p>
+              </div>
+              <div class="top-content">
+                <form class="simple_form signup-form-style" method="post">
+        
+      <div class='form-group' id='user-name' >
+        <label class='sr-only'>
+        Full Name
+        </label>
+      <div class="form-group">
+      <input class="string optional form-control placeholder" id="company_lead_full_name" name="company_lead[full_name]" placeholder="Votre nom" size="50" type="text" value="" /></div>
+      </div>
+
+      <div class='form-group' id='user-email'>
+      <label class='sr-only'>
+      Work Email Address
+      </label>
+      <div class="form-group email optional company_lead_email">
+      <input class="form-control" id="company_lead_email" name="company_lead[email]" placeholder="Votre adresse email profesionnelle" size="50" type="email" /></div>
+      </div>
+      <div class='form-group' id='company-name'>
+      <label class='sr-only'>
+      Company Name
+      </label>
+      <div class="form-group string optional company_lead_company_name">
+      <input class="form-control" id="company_lead_company_name" name="company_lead[company_name]" placeholder="Nom de la société" size="50" type="text" /></div>
+      </div>
+      <div class='form-group' id='user-employees'>
+      <label class='sr-only'>
+      Number of Employees
+      </label>
+      <div class="form-group company_lead_number_employees">
+      <input class="numeric form-control" id="company_lead_number_employees" name="company_lead[number_employees]" placeholder="Nombre d'employés"  type="number" style="border-bottom:1px solid #a5a5a0 !important;" /></div>
+      </div>
+
+      <div class='form-actions submit-wrapper'>
+      <button class='btn primary' type='submit'>Démarrer gratuitement</button>
+      </div>
+    </form>
+
+
+                <p class="subtext">hello@zenpaye.com</p>
               </div>
             </div>
-            <div class="row">
-              <div id="signup-page-content" class="col-sm-5 col-sm-push-7 col-md-6 col-md-push-6 col-lg-5">
-                <p>
-                  Des centaines de petites entreprises adorent ZenPaye. Rejoignez les.
-                </p>
-                <ul class="hidden-xs">
-                  <li><h5>Système très simple à utiliser</h5></li>
-                  <li><h5>Calcul, déclaration et paiement automatique des cotisations sociales et taxes</h5></li>
-                  <li><h5>Paiement de vos employés</h5></li>
-                </ul>
-              </div>
-              <div id="signup-form-wrapper" class="col-sm-7 col-sm-pull-5 col-md-6 col-md-pull-6 col-lg-pull-5">
-                <div id="signup-form">
-                  <div id="signup-form-header">
-                    <img alt="ZenPayroll Logo" class="zp-logo" src="img/zp-logo-2c-sm-fc94aee4804bee7f59f7c113e51968e6.png" />
-                  <h2>Démarrer vos 2 mois d'essai gratuit</span></h2>
-                  <p>La méthode la plus simple pour payer vos employés</p>
-                </div>
-                <div id="signup-form-content">
-                <%if(typeof message!= 'undefined') {%>
-                 <div class="msg_text alert alert-success"><%= message %></div>
-                <%}%>
-                  <form class="simple_form signup-form-style" id="main-signup-form" method="post">
-                    <div style="margin:0;padding:0;display:inline">
-                    <div class='form-group' id='full-name'>
-                      <label class='sr-only'>
-                        Full Name
-                      </label>
-                      <div class="form-group string optional company_lead_full_name">
-                        <input required class="string optional form-control placeholder" id="company_lead_full_name" name="full_name" placeholder="Votre nom" size="50" type="text" value="" /></div>
-                      </div>
-                      <div class='form-group' id='work-email'>
-                        <label class='sr-only'>
-                          Work Email Address
-                        </label>
-                        <div class="form-group email optional company_lead_email">
-                          <input required class="string email optional form-control" id="company_lead_email" name="email" placeholder="Votre adresse email profesionnelle" size="50" type="email" /></div>
-                        </div>
-                        <div class='form-group' id='company-name'>
-                          <label class='sr-only'>
-                            Company Name
-                          </label>
-                          <div class="form-group string optional company_lead_company_name">
-                            <input required class="string optional form-control" id="company_lead_company_name" name="company_name" placeholder="Nom de la société" size="50" type="text" /></div>
-                          </div>
-                          <div class='form-group' id='number-employees'>
-                            <label class='sr-only'>
-                              Number of Employees
-                            </label>
-                            <div class="form-group integer optional company_lead_number_employees">
-                              <input required class="numeric integer optional form-control" id="company_lead_number_employees" name="number_employees" placeholder="Nombre d'employés" step="1" type="number" style="border-bottom:2px solid #a5a5a0 !important;" /></div>
-                            </div>
-                     
-                              <div class='form-actions submit-wrapper'>
-                                <button class='btn primary' type='submit'>Démarrer gratuitement</button>
-                              </div>
-                            </form>
-                            <p class="subtext">hello@zenpaye.com</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-              <section id="signup-bottom">
-                <div class="container">
-                  <div class="row">
-                    <div class="col-sm-5 col-sm-push-7 col-md-6 col-md-push-6 col-lg-5 padding-side-none">
-                      <div class="quote-box">
-                        <div class="col-sm-2 quote-author-photo">
-                          <img alt="Customer Photo" class="img-responsive"
-                          src="img/customer-thumb-sample-1feb76a0916a664b2ce568958f7d6581.jpg" />
-                        </div>
-                        <div class="col-sm-12 col-md-10">
-                          <q>
-                          Avec ZenPaye, j'ai été opérationnelle en quelques minutes. J'ai juste cliqué sur un lien, suivi les quelques étapes et voila! J'ai pu sortir ma première fiche de paie!
-                          </q>
-                          <p class="quote-author">
-                            <span>Christine Deshaye</span> Propriétaire d'un pressing
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
+          </div>
+       
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="inscription-bottom">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-5 col-sm-push-7 col-md-6 col-md-push-6 col-lg-5 ">
+          <div class="quote-cont">
+            <div class="col-sm-2 cust-photo">
+              <img alt="Customer Photo" class="img-responsive"
+        src="img/cust_photo.jpg" />
             </div>
+            <div class="col-sm-12 col-md-10">
+              <q>
+                Avec ZenPaye, j'ai été opérationnelle en quelques minutes. J'ai juste cliqué sur un lien, suivi les quelques étapes et voila! J'ai pu sortir ma première fiche de paie!
+              </q>
+              <p class="cust-author">
+                <span>Christine Deshaye</span> Propriétaire d'un pressing
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
             <!--START HEADER SCRIPT-->
             <script src="javascripts/js/jquery.min.js" defer="defer">
             </script>
@@ -109,5 +113,7 @@
             </script>
             <script src="javascripts/js/bootstrap.min.js" defer="defer"></script>
             <!--END HEADER SCRIPT-->
+
+          
           </body>
         </html>
